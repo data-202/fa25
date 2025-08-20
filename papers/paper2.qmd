@@ -1,5 +1,5 @@
 ---
-title: "Paper 2"
+title: "Final Paper Assignment"
 format: 
   html: default
 ---
@@ -12,7 +12,7 @@ For review, you may also refer to *more information for course papers* in two ad
 
 # Step 1: Theory and logic diagram
 
-For paper #2, we are interested in exploring theories pertaining to the relationship between **three or more variables**. Specifically, we are interested in understanding the association of individual characteristics as they relate to some broader systems-level issue. For example, we could examine the relationship between income and gender at the individual level to understand the historical practices and development of systems that have contributed to theories relating income and gender.
+For this paper, we are interested in exploring theories pertaining to the relationship between **three or more variables**. Specifically, we are interested in understanding the association of individual characteristics as they relate to some broader systems-level issue. For example, we could examine the relationship between income and gender at the individual level to understand the historical practices and development of systems that have contributed to theories relating income and gender.
 
 *Note: For your paper, please remember to address the theoretical relationship that the literature has identified between the conceptual variables selected. That is, before describing the measures and the survey you will be using, explain your theory and why you think that your independent variable is having an effect on your dependent variable.*
 
@@ -39,7 +39,7 @@ To investigate the relationship outlined in the path diagram, we will use data f
 
 ## Data set
 
-For paper #2, you will use the `gss_cat` data located in the `forcats` package.
+For the paper, you can use data from any data set. There is also data located in the `critstats`, and in the `gss_cat` data located in the `forcats` package. A sample workflow is below.
 
 To test our hypothesis, two survey variables/measures are selected from the `gss_cat` data:
 

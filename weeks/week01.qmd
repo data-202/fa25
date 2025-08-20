@@ -74,17 +74,13 @@ The landing page for our companion site can be found [here](https://data-202.git
 
 ### Annotated Bibliography
 
-Your annotated bibliography is due Sun Feb 2 using OpenAlex or the Web of Science (WoS).
-
-### Lab #1
-
-Lab 1 is due Sun Feb 16.
+Your annotated bibliography for the final paper is due anytime before midterms. You can use OpenAlex or the Web of Science (WoS) to gather your annotations.
 
 ### Paper #1
 
-You can read more about paper #1 [here](/papers/paper1.qmd).
+You can read more about the final paper [here](/papers/paper2.qmd).
 
-See the instructions for paper assignments [here](/papers/papers-instructions.qmd).
+See the instructions for paper assignments if you'd like to write more than one [here](/papers/papers-instructions.qmd).
 
 Also, learn more about paper assignments [here](/papers/papers-more-info.qmd).
 
