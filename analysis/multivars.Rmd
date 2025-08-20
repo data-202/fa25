@@ -18,7 +18,7 @@ Load the libraries we needed. Be sure to `install.packages()` where needed.
 
 ```{r, message=F, warning=F}
 # again, remember to install necessary packages first
-# install.packages("mvnormtest)
+#install.packages("mvnormtest)
 
 # load libraries
 library(ggplot2)

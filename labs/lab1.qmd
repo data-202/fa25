@@ -72,7 +72,11 @@ Name: <include your full name> Assignment: Lab 2 Date: <here you may want to add
 #| output: false
 #| warning: false
 # install the tidyverse package
-install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+#install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+#install.packages("devtools")
+#install.packages("remotes")
+#library(remotes)
+#remotes::install_github("professornaite/critstats", force=TRUE)
 
 # load the libraries needed for today's analyses
 library(tidyverse)
