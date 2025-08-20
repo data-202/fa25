@@ -6,18 +6,18 @@ subtitle: "Statistically Measuring and Modeling Social Justice"
 ::: column-screen-inset-right
 | Part | Week | Day | Topics | Labs | Papers | Main reading |
 |:----:|:----:|:---:|:-------|:----:|:------:|:------------:|
-| I | [1](weeks/week01.html) | Wed, Aug 20 | [Course Introduction](weeks/week01-slides.html) | [Lab 0](computing.html) |  | Case study 1 |
+| I | [1](weeks/week01.html) | Wed, Aug 20 | [Introduction to DATA 202](weeks/week01-slides.html) | [Lab 0](computing.html) |  | Case study 1 |
 |   | [2](weeks/week02.html) | Wed, Aug 27 | [Foundations](weeks/week02-slides.html) <br> Measurement, variables, context |  |  | Pelham (2013, ch. 1) |
 |   |  | Wed, Sept 3 | [Theory Construction](weeks/week03-slides.html) <br> Building explanatory frameworks |  |  | Shore (2008) |
-|   |  | Wed, Sept 10 | [Probability Theory](weeks/week04-slides.html) <br> Frameworks for uncertainty |  |  | Case study 2 (parts 1 & 2) |
-| II |  | Wed, Sept 17 | [Univariate Analysis](weeks/week05-slides.html) <br> Summarizing distributions | [Lab 1](labs/lab1.html) |  | Frisby (2024) |
+|   |  | Wed, Sept 10 | [Probability Theory](weeks/week04-slides.html) <br> Frameworks for uncertainty | [Lab 1](labs/lab1.html) |  | Case study 2 |
+| II |  | Wed, Sept 17 | [Univariate Analysis](weeks/week05-slides.html) <br> Summarizing distributions |  |  | Frisby (2024) |
 |   |  | Wed, Sept 24 | [Bivariate Analysis](weeks/week06-slides.html) <br> Relationships between two variables |  |  | Zuberi (2000) |
 |   |  | Wed, Oct 1 | [Exploratory Analysis](weeks/week07-slides.html) <br> Patterns and anomalies |  | [Paper 1](papers/paper1.html) | Kvam et al. (2015) |
-|   |  | Wed, Oct 8 | [Hypothesis Testing](weeks/week08-slides.html) <br> Inference in context |  |  | Garcia et al. (2018) |
+|   |  | Wed, Oct 8 | [Hypothesis Testing](weeks/week08-slides.html) <br> Inference in context | [Lab 2](labs/lab2.html) |  | Garcia et al. (2018) |
 | III |  | Wed, Oct 15 | [Notes on Causal Theories](weeks/week09-slides.html) <br> Thinking about cause and effect |  |  | Case study 3 |
-|   |  | Wed, Oct 22 | [Modeling Social In/justice](weeks/week10-slides.html) | [Lab 2](labs/lab2.html) |  | Everitt & Hothorn (2011), ch. 1 |
+|   |  | Wed, Oct 22 | [Modeling Social In/justice](weeks/week10-slides.html) |  |  | Everitt & Hothorn (2011), ch. 1 |
 |   |  | Wed, Oct 29 | [Regression](weeks/week11-slides.html) <br> Modeling relationships |  |  | Ward (2013) |
-|   |  | Wed, Nov 5 | [Multivariable Analysis](weeks/week12-slides.html) <br> Modeling beyond two dimensions |  |  | Everitt & Hothorn (2011), ch. 2 |
+|   |  | Wed, Nov 5 | [Multivariable Analysis](weeks/week12-slides.html) <br> Modeling beyond two dimensions | [Lab 3]() |  | Everitt & Hothorn (2011), ch. 2 |
 | IV |  | Wed, Nov 12 | [Writing Critical Statistics](weeks/week13-slides.html) <br> Framing arguments |  | [Paper 2](papers/paper2.html) | Stroup (2015) |
 |   |  | Wed, Nov 19 | [Statistical Learning](weeks/week14-slides.html) <br> Connections, extensions & course wrap-up |  |  | — |
 :::
