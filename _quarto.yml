@@ -78,12 +78,10 @@ website:
       contents:
         - section: "Papers"
           contents:
-            - href: papers/paper1.qmd
-              text: Paper 1
             - href: papers/paper2.qmd
-              text: Paper 2
+              text: Final Paper
             - href: papers/papers-instructions.qmd
-              text: Instructions for each paper
+              text: Instructions for papers
             - href: papers/papers-more-info.qmd
               text: More information for papers
         - section: "Case Studies"
