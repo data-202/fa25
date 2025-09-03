@@ -590,105 +590,518 @@
     "text": "Research question\nRQ1: Do gender and job title jointly influence both salary and years of experience?\nRQ2: Are there significant differences in salary distributions across job titles when accounting for gender and experience?\n\n\n\n\n\n\n\nMANOVA\nRQ1: Do gender and job title jointly influence both salary and years of experience?\nTo answer RQ1, we’ll first run a multiple analysis of variance (MANOVA) on our data.\n\nmanova_result &lt;- manova(cbind(annual_salary, years_experience) ~ gender + job_title, data = pay_gap_data)\n\nsummary(manova_result)\n\n          Df  Pillai approx F num Df den Df    Pr(&gt;F)    \ngender     2 0.51380  16.0756      4    186 2.532e-11 ***\njob_title  4 0.08312   1.0082      8    186    0.4313    \nResiduals 93                                             \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n# Perform univariate ANOVAs for each dependent variable\nsummary.aov(manova_result)\n\n Response annual_salary :\n            Df     Sum Sq    Mean Sq F value   Pr(&gt;F)    \ngender       2 5.4621e+09 2731054952  10.742 6.35e-05 ***\njob_title    4 1.6067e+08   40167715   0.158   0.9589    \nResiduals   93 2.3644e+10  254236336                     \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n Response years_experience :\n            Df Sum Sq Mean Sq F value Pr(&gt;F)\ngender       2   37.2  18.578  0.3158 0.7300\njob_title    4   39.5   9.881  0.1680 0.9542\nResiduals   93 5471.0  58.828               \n\n\n\n# Post-hoc tests for job title (if significant)\nTukeyHSD(aov(annual_salary ~ job_title, data = pay_gap_data))\n\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = annual_salary ~ job_title, data = pay_gap_data)\n\n$job_title\n                                       diff       lwr      upr     p adj\nChemist-Biologist                 2744.7368 -12819.59 18309.07 0.9880828\nData Scientist-Biologist          4902.6316 -10661.70 20466.96 0.9050536\nOther-Biologist                   3676.0870 -11177.98 18530.15 0.9585863\nSoftware Engineer-Biologist       1955.2632 -13609.07 17519.59 0.9967520\nData Scientist-Chemist            2157.8947 -13604.72 17920.50 0.9954695\nOther-Chemist                      931.3501 -14130.35 15993.05 0.9998006\nSoftware Engineer-Chemist         -789.4737 -16552.08 14973.14 0.9999138\nOther-Data Scientist             -1226.5446 -16288.24 13835.15 0.9994066\nSoftware Engineer-Data Scientist -2947.3684 -18709.98 12815.24 0.9851493\nSoftware Engineer-Other          -1720.8238 -16782.52 13340.87 0.9977552\n\nTukeyHSD(aov(years_experience ~ job_title, data = pay_gap_data))\n\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = years_experience ~ job_title, data = pay_gap_data)\n\n$job_title\n                                       diff       lwr      upr     p adj\nChemist-Biologist                 0.8871053 -5.890221 7.664432 0.9961911\nData Scientist-Biologist          1.6607895 -5.116537 8.438116 0.9600164\nOther-Biologist                  -0.3419565 -6.810004 6.126091 0.9998930\nSoftware Engineer-Biologist       0.4502632 -6.327063 7.227590 0.9997349\nData Scientist-Chemist            0.7736842 -6.089981 7.637350 0.9978703\nOther-Chemist                    -1.2290618 -7.787521 5.329398 0.9850252\nSoftware Engineer-Chemist        -0.4368421 -7.300507 6.426823 0.9997764\nOther-Data Scientist             -2.0027460 -8.561205 4.555713 0.9143543\nSoftware Engineer-Data Scientist -1.2105263 -8.074192 5.653139 0.9880778\nSoftware Engineer-Other           0.7922197 -5.766240 7.350679 0.9972112\n\n\n\nCheck MANOVA assumptions\n\n# Multivariate normality\nmshapiro.test(t(model.matrix(manova_result)[, -1]))\n\n\n    Shapiro-Wilk normality test\n\ndata:  Z\nW = 0.74976, p-value = 9.227e-12\n\n\n\n# Homogeneity of covariance matrices\nleveneTest(annual_salary ~ gender * job_title, data = pay_gap_data)\n\nLevene's Test for Homogeneity of Variance (center = median)\n      Df F value Pr(&gt;F)\ngroup 12   0.597 0.8391\n      87               \n\nleveneTest(years_experience ~ gender * job_title, data = pay_gap_data)\n\nLevene's Test for Homogeneity of Variance (center = median)\n      Df F value Pr(&gt;F)\ngroup 12  0.6305 0.8108\n      87               \n\n\n\n\n\nVisual of the results\n\nggplot(pay_gap_data, aes(x = job_title, y = annual_salary, fill = gender)) +\n  geom_boxplot() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +\n  labs(title = \"Salary Distribution by Job Title and Gender\",\n       x = \"Job Title\", y = \"Annual Salary\")\n\n\n\n\n\n\n\nggplot(pay_gap_data, aes(x = job_title, y = years_experience, fill = gender)) +\n  geom_boxplot() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +\n  labs(title = \"Years of Experience Distribution by Job Title and Gender\",\n       x = \"Job Title\", y = \"Years of Experience\")\n\n\n\n\n\n\n\n\nRQ2: Are there significant differences in salary distributions across job titles when accounting for gender and experience?\nTo answer research question two, we’ll run some additoinal analyses.\n\nmodel_salary &lt;- lm(annual_salary ~ job_title + gender + years_experience, data = pay_gap_data)\nanova(model_salary)\n\nAnalysis of Variance Table\n\nResponse: annual_salary\n                 Df     Sum Sq    Mean Sq  F value Pr(&gt;F)    \njob_title         4 2.7038e+08 6.7595e+07   1.5436 0.1962    \ngender            2 5.3524e+09 2.6762e+09  61.1142 &lt;2e-16 ***\nyears_experience  1 1.9615e+10 1.9615e+10 447.9384 &lt;2e-16 ***\nResiduals        92 4.0287e+09 4.3790e+07                    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nsummary(model_salary)\n\n\nCall:\nlm(formula = annual_salary ~ job_title + gender + years_experience, \n    data = pay_gap_data)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-13703  -3632   -128   2751  19370 \n\nCoefficients:\n                           Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                36711.50    1968.85  18.646  &lt; 2e-16 ***\njob_titleChemist              -5.78    2140.76  -0.003  0.99785    \njob_titleData Scientist      -47.80    2148.50  -0.022  0.98230    \njob_titleOther              4453.30    2029.46   2.194  0.03073 *  \njob_titleSoftware Engineer   622.90    2142.47   0.291  0.77191    \ngenderMale                 13964.08    1411.79   9.891 3.87e-16 ***\ngenderNon-binary            7665.83    2841.64   2.698  0.00831 ** \nyears_experience            1893.49      89.47  21.165  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 6617 on 92 degrees of freedom\nMultiple R-squared:  0.8623,    Adjusted R-squared:  0.8519 \nF-statistic: 82.33 on 7 and 92 DF,  p-value: &lt; 2.2e-16\n\n\nAs noted in class, these are base models to help you consider your analysis. However, your theory should lead all of your work. Please let me know if you have any questions."
   },
   {
-    "objectID": "weeks/week01.html",
-    "href": "weeks/week01.html",
-    "title": "DATA 202 - Week 1",
+    "objectID": "weeks/week03.html",
+    "href": "weeks/week03.html",
+    "title": "DATA 202 - Week 3",
     "section": "",
-    "text": "In this course, students will develop an understanding of statistics as a research tool. Students are expected to have some basic knowledge of statistics from a prior course. Emphasis will be placed on understanding statistical concepts and applying and interpreting tests of statistical inference for real-life applications. The content will include, but not be limited to, visual representations of data, descriptive statistics, correlation and simple regression, sampling distributions, and the assumptions associated with and the application of selected inferential statistical procedures. Throughout the course, there will be a strong emphasis on how statistical modeling can be a driving force for social justice.",
+    "text": "Tuskegee Study of Untreated Syphilis in the Negro Male\nWe begin by exploring a critical historical issue in statistics: understanding the ethics of a medical intervention or study.\n\n\n\nUninformed participants of the Tuskegee Study of Untreated Syphilis in the Negro Male\n\n\n“In 1932, the USPHS, working with the Tuskegee Institute, began a study to record the natural history of syphilis. It was originally called the”Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”). The study initially involved 600 Black men – 399 with syphilis, 201 who did not have the disease. Participants’ informed consent was not collected.” (Office of Science, Centers for Disease Control and Prevention, 2022)\n\nAll images are from Examining Tuskegee by Susan Reverby.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis case study will help frame our understanding between ethics and statistics. The study will allow us to explore longstanding injustices, consider ethical practices in historical contexts, and explore the sociology of statistics. More specifically, we will use this case to understand the history of the Institutional Review Board (IRB) and discuss concepts related to scientific racism. These explorations will help in two key ways: first, we will come to understand what it can mean to be critical in the context of statistics and, second, we will be prepared to respond to problems focused on main concepts in the first few weeks of our course. We will then formalize a few terms.\n\nFraming a relationship between ethics and statistics\nThe “Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”) took place in Macon County, Alabama, in an area known as the “Black Belt” because of its rich soil and vast number of Black sharecroppers who were the economic backbone of the region. The research took place at the Tuskegee Institute.\n\nPurpose of the study\nThe intent of the study was to record the natural progression of syphilis in Black men. The study was related to a 1928 retrospective study, the “Oslo Study of Untreated Syphilis,” which reported on the pathological manifestations of untreated syphilis in several hundred white males. However, this original study used secondary data to piece together findings. When the study was initiated in the U.S., there were no proven treatments for the disease. Researchers told the men participating in the study that they were to be treated for “bad blood.” This term had been used by local community members to describe a host of ailments that could be diagnosed including things like anemia, fatigue, and syphilis.\n\nStudy participants\nA total of 600 men were enrolled in the study.\n\nOf this group 399, who had syphilis were a part of the experimental group, and 201 were control subjects.\nMost of the men were poor and illiterate sharecroppers from the county.\nThe participants were offered medical care and insurance.\nThey were enrolled in the study with incentives as well, including medical exams, rides to and from the clinics, meals on examination days, free treatment for minor ailments and guarantees that provisions would be made after their deaths in terms of burial stipends paid to their survivors.\n\n\nEthical issues\n\n\nThere were no proven treatments for syphilis when the study began in 1932.\nWhen penicillin became the standard treatment for the disease in 1947 the medicine was withheld as a part of the treatment for both the experimental group and control group.\nOn July 25, 1972, Jean Heller of the Associated Press broke the story that appeared in both New York and Washington, that there had been a 40-year non-therapeutic experiment called “a study” on the effects of untreated syphilis on Black men in the rural South.\nBetween the start of the study in 1932 and 1947, the date when penicillin was determined as a cure for the disease, dozens of men had died and their wives, children and untold number of others had been infected.\nThere was evidence that scientific research protocol routinely applied to human subjects was either ignored or deeply flawed to ensure the safety and well-being of the men involved. Specifically, the men were never told about or offered the research procedure called informed consent.\n\n\n\nResearchers had not informed the men of the actual name of the study, its purpose, and potential consequences of the treatment or non-treatment that they would receive during the study. The men never knew of the debilitating and life-threatening consequences of the treatments they were to receive, the impact on their partners and children they may have conceived once involved in the research. The panel also concluded that there were no choices given to the participants to quit the study when penicillin became available as a treatment and cure for syphilis. Reviewing the results of the research the panel concluded that the study was “ethically unjustified.” The panel articulated all the above findings in October of 1972 and then one month later the Assistant Secretary for Health and Scientific Affairs officially declared the end of the Tuskegee Study.\n\nClass-Action Suit\nIn the summer of 1973, Attorney Fred Gray filed a class-action suit on behalf of the men in the study, recognized partners, children, and families. It ended a settlement giving more than $9 million to the study participants. Despite these reparative measures, the effects remain.\n\n\n\n\n\n\n\n\n\n\nThe Tuskegee Syphilis Study conducted by the U.S Public Health Service was only one of many other past abuses that included unethical experimentation on marginalized groups. As a result of these injustices, a set of mandates were instituted and policies are governed under the IRB, which define the rules and regulations for the approval of research activities. Other countries have equivalent measures focused on ethics.\nAdditional details about can be found online.\nLearn more at https://www.cdc.gov/tuskegee/timeline.\nLearn more about the Howard University IRB at the Office of Regulatory Research Compliance.\n\n\n\n\n\nWas the Syphilis Study at Tuskegee an experimental or an observational study? Explain.\n\n\n\nWas data collected for this study using probability or non-probability sampling methods?\n\n\n\nBased on your knowledge of the researchers for the USPHS Syphilis Study at Tuskegee, what was the most likely sampling method used to gather data? Explain.\n\n\n\nBased on your knowledge of the study and the data tables below, list five variables that were collected during the study and explain their variable types in detail.",
     "crumbs": [
       "Weekly materials",
-      "Week 1"
+      "Week 3"
     ]
   },
   {
-    "objectID": "weeks/week01.html#course-description",
-    "href": "weeks/week01.html#course-description",
-    "title": "DATA 202 - Week 1",
+    "objectID": "weeks/week03.html#case-study",
+    "href": "weeks/week03.html#case-study",
+    "title": "DATA 202 - Week 3",
     "section": "",
-    "text": "In this course, students will develop an understanding of statistics as a research tool. Students are expected to have some basic knowledge of statistics from a prior course. Emphasis will be placed on understanding statistical concepts and applying and interpreting tests of statistical inference for real-life applications. The content will include, but not be limited to, visual representations of data, descriptive statistics, correlation and simple regression, sampling distributions, and the assumptions associated with and the application of selected inferential statistical procedures. Throughout the course, there will be a strong emphasis on how statistical modeling can be a driving force for social justice.",
+    "text": "Tuskegee Study of Untreated Syphilis in the Negro Male\nWe begin by exploring a critical historical issue in statistics: understanding the ethics of a medical intervention or study.\n\n\n\nUninformed participants of the Tuskegee Study of Untreated Syphilis in the Negro Male\n\n\n“In 1932, the USPHS, working with the Tuskegee Institute, began a study to record the natural history of syphilis. It was originally called the”Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”). The study initially involved 600 Black men – 399 with syphilis, 201 who did not have the disease. Participants’ informed consent was not collected.” (Office of Science, Centers for Disease Control and Prevention, 2022)\n\nAll images are from Examining Tuskegee by Susan Reverby.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis case study will help frame our understanding between ethics and statistics. The study will allow us to explore longstanding injustices, consider ethical practices in historical contexts, and explore the sociology of statistics. More specifically, we will use this case to understand the history of the Institutional Review Board (IRB) and discuss concepts related to scientific racism. These explorations will help in two key ways: first, we will come to understand what it can mean to be critical in the context of statistics and, second, we will be prepared to respond to problems focused on main concepts in the first few weeks of our course. We will then formalize a few terms.\n\nFraming a relationship between ethics and statistics\nThe “Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”) took place in Macon County, Alabama, in an area known as the “Black Belt” because of its rich soil and vast number of Black sharecroppers who were the economic backbone of the region. The research took place at the Tuskegee Institute.\n\nPurpose of the study\nThe intent of the study was to record the natural progression of syphilis in Black men. The study was related to a 1928 retrospective study, the “Oslo Study of Untreated Syphilis,” which reported on the pathological manifestations of untreated syphilis in several hundred white males. However, this original study used secondary data to piece together findings. When the study was initiated in the U.S., there were no proven treatments for the disease. Researchers told the men participating in the study that they were to be treated for “bad blood.” This term had been used by local community members to describe a host of ailments that could be diagnosed including things like anemia, fatigue, and syphilis.\n\nStudy participants\nA total of 600 men were enrolled in the study.\n\nOf this group 399, who had syphilis were a part of the experimental group, and 201 were control subjects.\nMost of the men were poor and illiterate sharecroppers from the county.\nThe participants were offered medical care and insurance.\nThey were enrolled in the study with incentives as well, including medical exams, rides to and from the clinics, meals on examination days, free treatment for minor ailments and guarantees that provisions would be made after their deaths in terms of burial stipends paid to their survivors.\n\n\nEthical issues\n\n\nThere were no proven treatments for syphilis when the study began in 1932.\nWhen penicillin became the standard treatment for the disease in 1947 the medicine was withheld as a part of the treatment for both the experimental group and control group.\nOn July 25, 1972, Jean Heller of the Associated Press broke the story that appeared in both New York and Washington, that there had been a 40-year non-therapeutic experiment called “a study” on the effects of untreated syphilis on Black men in the rural South.\nBetween the start of the study in 1932 and 1947, the date when penicillin was determined as a cure for the disease, dozens of men had died and their wives, children and untold number of others had been infected.\nThere was evidence that scientific research protocol routinely applied to human subjects was either ignored or deeply flawed to ensure the safety and well-being of the men involved. Specifically, the men were never told about or offered the research procedure called informed consent.\n\n\n\nResearchers had not informed the men of the actual name of the study, its purpose, and potential consequences of the treatment or non-treatment that they would receive during the study. The men never knew of the debilitating and life-threatening consequences of the treatments they were to receive, the impact on their partners and children they may have conceived once involved in the research. The panel also concluded that there were no choices given to the participants to quit the study when penicillin became available as a treatment and cure for syphilis. Reviewing the results of the research the panel concluded that the study was “ethically unjustified.” The panel articulated all the above findings in October of 1972 and then one month later the Assistant Secretary for Health and Scientific Affairs officially declared the end of the Tuskegee Study.\n\nClass-Action Suit\nIn the summer of 1973, Attorney Fred Gray filed a class-action suit on behalf of the men in the study, recognized partners, children, and families. It ended a settlement giving more than $9 million to the study participants. Despite these reparative measures, the effects remain.",
     "crumbs": [
       "Weekly materials",
-      "Week 1"
+      "Week 3"
     ]
   },
   {
-    "objectID": "weeks/week01.html#course-learning-objectives",
-    "href": "weeks/week01.html#course-learning-objectives",
-    "title": "DATA 202 - Week 1",
-    "section": "Course Learning Objectives",
-    "text": "Course Learning Objectives\n\nAppreciate and understand the role of statistics in your field\nEvaluate, comprehend, and explain the statistical findings in a data set\nExplore data in R\nApply appropriate application and interpretation of various inferential statistical procedures\nWrite a simple description of methodology and results from analysis\nDevelop an ability to apply appropriate statistical methods to summarize and analyze data\nMake sense of data and be able to report the results in appropriate tables or statistical terms",
+    "objectID": "weeks/week03.html#institutional-review-board-irb",
+    "href": "weeks/week03.html#institutional-review-board-irb",
+    "title": "DATA 202 - Week 3",
+    "section": "",
+    "text": "The Tuskegee Syphilis Study conducted by the U.S Public Health Service was only one of many other past abuses that included unethical experimentation on marginalized groups. As a result of these injustices, a set of mandates were instituted and policies are governed under the IRB, which define the rules and regulations for the approval of research activities. Other countries have equivalent measures focused on ethics.\nAdditional details about can be found online.\nLearn more at https://www.cdc.gov/tuskegee/timeline.\nLearn more about the Howard University IRB at the Office of Regulatory Research Compliance.\n\n\n\n\n\nWas the Syphilis Study at Tuskegee an experimental or an observational study? Explain.\n\n\n\nWas data collected for this study using probability or non-probability sampling methods?\n\n\n\nBased on your knowledge of the researchers for the USPHS Syphilis Study at Tuskegee, what was the most likely sampling method used to gather data? Explain.\n\n\n\nBased on your knowledge of the study and the data tables below, list five variables that were collected during the study and explain their variable types in detail.",
     "crumbs": [
       "Weekly materials",
-      "Week 1"
+      "Week 3"
     ]
   },
   {
-    "objectID": "weeks/week01.html#course-companion-site",
-    "href": "weeks/week01.html#course-companion-site",
-    "title": "DATA 202 - Week 1",
-    "section": "Course companion site",
-    "text": "Course companion site\nThe landing page for our companion site can be found here.",
+    "objectID": "weeks/week03.html#theory",
+    "href": "weeks/week03.html#theory",
+    "title": "DATA 202 - Week 3",
+    "section": "Theory",
+    "text": "Theory\nSome definitions:\n\nPer the Oxford Languages dictionary, a theory is a supposition or a system of ideas intended to explain something, especially one based on general principles independent of the thing to be explained.\nPer Britannica, a theory is an idea or set of ideas that is intended to explain facts or events.\n\nWe will need to think more acutely about theory development as we progress through the term.\n\nFor now, how might you define a theory?",
     "crumbs": [
       "Weekly materials",
-      "Week 1"
+      "Week 3"
     ]
   },
   {
-    "objectID": "weeks/week01.html#initial-assignments",
-    "href": "weeks/week01.html#initial-assignments",
-    "title": "DATA 202 - Week 1",
-    "section": "Initial assignments",
-    "text": "Initial assignments\n\nAnnotated Bibliography\nYour annotated bibliography for the final paper is due anytime before midterms. You can use OpenAlex or the Web of Science (WoS) to gather your annotations.\n\n\nPaper #1\nYou can read more about the final paper here.\nSee the instructions for paper assignments if you’d like to write more than one here.\nAlso, learn more about paper assignments here.",
+    "objectID": "weeks/week03.html#theory-construction",
+    "href": "weeks/week03.html#theory-construction",
+    "title": "DATA 202 - Week 3",
+    "section": "Theory construction",
+    "text": "Theory construction\nPer Markovsky & Webster (2015), theory construction is the process of formulating components of a theory into a logical whole.\nWe may consider some of the following elements as we prepare theoretical statements.\n\n\nResearch inquiry\nHypotheses\nAnalysis\nEvaluation\nRevision\n\n\n\n\nFraming data and information\nThere are many different ways to conceptualize data and information.\n\n\nDepending on our specific context, statistical needs, or research purposes, we can frame information as data, or data as information, or even place an equivalence statement between the two terms such that we have: \\[\\text{information} = \\text{data}\\]\nAs we continue to explore what it should mean to be critical in the context of statistics, we will need some common language and base definitions to understand the processes involved in a statistical study.\nWe defined statistics as the science of collecting, organizing, analyzing, interpreting, communicating, and visualizing data and information. “Collecting” and “organizing” – the first two steps of this process – requires that we define what we mean by data and information.",
     "crumbs": [
       "Weekly materials",
-      "Week 1"
+      "Week 3"
     ]
   },
   {
-    "objectID": "weeks/week01.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
-    "href": "weeks/week01.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
-    "title": "DATA 202 - Week 1",
-    "section": "Case Study 1: Tuskegee Experiement of Untreated Syphillis",
-    "text": "Case Study 1: Tuskegee Experiement of Untreated Syphillis\nTo help you prepare for our forthcoming discussions and readings, you should explore information about our first case study. One place to start is here: “The Tuskegee Experiment: Crash Course Black American History #29” in the video below:",
+    "objectID": "weeks/week03.html#data-and-information",
+    "href": "weeks/week03.html#data-and-information",
+    "title": "DATA 202 - Week 3",
+    "section": "Data and information",
+    "text": "Data and information\n\n\n\n\n\n\nDEFINITION: Data\n\n\n\nData are collections of information or observations.\nThe term data is plural, so we should say “data are…” not “data is…”.\nA single data value is referred to as a datum but this term is very rarely used.\n\n\n\n\nThe term “information” is a universal concept that is highly useful but it also lacks precision.\nIn every day terms, information is defined rather loosely.\nIn statistics, however, we might contend that information becomes data when it is collected and organized in some form or fashion.\nThus, it takes some structure to turn information into usable data.\n\n\n\nOne method of organizing collections of data or information is in a Microsoft Excel sheet.\n\n\n\nExcel spreadsheet\n\n\n\nA spreadsheet in a traditional format contains important features that will support data analysis.\n\n\nColumns are vertical arrangements of sets.\n– Columns are represented by capital letters: \\(A\\), \\(B\\), \\(C\\), and so on.\n– We relate columns to sets, which we defined as collections of elements or items.\nRows are horizontal arrangements of elements.\n– Rows are represented by numbers and relate to the index of a set.\n– The subscript \\(i \\in \\mathbb{N}\\) such that \\(i = 1, 2, 3, ...\\), indicates an element’s position.\n\n\n\n\n\n\nExcel spreadsheet with data on US states\n\n\n\n\n\n\n\n\n\nDEFINITION: Filename extension\n\n\n\nA file extension (or file name extension) is a suffix at the end of a digital file name:\n\n\n.doc\n.docx\n.txt\n\nThe extension indicates the file’s format and the organization of information.\n\n\n\n\nThere are many different file extensions.\n\nFor example, the file extension for an MS Excel document can be .xlxs, .csv, or .htm.\nCSV (.csv) files remove all formatting.\n– The removal of formatting helps to reduce errors when transferring data between computers or software programs.\n“CSV” stands for comma-separated values.\n\n\n\n\n\n\nCSV file with data on US states\n\n\n\n\nFormatting data into a data frame\n\nAlthough the CSV format removes formatting, the file is not yet in a structure that we can use to conduct efficient statistical analyses.\nThe CSV format supports a user with collecting and organizing information into a usable data structure.\nHowever, the data needs to be sent to a computer program to undergo the next step in our statistical process: analyzing data. Specifically, we re-format the CSV file to a data frame to conduct analyses.\n\n\n\n\n\n\n\n\nDEFINITION: Data frame\n\n\n\nA data frame (or dataframe) is a two-dimensional table of rows and columns.\n\n\nData frames are a common and popular way to structure, store, and share data.\n\nData frames allow analysts to store sets of observations that vary in size and content.\nEach row describes a single observation.\nEach column stores information for one set, or variable.\n\n\nRecall that a set is a collection of elements.\n\nWe extend this definition to say that a set is a collection of \\(n \\in \\mathbb{N}\\) elements, where \\(n\\) refers to the number of elements in the set.\n\n\n\n\n\n\n\nNote – Sets with \\(n\\) elements\n\n\n\nIf \\(X\\) is a set with \\(n\\) elements, then \\(X\\) can be represented as \\(X = \\{x_1, x_2, x_3, ..., x_n \\}\\).\nIf \\(Y\\) is a set with \\(n\\) elements, then \\(Y\\) can be represented as \\(Y = \\{y_1, y_2, y_3, ..., y_n \\}\\).\n\n\nThe value of \\(n\\) can be used to represent the “size” of a set.\n\nA set with no elements is referred to as the empty set and can be represented as \\(\\{ \\emptyset \\}\\).\n\nWe will need to make sense of the various objects that a set can contain.\n\nFirst, we think more mathematically about sets and data frames.\n\n\n\n\n\n\nDEFINITION: Matrix\n\n\n\nIn mathematics, a matrix is a rectangular table of entries arranged in rows and columns.\n\n\n\nA data frame containing only numbers is an \\(n \\times m\\) matrix:\n\n\\(n\\) refers to the number of rows (or observations)\n\\(m\\) refers to the number of columns (or variables)\n\nBy formatting a series of sets into a data frame, we get\n\n\\(n\\) rows (each row containing data on a single observation)\n\\(m\\) columns (which contain elements over a variable’s values)\n\n\n\nData frame containing \\(n\\) observations for \\(2\\) variables (\\(X\\) and \\(Y\\))\n\n\n\n\n\n\nEXAMPLE – A data frame containing two variables (or sets)\n\n\n\n\n\n\nX\nY\n\n\n\n\n\\(x_1\\)\n\\(y_1\\)\n\n\n\\(x_2\\)\n\\(y_2\\)\n\n\n\\(x_3\\)\n\\(y_3\\)\n\n\n.\n.\n\n\n.\n.\n\n\n.\n.\n\n\n\\(x_n\\)\n\\(y_n\\)\n\n\n\n\n\n\nTake, for example, two sets with the following ordered values:\n\n\nLet \\(X\\) contain the odd values 1, 3, 5, and 7.\n\nWe have \\(X = \\{1, 3, 5, 7 \\}\\)\n\nLet \\(Y\\) contain the even values 2, 4, 6, and 8.\n\nWe have \\(Y = \\{2, 4, 6, 8 \\}\\)\n\n\n\n\nWe set the following to be true:\n\n\\(x_1 = 1\\), \\(x_2 = 3\\), \\(x_3 = 5\\), \\(x_4 = 7\\)\n\\(y_1 = 2\\), \\(y_2 = 4\\), \\(y_3 = 6\\), \\(y_4 = 8\\)\n\nBy combining the sets \\(X\\) and \\(Y\\), we create the following data frame:\n\n\n\n\n\n\nEXAMPLE – A data frame containing a few odd and even numbers\n\n\n\n\n\n\nX\nY\n\n\n\n\n1\n2\n\n\n3\n4\n\n\n5\n6\n\n\n7\n8\n\n\n\n\n\n\nWe list the index of each element of each set using a new column – ID (for index).\n\n\n\n\n\n\nEXAMPLE – A data frame containing a few odd and even numbers\n\n\n\n\n\n\nID\nX\nY\n\n\n\n\n1\n1\n2\n\n\n2\n3\n4\n\n\n3\n5\n6\n\n\n4\n7\n8\n\n\n\n\n\nThis \\(n \\times m\\) data frame contains\n\n\n\\(n = 4\\) observations\n\\(3\\) variables\n\nID\n\\(X\\)\n\\(Y\\)\n\n\n\n\nWe can consider this structure more generally as noted below.\n\n\n\nStructure of a data set from R for Data Science by Wickham & Grolemund (2022)",
     "crumbs": [
       "Weekly materials",
-      "Week 1"
+      "Week 3"
     ]
   },
   {
-    "objectID": "weeks/week01-slides.html#course-description",
-    "href": "weeks/week01-slides.html#course-description",
-    "title": "DATA 202 - Week 1",
-    "section": "Course Description",
-    "text": "Course Description\nIn this course, students will develop an understanding of statistics as a research tool. Students are expected to have some basic knowledge of statistics from a prior course. Emphasis will be placed on understanding statistical concepts and applying and interpreting tests of statistical inference for real-life applications. The content will include, but not be limited to, visual representations of data, descriptive statistics, correlation and simple regression, sampling distributions, and the assumptions associated with and the application of selected inferential statistical procedures. Throughout the course, there will be a strong emphasis on how statistical modeling can be a driving force for social justice."
+    "objectID": "weeks/week03.html#population-and-sample",
+    "href": "weeks/week03.html#population-and-sample",
+    "title": "DATA 202 - Week 3",
+    "section": "Population and sample",
+    "text": "Population and sample\n\n\n\n\n\n\nDEFINITIONS: Population and sample\n\n\n\nA population is representative of every member of a group of interest or collection of objects.\nA sample is a sub-collection of members or objects from a selected population.\n\n\n\n\n\nPopulation and sample. Image from SimplyPsychology.org\n\n\n\n\nThe difference between big \\(N\\) (a population) and little \\(n\\) (a sample)\n\n\n\n\n\n\nNote\n\n\n\n\nWhen referring to the size of a population, use a capital \\(N\\).\nWhen referring to the size of a sample, use a lowercase \\(n\\).\n\n\n\n\n\n\nPopulation parameter vs. Sample statistic\n\n\n\n\n\n\nDEFINITIONS: Parameter versus statistic\n\n\n\nA parameter is a numerical measurement describing some characteristic of a population.\n\nThink of a “population parameter” to remember this relationship.\n\nA statistic is a numerical measure describing some characteristic of a sample.\n\nThink of a “sample statistic” to remember this relationship.\n\n\n\n\nStatistics vs. A statistic\n\n\n\n\n\n\nNote – Statistics (plural) versus a statistic (singular)\n\n\n\nThere is a difference between the term statistics (plural) and a statistic (singular).\n\nWe previously defined statistics (with an ‘s’ at the end) as the science of collecting, organizing, analyzing, interpreting, communicating, and visualizing data and information.\nA statistic (no ‘s’ at the end) refers to a measurement or value from a test on a sample.\n\n\n\n\n\n\nCensus\n\n\n\n\n\n\nDEFINITION: Census\n\n\n\nA census is the collection of data from every member of a population.\n\n\n\n\n\nPopulation census. Image from CasaNC.org\n\n\n\nThere are many sites with free and publicly available data that can help us make better sense of how others have collected data on populations and samples.\n– Sampling of websites with freely accessible data (no downloads required)\n\nColored Conventions Project\nThe DataHub\nData.gov\nKaggle\n\nIn our course, we will focus on integrating how we structure and analyze data by using various mathematical concepts to frame the process of conducting a statistical study.",
+    "crumbs": [
+      "Weekly materials",
+      "Week 3"
+    ]
   },
   {
-    "objectID": "weeks/week01-slides.html#course-learning-objectives",
-    "href": "weeks/week01-slides.html#course-learning-objectives",
-    "title": "DATA 202 - Week 1",
-    "section": "Course Learning Objectives",
-    "text": "Course Learning Objectives\n\nAppreciate and understand the role of statistics in your field\nEvaluate, comprehend, and explain the statistical findings in a data set\nExplore data in R\nApply appropriate application and interpretation of various inferential statistical procedures\nWrite a simple description of methodology and results from analysis\nDevelop an ability to apply appropriate statistical methods to summarize and analyze data\nMake sense of data and be able to report the results in appropriate tables or statistical terms"
+    "objectID": "weeks/week03.html#what-is-a-variable",
+    "href": "weeks/week03.html#what-is-a-variable",
+    "title": "DATA 202 - Week 3",
+    "section": "What is a variable?",
+    "text": "What is a variable?\n\n\n\n\n\n\nDEFINITIONS: Variable\n\n\n\nA variable is any characteristic or quantity that can be measured or counted.\n\n\n\nThere are many types of data and variables used in statistics.\n\nThe type of variable helps determine the appropriate methods for analysis.\n– Categorical or Quantitative\nThe level of measurement helps determine how we measure variables.\n– Nominal, Ordinal, Interval, Ratio\n\n\n\n\nVariable types\nThere are two main variable types: categorical and quantitative variables.\n\n\n\n\n\nflowchart LR\n  A[Variable type] --&gt; B(Categorical)\n  A[Variable type] --&gt; C(Quantitative)\n\n\n\n\n\n\n\n\n\n\n\n\nDEFINITIONS: Variable types\n\n\n\nA categorical variable consists of qualitative values such as names or labels.\nA quantitative variable consists of numbers representing counts or measurements.\n\n\n\nData that are categorical in nature are non-numeric.\n– Categorical values are labels used to represent categories or data values.\nData that are quantitative in nature are numeric.\n– Quantitative values make use of the sets of numbers to represent counts or measures.\n\n\nWe can further distinguish between these categories using the following definitions:\n\n\n\n\n\n\nDEFINITIONS: Nominal, Ordinal, Discrete, Continuous\n\n\n\nNominal data are categorical data that cannot be arranged in some order (such as low to high). Some examples are eye color and pet names.\nOrdinal data can be arranged in some order but differences between the values are meaningless. Consider letter grades: A is higher than B but A minus B does not make sense.\nDiscrete data are data where the number of values is finite or “countable.” Some examples include number of students or days spent in the library.\nContinuous data can take on infinitely many values where the collection of values is not countable. Some examples include height or weight.\n\n\n\n\n\n\n\nflowchart LR\n  A[Variable type] --&gt; B(Qualitative)\n  A[Variable type] --&gt; C(Quantitative)\n  C --&gt; D(Discrete)\n  C --&gt; E(Continuous)\n  B --&gt; F(Nominal)\n  B --&gt; G(Ordinal)\n\n\n\n\n\n\n\n\n\nLevels of measurement\nLevels of measurement are used to describe variable types.\n\n\n\n\n\n\n\n\nLevel of measurement\nBrief description\nExamples\n\n\n\n\nNominal\nData cannot be arranged in some order. Only categories are used.\nEye color, city\n\n\nOrdinal\nData can be arranged in some order but differences cannot be found or are meaningless.\nRankings, likert scale\n\n\nInterval\nThere is not a natural zero starting point and rations are meaningless.\nTemperatures, years\n\n\nRatio\nThere is a natural zero starting point and ratios are meaningful.\nHeights, distances\n\n\n\n\n\n\n\nThe four levels of measurement. Image from Scribbr",
+    "crumbs": [
+      "Weekly materials",
+      "Week 3"
+    ]
   },
   {
-    "objectID": "weeks/week01-slides.html#course-companion-site",
-    "href": "weeks/week01-slides.html#course-companion-site",
-    "title": "DATA 202 - Week 1",
-    "section": "Course companion site",
-    "text": "Course companion site\nThe landing page for our companion site can be found here."
+    "objectID": "weeks/week03.html#task-0-understanding-the-rstudio-ide",
+    "href": "weeks/week03.html#task-0-understanding-the-rstudio-ide",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 0: Understanding the RStudio IDE",
+    "text": "Task 0: Understanding the RStudio IDE\n\n\n\nRStudio IDE",
+    "crumbs": [
+      "Weekly materials",
+      "Week 3"
+    ]
   },
   {
-    "objectID": "weeks/week01-slides.html#initial-assignments",
-    "href": "weeks/week01-slides.html#initial-assignments",
-    "title": "DATA 202 - Week 1",
-    "section": "Initial assignments",
-    "text": "Initial assignments\nAnnotated Bibliography\nYour annotated bibliography for the final paper is due anytime before midterms. You can use OpenAlex or the Web of Science (WoS) to gather your annotations.\nPaper #1\nYou can read more about the final paper here.\nSee the instructions for paper assignments if you’d like to write more than one here.\nAlso, learn more about paper assignments here."
+    "objectID": "weeks/week03.html#task-1-create-an-rmarkdown-file-.rmd",
+    "href": "weeks/week03.html#task-1-create-an-rmarkdown-file-.rmd",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 1: Create an RMarkdown file (.Rmd)",
+    "text": "Task 1: Create an RMarkdown file (.Rmd)\nWe will conduct most of our work using what is called an RMarkdown.\nThe RMarkdown files allows us to save and annotate our code for future use.\nWhen you run code from an RMarkdownt, it will show up in the Console (bottom left pane in RStudio).\nIn the RStudio IDE, open an RMarkdown by using the following navigation:\n\nFile &gt; New File &gt; R Markdown\n\n\n\nUsing the RMarkdown file\n\n\nPreamble\nThe preamble begins at the top of your RMarkdown file with three dashes. I have added some options that can be changed to your liking. For example, you can change the table of contents (toc) options or the theme; flatly is one of many different themes.\n\n---\ntitle: \"Title goes here\"\nauhtor: \"First Last\"\nalways_allow_html: true\noutput:\n html_document:\n   toc: true\n   toc_depth: 3\n   number_sections: true\n   theme: flatly\ngeometry: margin=1.0in\neditor_options:\n markdown:\n   wrap: sentence\n---\n\n\n\n\nSetup\nA set-up chunk gives the file further instructions to prepare for your analysis.\n\nknitr::opts_chunk$set(echo = FALSE, # By default, hide code; set to TRUE to see code\n  fig.pos = 'th', # Places figures at top or here\n  out.width = '100%', dpi = 300, # Figure resolution and size\n  fig.env=\"figure\"\n ) # Latex figure environment\n\ninstall.packages(\"praise\")\nlibrary(praise)\n\noptions(knitr.table.format = \"latex\") # For kable tables to write LaTeX table directly\n\n\n\n\nInserting code into an RMarkdown\n\ny &lt;- 2 + 2\n\n\n# You can use the `#` symbol to leave notes above your code.\ny &lt;- 2 + 2 # You can use the `#` symbol to leave notes in-line with your code.\n\nWe just defined an object y. We can see its value by running this syntax and typing y into the Console.\n\ny\n\n[1] 4\n\n\nThe output on your screen should match the last line above - with the hashtags.\n\n[ 1 ] indicates a single line of results.\nThe output tells us that y has a value of 4, so we say that y is numeric or that it has a numeric value.\n\nYou can run code by clicking ‘Run’ at the top of the Source window, or by typing CMD+Enter",
+    "crumbs": [
+      "Weekly materials",
+      "Week 3"
+    ]
   },
   {
-    "objectID": "weeks/week01-slides.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
-    "href": "weeks/week01-slides.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
-    "title": "DATA 202 - Week 1",
-    "section": "Case Study 1: Tuskegee Experiement of Untreated Syphillis",
-    "text": "Case Study 1: Tuskegee Experiement of Untreated Syphillis\nTo help you prepare for our forthcoming discussions and readings, you should explore information about our first case study. One place to start is here: “The Tuskegee Experiment: Crash Course Black American History #29” in the video below:"
+    "objectID": "weeks/week03.html#task-2-explore-different-object-types",
+    "href": "weeks/week03.html#task-2-explore-different-object-types",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 2: Explore different object types",
+    "text": "Task 2: Explore different object types\nFor this task, we will explore three object types: numeric, character, and logic values.\n\nTask 2-a: Compute a mathematical statement and create a numeric variable\n\n1 + 2\n\n[1] 3\n\n\nWe can assign a variable to this statement by using an assignment operator: &lt;-\n\na &lt;- 1 + 2\n\nWe can also use an equal sign to assign values: \\(=\\)\n\na = 1 + 2\n\nType “a” to show the value of the variable\n\na\n\n[1] 3\n\n\n\nCreate a numeric variable “b” that is the product of “a” and “y”\n\nb = a*y\n\nType “b” in your console to show the product of the two variables\n\nb\n\n[1] 12\n\n\nDivide b by 4\n\nb / 4\n\n[1] 3\n\n\nTake the square root of b\n\nsqrt(b)\n\n[1] 3.464102\n\n\n\nCompute the natural log of b\n\nlog(b)\n\n[1] 2.484907\n\n\nCompute the common log of b\n\nlog10(b)\n\n[1] 1.079181\n\n\nFind 1 minus the square root of b\n\n1-sqrt(b)\n\n[1] -2.464102\n\n\n\nAttempt to find the square root of “1 minus the square root of b” - which is a negative value\n\nsqrt(1-b)\n\nWarning in sqrt(1 - b): NaNs produced\n\n\n[1] NaN\n\n\nNaN stands for “Not a number”. This occurs because there is currently no defined value to recognize the square root of negative numbers in R. But we can compute the square root on the absolute value of this difference, if needed.\n\nsqrt(abs(1-b))\n\n[1] 3.316625\n\n\n\nWe can insert longer or more complex mathematical statements too. For example, we can find the absolute value of the sum of -1 and the square root of b cubed and then subtract from that the value of 3 times the square root of b.\nNotice the use of parentheses.\n\nabs(-1+sqrt(b^3)) - 3*(sqrt(b))\n\n[1] 30.17691\n\n\nWe can override the original value of y to match the mathematical statement we generated above.\n\ny &lt;- abs(-1+sqrt(b^3)) - 3*(sqrt(b))\ny\n\n[1] 30.17691\n\n\nWe consider all of the previous objects to be numeric.\n\n\n\nTask 2-b: Create a non-numeric value\nWe can also create objects to hold non-numeric values.\nThere are two types of non-numeric values: character values and logic values.\n\nCharacter values\n\ncharacter &lt;- 'some label'\ncharacter\n\n[1] \"some label\"\n\n\nWe can create a character value using the ‘,’ or “,” quotes.\n\ncharacter &lt;- \"some label\"\ncharacter\n\n[1] \"some label\"\n\n\n\n\n\nLogic values\nLogic values can either be TRUE or FALSE\n\nlogic_true &lt;- TRUE\nlogic_false &lt;- FALSE\n\n\nlogic_true\n\n[1] TRUE\n\nlogic_false\n\n[1] FALSE\n\n\nWe can also use T for TRUE and F for FALSE.\n\nlogic_true &lt;- T\nlogic_false &lt;- F\n\n\nlogic_true\n\n[1] TRUE\n\nlogic_false\n\n[1] FALSE",
+    "crumbs": [
+      "Weekly materials",
+      "Week 3"
+    ]
+  },
+  {
+    "objectID": "weeks/week03.html#task-3-creating-vectors",
+    "href": "weeks/week03.html#task-3-creating-vectors",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 3: Creating vectors",
+    "text": "Task 3: Creating vectors\nWhen we want to list multiple objects or values, we use R’s available data types, such as vectors and factors.\n\nWe concatenate values in these data types using the operator c( ) to place our values in the order we desire.\nConcatenate means to place things together one after the other.\n\n\nVectors\nVectors are a data type we use to order values (i.e., numeric, character, logic) or mix different values.\nFor example, we can store all of the numbers from 1 to 9 in a vector by using a colon.\n\nmy.vector &lt;- c(1:9)\nmy.vector\n\n[1] 1 2 3 4 5 6 7 8 9\n\n\n\nWhen creating vectors, we use the assignment operator and the concatenate option to generate our object.\n\nvec1 &lt;- c(\"WEB Du Bois\", 1868, \"17th\", \"MA\", \"civil rights activist\")\nvec1\n\n[1] \"WEB Du Bois\"           \"1868\"                  \"17th\"                 \n[4] \"MA\"                    \"civil rights activist\"\n\n\nNotice that my numeric and logic values do not use quotations, but a character value uses quotations ““.\n\n\n\nFactors\nFactors are a data type we use to store categorical variables for analyses and data plots. We will explore these later.",
+    "crumbs": [
+      "Weekly materials",
+      "Week 3"
+    ]
+  },
+  {
+    "objectID": "weeks/week03.html#task-4-creating-data-frames",
+    "href": "weeks/week03.html#task-4-creating-data-frames",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 4: Creating data frames",
+    "text": "Task 4: Creating data frames\nFor this final task, we will create a list. Lists can contain anything: functions, vectors, other lists, and data frames.\nTo start, let’s create a series of vectors.\n\nvec1 &lt;- c(\"Ida B. Wells\", \"W.E.B Du Bois\",\"Mary G. Ross\", \"Jaime Escalante\",\"Etta Z. Falconer\", \"Bob Moses\", \"Ruth Gonzales\")\nvec2 &lt;- c(1862, 1868, 1908, 1930, 1933, 1935, 1970)\nvec3 &lt;- c(\"MS\", \"MA\", \"OK\", \"Bolivia\", \"MS\", \"NYC\", \"NJ\")\nvec4 &lt;- c(TRUE, TRUE, TRUE, FALSE, T, T, T)\nvec5 &lt;- c(\"African American\", \"Ghanaian American\", \"Native American\", \"Bolivian American\", \"African American\", \"African American\", \"Mexican American\")\nvec6 &lt;- c(\"Journalist\", \"Sociologist\", \"Engineer\", \"Educator\", \"Mathematician\", \"Educator\", \"Engineer\")\n\n\nOur objects vec1, vec3, and vec5 are made of character values\n\nvec1\n\n[1] \"Ida B. Wells\"     \"W.E.B Du Bois\"    \"Mary G. Ross\"     \"Jaime Escalante\" \n[5] \"Etta Z. Falconer\" \"Bob Moses\"        \"Ruth Gonzales\"   \n\nvec3\n\n[1] \"MS\"      \"MA\"      \"OK\"      \"Bolivia\" \"MS\"      \"NYC\"     \"NJ\"     \n\nvec5\n\n[1] \"African American\"  \"Ghanaian American\" \"Native American\"  \n[4] \"Bolivian American\" \"African American\"  \"African American\" \n[7] \"Mexican American\" \n\nvec6\n\n[1] \"Journalist\"    \"Sociologist\"   \"Engineer\"      \"Educator\"     \n[5] \"Mathematician\" \"Educator\"      \"Engineer\"     \n\n\nOur object vec2 is made of numeric values\n\nvec2\n\n[1] 1862 1868 1908 1930 1933 1935 1970\n\n\nOur object vec4 is a made of logic values\n\nvec4\n\n[1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE\n\n\n\n\nLists\nLists allow us to do what the name implies - create a list of items.\n\nmy.list &lt;- list(vec1, vec2, vec3, vec4, vec5, vec6)\nmy.list\n\n[[1]]\n[1] \"Ida B. Wells\"     \"W.E.B Du Bois\"    \"Mary G. Ross\"     \"Jaime Escalante\" \n[5] \"Etta Z. Falconer\" \"Bob Moses\"        \"Ruth Gonzales\"   \n\n[[2]]\n[1] 1862 1868 1908 1930 1933 1935 1970\n\n[[3]]\n[1] \"MS\"      \"MA\"      \"OK\"      \"Bolivia\" \"MS\"      \"NYC\"     \"NJ\"     \n\n[[4]]\n[1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE\n\n[[5]]\n[1] \"African American\"  \"Ghanaian American\" \"Native American\"  \n[4] \"Bolivian American\" \"African American\"  \"African American\" \n[7] \"Mexican American\" \n\n[[6]]\n[1] \"Journalist\"    \"Sociologist\"   \"Engineer\"      \"Educator\"     \n[5] \"Mathematician\" \"Educator\"      \"Engineer\"     \n\n\nIn this form, lists can be hard to read.\n\n\n\nData frames\nTo solve the issue with the list, we will use our vectors to generate a specific type of list known as a data.frame.\nData frames are a subtype of lists made of vectors of equal lenght.\n\ndata.frame(vec1, vec2, vec3, vec4, vec5, vec6)\n\n              vec1 vec2    vec3  vec4              vec5          vec6\n1     Ida B. Wells 1862      MS  TRUE  African American    Journalist\n2    W.E.B Du Bois 1868      MA  TRUE Ghanaian American   Sociologist\n3     Mary G. Ross 1908      OK  TRUE   Native American      Engineer\n4  Jaime Escalante 1930 Bolivia FALSE Bolivian American      Educator\n5 Etta Z. Falconer 1933      MS  TRUE  African American Mathematician\n6        Bob Moses 1935     NYC  TRUE  African American      Educator\n7    Ruth Gonzales 1970      NJ  TRUE  Mexican American      Engineer\n\n\nNotice the difference in how the information is arranged when data.frame.\n\nLet’s label this data frame and put labels at the top of the list.\n\ndf &lt;- data.frame(a=vec1, b=vec2, c=vec3, d=vec4, e=vec5, f=vec6)\ndf\n\n                 a    b       c     d                 e             f\n1     Ida B. Wells 1862      MS  TRUE  African American    Journalist\n2    W.E.B Du Bois 1868      MA  TRUE Ghanaian American   Sociologist\n3     Mary G. Ross 1908      OK  TRUE   Native American      Engineer\n4  Jaime Escalante 1930 Bolivia FALSE Bolivian American      Educator\n5 Etta Z. Falconer 1933      MS  TRUE  African American Mathematician\n6        Bob Moses 1935     NYC  TRUE  African American      Educator\n7    Ruth Gonzales 1970      NJ  TRUE  Mexican American      Engineer\n\n\nNotice that when I add labels using the equal sign operator, the vec labels dissapear and are replaced by the categorical labels that we insert. Let’s create more appropriate labels for the data we have generated.\n\ndf &lt;- data.frame(name=vec1, \n                 birthyear=vec2, \n                 birthplace=vec3, \n                 USborn=vec4, \n                 nationality=vec5, \n                 occupation=vec6)\n\n\nFor future use, we can view our data frame by just typing its name into our console or typing View(df).\n\ndf\n\n              name birthyear birthplace USborn       nationality    occupation\n1     Ida B. Wells      1862         MS   TRUE  African American    Journalist\n2    W.E.B Du Bois      1868         MA   TRUE Ghanaian American   Sociologist\n3     Mary G. Ross      1908         OK   TRUE   Native American      Engineer\n4  Jaime Escalante      1930    Bolivia  FALSE Bolivian American      Educator\n5 Etta Z. Falconer      1933         MS   TRUE  African American Mathematician\n6        Bob Moses      1935        NYC   TRUE  African American      Educator\n7    Ruth Gonzales      1970         NJ   TRUE  Mexican American      Engineer",
+    "crumbs": [
+      "Weekly materials",
+      "Week 3"
+    ]
+  },
+  {
+    "objectID": "weeks/week03-slides.html#case-study",
+    "href": "weeks/week03-slides.html#case-study",
+    "title": "DATA 202 - Week 3",
+    "section": "Case Study",
+    "text": "Case Study\nTuskegee Study of Untreated Syphilis in the Negro Male\nWe begin by exploring a critical historical issue in statistics: understanding the ethics of a medical intervention or study.\n\nUninformed participants of the Tuskegee Study of Untreated Syphilis in the Negro Male“In 1932, the USPHS, working with the Tuskegee Institute, began a study to record the natural history of syphilis. It was originally called the”Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”). The study initially involved 600 Black men – 399 with syphilis, 201 who did not have the disease. Participants’ informed consent was not collected.” (Office of Science, Centers for Disease Control and Prevention, 2022)"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#institutional-review-board-irb",
+    "href": "weeks/week03-slides.html#institutional-review-board-irb",
+    "title": "DATA 202 - Week 3",
+    "section": "Institutional Review Board (IRB)",
+    "text": "Institutional Review Board (IRB)\nThe Tuskegee Syphilis Study conducted by the U.S Public Health Service was only one of many other past abuses that included unethical experimentation on marginalized groups. As a result of these injustices, a set of mandates were instituted and policies are governed under the IRB, which define the rules and regulations for the approval of research activities. Other countries have equivalent measures focused on ethics.\nAdditional details about can be found online.\nLearn more at https://www.cdc.gov/tuskegee/timeline.\nLearn more about the Howard University IRB at the Office of Regulatory Research Compliance."
+  },
+  {
+    "objectID": "weeks/week03-slides.html#theory",
+    "href": "weeks/week03-slides.html#theory",
+    "title": "DATA 202 - Week 3",
+    "section": "Theory",
+    "text": "Theory\nSome definitions:\n\nPer the Oxford Languages dictionary, a theory is a supposition or a system of ideas intended to explain something, especially one based on general principles independent of the thing to be explained.\nPer Britannica, a theory is an idea or set of ideas that is intended to explain facts or events.\n\nWe will need to think more acutely about theory development as we progress through the term.\n\nFor now, how might you define a theory?"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#theory-construction",
+    "href": "weeks/week03-slides.html#theory-construction",
+    "title": "DATA 202 - Week 3",
+    "section": "Theory construction",
+    "text": "Theory construction\nPer Markovsky & Webster (2015), theory construction is the process of formulating components of a theory into a logical whole.\nWe may consider some of the following elements as we prepare theoretical statements.\n\n\nResearch inquiry\nHypotheses\nAnalysis\nEvaluation\nRevision"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#data-and-information",
+    "href": "weeks/week03-slides.html#data-and-information",
+    "title": "DATA 202 - Week 3",
+    "section": "Data and information",
+    "text": "Data and information\n\n\n\nDEFINITION: Data\n\n\nData are collections of information or observations.\nThe term data is plural, so we should say “data are…” not “data is…”.\nA single data value is referred to as a datum but this term is very rarely used.\n\n\n\n\n\nThe term “information” is a universal concept that is highly useful but it also lacks precision.\nIn every day terms, information is defined rather loosely.\nIn statistics, however, we might contend that information becomes data when it is collected and organized in some form or fashion.\nThus, it takes some structure to turn information into usable data."
+  },
+  {
+    "objectID": "weeks/week03-slides.html#population-and-sample",
+    "href": "weeks/week03-slides.html#population-and-sample",
+    "title": "DATA 202 - Week 3",
+    "section": "Population and sample",
+    "text": "Population and sample\n\n\n\n\nDEFINITIONS: Population and sample\n\n\nA population is representative of every member of a group of interest or collection of objects.\nA sample is a sub-collection of members or objects from a selected population.\n\n\n\n\n\nPopulation and sample. Image from SimplyPsychology.org"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#what-is-a-variable",
+    "href": "weeks/week03-slides.html#what-is-a-variable",
+    "title": "DATA 202 - Week 3",
+    "section": "What is a variable?",
+    "text": "What is a variable?\n\n\n\nDEFINITIONS: Variable\n\n\nA variable is any characteristic or quantity that can be measured or counted.\n\n\n\n\nThere are many types of data and variables used in statistics.\n\nThe type of variable helps determine the appropriate methods for analysis.\n– Categorical or Quantitative\nThe level of measurement helps determine how we measure variables.\n– Nominal, Ordinal, Interval, Ratio"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#task-0-understanding-the-rstudio-ide",
+    "href": "weeks/week03-slides.html#task-0-understanding-the-rstudio-ide",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 0: Understanding the RStudio IDE",
+    "text": "Task 0: Understanding the RStudio IDE\n\nRStudio IDE"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#task-1-create-an-rmarkdown-file-.rmd",
+    "href": "weeks/week03-slides.html#task-1-create-an-rmarkdown-file-.rmd",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 1: Create an RMarkdown file (.Rmd)",
+    "text": "Task 1: Create an RMarkdown file (.Rmd)\nWe will conduct most of our work using what is called an RMarkdown.\nThe RMarkdown files allows us to save and annotate our code for future use.\nWhen you run code from an RMarkdownt, it will show up in the Console (bottom left pane in RStudio).\nIn the RStudio IDE, open an RMarkdown by using the following navigation:\n\nFile &gt; New File &gt; R Markdown"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#task-2-explore-different-object-types",
+    "href": "weeks/week03-slides.html#task-2-explore-different-object-types",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 2: Explore different object types",
+    "text": "Task 2: Explore different object types\nFor this task, we will explore three object types: numeric, character, and logic values.\nTask 2-a: Compute a mathematical statement and create a numeric variable\n\n1 + 2\n\n[1] 3\n\n\nWe can assign a variable to this statement by using an assignment operator: &lt;-\n\na &lt;- 1 + 2\n\nWe can also use an equal sign to assign values: \\(=\\)\n\na = 1 + 2\n\nType “a” to show the value of the variable\n\na\n\n[1] 3"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#task-3-creating-vectors",
+    "href": "weeks/week03-slides.html#task-3-creating-vectors",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 3: Creating vectors",
+    "text": "Task 3: Creating vectors\nWhen we want to list multiple objects or values, we use R’s available data types, such as vectors and factors.\n\nWe concatenate values in these data types using the operator c( ) to place our values in the order we desire.\nConcatenate means to place things together one after the other.\n\nVectors\nVectors are a data type we use to order values (i.e., numeric, character, logic) or mix different values.\nFor example, we can store all of the numbers from 1 to 9 in a vector by using a colon.\n\nmy.vector &lt;- c(1:9)\nmy.vector\n\n[1] 1 2 3 4 5 6 7 8 9"
+  },
+  {
+    "objectID": "weeks/week03-slides.html#task-4-creating-data-frames",
+    "href": "weeks/week03-slides.html#task-4-creating-data-frames",
+    "title": "DATA 202 - Week 3",
+    "section": "Task 4: Creating data frames",
+    "text": "Task 4: Creating data frames\nFor this final task, we will create a list. Lists can contain anything: functions, vectors, other lists, and data frames.\nTo start, let’s create a series of vectors.\n\nvec1 &lt;- c(\"Ida B. Wells\", \"W.E.B Du Bois\",\"Mary G. Ross\", \"Jaime Escalante\",\"Etta Z. Falconer\", \"Bob Moses\", \"Ruth Gonzales\")\nvec2 &lt;- c(1862, 1868, 1908, 1930, 1933, 1935, 1970)\nvec3 &lt;- c(\"MS\", \"MA\", \"OK\", \"Bolivia\", \"MS\", \"NYC\", \"NJ\")\nvec4 &lt;- c(TRUE, TRUE, TRUE, FALSE, T, T, T)\nvec5 &lt;- c(\"African American\", \"Ghanaian American\", \"Native American\", \"Bolivian American\", \"African American\", \"African American\", \"Mexican American\")\nvec6 &lt;- c(\"Journalist\", \"Sociologist\", \"Engineer\", \"Educator\", \"Mathematician\", \"Educator\", \"Engineer\")"
+  },
+  {
+    "objectID": "assignments.html",
+    "href": "assignments.html",
+    "title": "Assignments",
+    "section": "",
+    "text": "This page contains three sections:\n\nBrief overview of all course assignments.\nInformation about lab 0 (ungraded).\n\n\nOverview of course assignments\nOur course assignments will be split between reading and typing (code and analytic results).\n\n\n\n\n\n\n\n\nCourse component\nAssignment\nDate(s)\n\n\n\n\nPart I: Statistics and society\nLab #0\nDue: Tue Aug 26\n\n\n\n\n\n\n\n\nLab #1\nDue: Sun Sept 21\n\n\nPart II: Data and people\n\n\n\n\n\nLab #2\nDue: Sun Oct 12\n\n\nPart III: Data and policy\n\n\n\n\n\nLab #3\nDue: Sun Nov 5\n\n\nPart IV: Data in practice\n\n\n\n\n\nFinal paper\nDue: Sun Nov 23\n\n\n\n\n\n\n\n\n\n\nHomework 0\nBelow are a few sample exercises of the types of problems we’ll explore in class. This work is ungraded, and while there is no prerequisite for this course, these problems should serve as a review and a preview of content that we’ll explore for the course. Please do not hesitate to reach out with questions.\nExercise 0.1. If an individual’s projected income is to be converted to a z-score, which of these z-scores would a “rational agent” prefer: -2.00, -1.00, 0, 1.00, or 2.00? What is a “rational agent”? Explain why the “rational agent” would prefer the z-score you selected? Cite any sources.\nExercise 0.2. What is an integer? What is the sum of the first 100 positive integers? Explain your solution. Cite any sources. Bonus points (but definitely not required for our course): write a proof of the solution.\nExercise 0.3. Have you ever heard of p-hacking? P-hacking is where a researcher conducts multiple tests and only reports the significant results from those tests. What are some main issues here?\n\n\nLab 0\nFor your first lab, you will install two software programs on your local machine: the first is base R and the second is the RStudio Integrated Development Environment, or IDE. Both programs are required.\n\n\n\n\n\n\nYou must download both R and RStudio!\n\n\n\n\n\nIn order to complete assignments, you must download base R and RStudio to your computer.\n\n\n\nRStudio is now called Posit. When you are searching online you will begin to see language differences.\nIt can all get very confusing. In order to reduce confusion, I am requesting that you watch this short tutorial so that we’re all on the same page. I will discuss this more when we meet.\n\n\nNext up: Computing\nOn the next page, I will walk you through downloading the appropriate software for our work this term.",
+    "crumbs": [
+      "Course information",
+      "Assignments"
+    ]
+  },
+  {
+    "objectID": "labs/lab3.html",
+    "href": "labs/lab3.html",
+    "title": "Lab 3",
+    "section": "",
+    "text": "For Lab 3, you should be analyzing some set of data related to your paper 1 assignment. Please see the Preparing Lab Reports at the bottom of the lab 1 assignment."
+  },
+  {
+    "objectID": "labs/lab3.html#learning-objectives",
+    "href": "labs/lab3.html#learning-objectives",
+    "title": "Lab 3",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nThe Lab 3 assignment will provide you with an opportunity to self-direct your analysis to write up a substantive argument started in paper 1 for paper 3."
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.1",
+    "href": "labs/lab3.html#report-1.1",
+    "title": "Lab 3",
+    "section": "Report 1.1",
+    "text": "Report 1.1\nWhat data set have you decided to use?"
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.2",
+    "href": "labs/lab3.html#report-1.2",
+    "title": "Lab 3",
+    "section": "Report 1.2",
+    "text": "Report 1.2\nWhich two variables from your data set will be analyzed?"
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.3",
+    "href": "labs/lab3.html#report-1.3",
+    "title": "Lab 3",
+    "section": "Report 1.3",
+    "text": "Report 1.3\nWhat is your research question?"
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.4",
+    "href": "labs/lab3.html#report-1.4",
+    "title": "Lab 3",
+    "section": "Report 1.4",
+    "text": "Report 1.4\nWhat is your data analysis plan? Please be descriptive."
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.5",
+    "href": "labs/lab3.html#report-1.5",
+    "title": "Lab 3",
+    "section": "Report 1.5",
+    "text": "Report 1.5\nWhat are some potential limitations for your analysis?"
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.6",
+    "href": "labs/lab3.html#report-1.6",
+    "title": "Lab 3",
+    "section": "Report 1.6",
+    "text": "Report 1.6\nDoes your data contain missing values? If so, how have you dealt with these values?"
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.7",
+    "href": "labs/lab3.html#report-1.7",
+    "title": "Lab 3",
+    "section": "Report 1.7",
+    "text": "Report 1.7\nPlease include all code used to clean and manipulate the variables."
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.8",
+    "href": "labs/lab3.html#report-1.8",
+    "title": "Lab 3",
+    "section": "Report 1.8",
+    "text": "Report 1.8\nWhat relationship, if any, exists between the variables?"
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.9",
+    "href": "labs/lab3.html#report-1.9",
+    "title": "Lab 3",
+    "section": "Report 1.9",
+    "text": "Report 1.9\nHow do these findings relate to your research question and theory outlined in your proposal for paper 1? Please be specific."
+  },
+  {
+    "objectID": "labs/lab3.html#report-1.10",
+    "href": "labs/lab3.html#report-1.10",
+    "title": "Lab 3",
+    "section": "Report 1.10",
+    "text": "Report 1.10\nWhat limitations exist as a result of the data analysis?"
+  },
+  {
+    "objectID": "labs/lab1.html",
+    "href": "labs/lab1.html",
+    "title": "Lab 1",
+    "section": "",
+    "text": "For Lab 1, you should submit your solutions to Canvas as a RMarkdown syntax (i.e., you can render an html file or push your code to GitHub, or share the .Rmd file). Please see the Preparing Lab Reports section at the bottom of this assignment.\nThe Lab 1 assignment will reintroduce you to data in the critstats package and add a second data set known as gss_cat. However, for the lab 1 and paper 2 assignment, you may use your own data set and we can work together to find you a data set that is ready to be analyzed. For new users, I would recommend against data that needs to be cleaned. However, by visiting the case study 2 files, you can learn more about cleaning your data.\nThat said, during this lab, you will also return to some of the functions we have used before to clean variables and manipulate data frames. Your analyses in this lab should focus on a bivariate analysis between two categorical variables, two numeric variables, or one numeric variable and one categorical variable.",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#learning-activities",
+    "href": "labs/lab1.html#learning-activities",
+    "title": "Lab 1",
+    "section": "Learning Activities",
+    "text": "Learning Activities\nBy the end of this lab you will be able to:\n\nLocate data sets in the critstats package\nDevelop an original research question\nClean and manipulate data for analysis\nExamine the relationship between two variables\n\nYou should submit your final output on Canvas.",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#task-0.1-create-a-new-rmarkdown",
+    "href": "labs/lab1.html#task-0.1-create-a-new-rmarkdown",
+    "title": "Lab 1",
+    "section": "Task 0.1: Create a new RMarkdown",
+    "text": "Task 0.1: Create a new RMarkdown\nIn your R session, navigate to: File &gt; New File &gt; R Markdown. Create a new markdown file using an appropriate title.",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#task-0.2-check-your-working-directory",
+    "href": "labs/lab1.html#task-0.2-check-your-working-directory",
+    "title": "Lab 1",
+    "section": "Task 0.2: Check your working directory",
+    "text": "Task 0.2: Check your working directory\nCheck your working directory by typing getwd().\nIf you are not in the desired directory, you can change your directory using the associated path. This path should be the same as the project folder that you plan to work out of for the next several weeks.\n\n# insert your desired path in the parenthesis and remove the #\n# setwd(\"/your/working/directory/goes/here\") \n\nYou can add a new sub-folder manually or under the Files tab in the RStudio IDE.",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#task-0.3-write-a-preamble",
+    "href": "labs/lab1.html#task-0.3-write-a-preamble",
+    "title": "Lab 1",
+    "section": "Task 0.3: Write a preamble",
+    "text": "Task 0.3: Write a preamble\nName:  Assignment: Lab 2 Date:  Purpose:",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#task-0.4-packages-and-libraries",
+    "href": "labs/lab1.html#task-0.4-packages-and-libraries",
+    "title": "Lab 1",
+    "section": "Task 0.4: Packages and libraries",
+    "text": "Task 0.4: Packages and libraries\n\n# install the tidyverse package\n#install.packages(\"tidyverse\", repos = \"http://cran.us.r-project.org\")\n#install.packages(\"devtools\")\n#install.packages(\"remotes\")\n#library(remotes)\n#remotes::install_github(\"professornaite/critstats\", force=TRUE)\n\n# load the libraries needed for today's analyses\nlibrary(tidyverse)\nlibrary(dplyr)\nlibrary(critstats)\n\n## update packages if needed; remove # to run code\n# update.packages(\"package-name\")",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.1",
+    "href": "labs/lab1.html#report-1.1",
+    "title": "Lab 1",
+    "section": "Report 1.1",
+    "text": "Report 1.1\nWhat data set have you decided to use?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.2",
+    "href": "labs/lab1.html#report-1.2",
+    "title": "Lab 1",
+    "section": "Report 1.2",
+    "text": "Report 1.2\nWhich two variables from your data set will be analyzed?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.3",
+    "href": "labs/lab1.html#report-1.3",
+    "title": "Lab 1",
+    "section": "Report 1.3",
+    "text": "Report 1.3\nWhat is your research question?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.4",
+    "href": "labs/lab1.html#report-1.4",
+    "title": "Lab 1",
+    "section": "Report 1.4",
+    "text": "Report 1.4\nWhat is your data analysis plan? Please be descriptive.",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.5",
+    "href": "labs/lab1.html#report-1.5",
+    "title": "Lab 1",
+    "section": "Report 1.5",
+    "text": "Report 1.5\nWhat are some potential limitations for your analysis?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.6",
+    "href": "labs/lab1.html#report-1.6",
+    "title": "Lab 1",
+    "section": "Report 1.6",
+    "text": "Report 1.6\nDoes your data contain missing values? If so, how have you dealt with these values?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.7",
+    "href": "labs/lab1.html#report-1.7",
+    "title": "Lab 1",
+    "section": "Report 1.7",
+    "text": "Report 1.7\nPlease include all code used to clean and manipulate the variables.",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.8",
+    "href": "labs/lab1.html#report-1.8",
+    "title": "Lab 1",
+    "section": "Report 1.8",
+    "text": "Report 1.8\nWhat relationship, if any, exists between the two variables?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.9",
+    "href": "labs/lab1.html#report-1.9",
+    "title": "Lab 1",
+    "section": "Report 1.9",
+    "text": "Report 1.9\nHow do these findings relate to your research question and theory?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
+  },
+  {
+    "objectID": "labs/lab1.html#report-1.10",
+    "href": "labs/lab1.html#report-1.10",
+    "title": "Lab 1",
+    "section": "Report 1.10",
+    "text": "Report 1.10\nWhat limitations exist as a result of the data analysis?",
+    "crumbs": [
+      "Appendix",
+      "Labs",
+      "Lab 1"
+    ]
   },
   {
     "objectID": "labs/lab2.html",
@@ -895,290 +1308,104 @@
     ]
   },
   {
-    "objectID": "labs/lab1.html",
-    "href": "labs/lab1.html",
-    "title": "Lab 1",
+    "objectID": "weeks/week01-slides.html#course-description",
+    "href": "weeks/week01-slides.html#course-description",
+    "title": "DATA 202 - Week 1",
+    "section": "Course Description",
+    "text": "Course Description\nIn this course, students will develop an understanding of statistics as a research tool. Students are expected to have some basic knowledge of statistics from a prior course. Emphasis will be placed on understanding statistical concepts and applying and interpreting tests of statistical inference for real-life applications. The content will include, but not be limited to, visual representations of data, descriptive statistics, correlation and simple regression, sampling distributions, and the assumptions associated with and the application of selected inferential statistical procedures. Throughout the course, there will be a strong emphasis on how statistical modeling can be a driving force for social justice."
+  },
+  {
+    "objectID": "weeks/week01-slides.html#course-learning-objectives",
+    "href": "weeks/week01-slides.html#course-learning-objectives",
+    "title": "DATA 202 - Week 1",
+    "section": "Course Learning Objectives",
+    "text": "Course Learning Objectives\n\nAppreciate and understand the role of statistics in your field\nEvaluate, comprehend, and explain the statistical findings in a data set\nExplore data in R\nApply appropriate application and interpretation of various inferential statistical procedures\nWrite a simple description of methodology and results from analysis\nDevelop an ability to apply appropriate statistical methods to summarize and analyze data\nMake sense of data and be able to report the results in appropriate tables or statistical terms"
+  },
+  {
+    "objectID": "weeks/week01-slides.html#course-companion-site",
+    "href": "weeks/week01-slides.html#course-companion-site",
+    "title": "DATA 202 - Week 1",
+    "section": "Course companion site",
+    "text": "Course companion site\nThe landing page for our companion site can be found here."
+  },
+  {
+    "objectID": "weeks/week01-slides.html#initial-assignments",
+    "href": "weeks/week01-slides.html#initial-assignments",
+    "title": "DATA 202 - Week 1",
+    "section": "Initial assignments",
+    "text": "Initial assignments\nAnnotated Bibliography\nYour annotated bibliography for the final paper is due anytime before midterms. You can use OpenAlex or the Web of Science (WoS) to gather your annotations.\nPaper #1\nYou can read more about the final paper here.\nSee the instructions for paper assignments if you’d like to write more than one here.\nAlso, learn more about paper assignments here."
+  },
+  {
+    "objectID": "weeks/week01-slides.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
+    "href": "weeks/week01-slides.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
+    "title": "DATA 202 - Week 1",
+    "section": "Case Study 1: Tuskegee Experiement of Untreated Syphillis",
+    "text": "Case Study 1: Tuskegee Experiement of Untreated Syphillis\nTo help you prepare for our forthcoming discussions and readings, you should explore information about our first case study. One place to start is here: “The Tuskegee Experiment: Crash Course Black American History #29” in the video below:"
+  },
+  {
+    "objectID": "weeks/week01.html",
+    "href": "weeks/week01.html",
+    "title": "DATA 202 - Week 1",
     "section": "",
-    "text": "For Lab 1, you should submit your solutions to Canvas as a RMarkdown syntax (i.e., you can render an html file or push your code to GitHub, or share the .Rmd file). Please see the Preparing Lab Reports section at the bottom of this assignment.\nThe Lab 1 assignment will reintroduce you to data in the critstats package and add a second data set known as gss_cat. However, for the lab 1 and paper 2 assignment, you may use your own data set and we can work together to find you a data set that is ready to be analyzed. For new users, I would recommend against data that needs to be cleaned. However, by visiting the case study 2 files, you can learn more about cleaning your data.\nThat said, during this lab, you will also return to some of the functions we have used before to clean variables and manipulate data frames. Your analyses in this lab should focus on a bivariate analysis between two categorical variables, two numeric variables, or one numeric variable and one categorical variable.",
+    "text": "In this course, students will develop an understanding of statistics as a research tool. Students are expected to have some basic knowledge of statistics from a prior course. Emphasis will be placed on understanding statistical concepts and applying and interpreting tests of statistical inference for real-life applications. The content will include, but not be limited to, visual representations of data, descriptive statistics, correlation and simple regression, sampling distributions, and the assumptions associated with and the application of selected inferential statistical procedures. Throughout the course, there will be a strong emphasis on how statistical modeling can be a driving force for social justice.",
     "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
+      "Weekly materials",
+      "Week 1"
     ]
   },
   {
-    "objectID": "labs/lab1.html#learning-activities",
-    "href": "labs/lab1.html#learning-activities",
-    "title": "Lab 1",
-    "section": "Learning Activities",
-    "text": "Learning Activities\nBy the end of this lab you will be able to:\n\nLocate data sets in the critstats package\nDevelop an original research question\nClean and manipulate data for analysis\nExamine the relationship between two variables\n\nYou should submit your final output on Canvas.",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#task-0.1-create-a-new-rmarkdown",
-    "href": "labs/lab1.html#task-0.1-create-a-new-rmarkdown",
-    "title": "Lab 1",
-    "section": "Task 0.1: Create a new RMarkdown",
-    "text": "Task 0.1: Create a new RMarkdown\nIn your R session, navigate to: File &gt; New File &gt; R Markdown. Create a new markdown file using an appropriate title.",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#task-0.2-check-your-working-directory",
-    "href": "labs/lab1.html#task-0.2-check-your-working-directory",
-    "title": "Lab 1",
-    "section": "Task 0.2: Check your working directory",
-    "text": "Task 0.2: Check your working directory\nCheck your working directory by typing getwd().\nIf you are not in the desired directory, you can change your directory using the associated path. This path should be the same as the project folder that you plan to work out of for the next several weeks.\n\n# insert your desired path in the parenthesis and remove the #\n# setwd(\"/your/working/directory/goes/here\") \n\nYou can add a new sub-folder manually or under the Files tab in the RStudio IDE.",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#task-0.3-write-a-preamble",
-    "href": "labs/lab1.html#task-0.3-write-a-preamble",
-    "title": "Lab 1",
-    "section": "Task 0.3: Write a preamble",
-    "text": "Task 0.3: Write a preamble\nName:  Assignment: Lab 2 Date:  Purpose:",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#task-0.4-packages-and-libraries",
-    "href": "labs/lab1.html#task-0.4-packages-and-libraries",
-    "title": "Lab 1",
-    "section": "Task 0.4: Packages and libraries",
-    "text": "Task 0.4: Packages and libraries\n\n# install the tidyverse package\n#install.packages(\"tidyverse\", repos = \"http://cran.us.r-project.org\")\n#install.packages(\"devtools\")\n#install.packages(\"remotes\")\n#library(remotes)\n#remotes::install_github(\"professornaite/critstats\", force=TRUE)\n\n# load the libraries needed for today's analyses\nlibrary(tidyverse)\nlibrary(dplyr)\nlibrary(critstats)\n\n## update packages if needed; remove # to run code\n# update.packages(\"package-name\")",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.1",
-    "href": "labs/lab1.html#report-1.1",
-    "title": "Lab 1",
-    "section": "Report 1.1",
-    "text": "Report 1.1\nWhat data set have you decided to use?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.2",
-    "href": "labs/lab1.html#report-1.2",
-    "title": "Lab 1",
-    "section": "Report 1.2",
-    "text": "Report 1.2\nWhich two variables from your data set will be analyzed?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.3",
-    "href": "labs/lab1.html#report-1.3",
-    "title": "Lab 1",
-    "section": "Report 1.3",
-    "text": "Report 1.3\nWhat is your research question?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.4",
-    "href": "labs/lab1.html#report-1.4",
-    "title": "Lab 1",
-    "section": "Report 1.4",
-    "text": "Report 1.4\nWhat is your data analysis plan? Please be descriptive.",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.5",
-    "href": "labs/lab1.html#report-1.5",
-    "title": "Lab 1",
-    "section": "Report 1.5",
-    "text": "Report 1.5\nWhat are some potential limitations for your analysis?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.6",
-    "href": "labs/lab1.html#report-1.6",
-    "title": "Lab 1",
-    "section": "Report 1.6",
-    "text": "Report 1.6\nDoes your data contain missing values? If so, how have you dealt with these values?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.7",
-    "href": "labs/lab1.html#report-1.7",
-    "title": "Lab 1",
-    "section": "Report 1.7",
-    "text": "Report 1.7\nPlease include all code used to clean and manipulate the variables.",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.8",
-    "href": "labs/lab1.html#report-1.8",
-    "title": "Lab 1",
-    "section": "Report 1.8",
-    "text": "Report 1.8\nWhat relationship, if any, exists between the two variables?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.9",
-    "href": "labs/lab1.html#report-1.9",
-    "title": "Lab 1",
-    "section": "Report 1.9",
-    "text": "Report 1.9\nHow do these findings relate to your research question and theory?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab1.html#report-1.10",
-    "href": "labs/lab1.html#report-1.10",
-    "title": "Lab 1",
-    "section": "Report 1.10",
-    "text": "Report 1.10\nWhat limitations exist as a result of the data analysis?",
-    "crumbs": [
-      "Appendix",
-      "Labs",
-      "Lab 1"
-    ]
-  },
-  {
-    "objectID": "labs/lab3.html",
-    "href": "labs/lab3.html",
-    "title": "Lab 3",
+    "objectID": "weeks/week01.html#course-description",
+    "href": "weeks/week01.html#course-description",
+    "title": "DATA 202 - Week 1",
     "section": "",
-    "text": "For Lab 3, you should be analyzing some set of data related to your paper 1 assignment. Please see the Preparing Lab Reports at the bottom of the lab 1 assignment."
-  },
-  {
-    "objectID": "labs/lab3.html#learning-objectives",
-    "href": "labs/lab3.html#learning-objectives",
-    "title": "Lab 3",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nThe Lab 3 assignment will provide you with an opportunity to self-direct your analysis to write up a substantive argument started in paper 1 for paper 3."
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.1",
-    "href": "labs/lab3.html#report-1.1",
-    "title": "Lab 3",
-    "section": "Report 1.1",
-    "text": "Report 1.1\nWhat data set have you decided to use?"
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.2",
-    "href": "labs/lab3.html#report-1.2",
-    "title": "Lab 3",
-    "section": "Report 1.2",
-    "text": "Report 1.2\nWhich two variables from your data set will be analyzed?"
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.3",
-    "href": "labs/lab3.html#report-1.3",
-    "title": "Lab 3",
-    "section": "Report 1.3",
-    "text": "Report 1.3\nWhat is your research question?"
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.4",
-    "href": "labs/lab3.html#report-1.4",
-    "title": "Lab 3",
-    "section": "Report 1.4",
-    "text": "Report 1.4\nWhat is your data analysis plan? Please be descriptive."
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.5",
-    "href": "labs/lab3.html#report-1.5",
-    "title": "Lab 3",
-    "section": "Report 1.5",
-    "text": "Report 1.5\nWhat are some potential limitations for your analysis?"
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.6",
-    "href": "labs/lab3.html#report-1.6",
-    "title": "Lab 3",
-    "section": "Report 1.6",
-    "text": "Report 1.6\nDoes your data contain missing values? If so, how have you dealt with these values?"
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.7",
-    "href": "labs/lab3.html#report-1.7",
-    "title": "Lab 3",
-    "section": "Report 1.7",
-    "text": "Report 1.7\nPlease include all code used to clean and manipulate the variables."
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.8",
-    "href": "labs/lab3.html#report-1.8",
-    "title": "Lab 3",
-    "section": "Report 1.8",
-    "text": "Report 1.8\nWhat relationship, if any, exists between the variables?"
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.9",
-    "href": "labs/lab3.html#report-1.9",
-    "title": "Lab 3",
-    "section": "Report 1.9",
-    "text": "Report 1.9\nHow do these findings relate to your research question and theory outlined in your proposal for paper 1? Please be specific."
-  },
-  {
-    "objectID": "labs/lab3.html#report-1.10",
-    "href": "labs/lab3.html#report-1.10",
-    "title": "Lab 3",
-    "section": "Report 1.10",
-    "text": "Report 1.10\nWhat limitations exist as a result of the data analysis?"
-  },
-  {
-    "objectID": "assignments.html",
-    "href": "assignments.html",
-    "title": "Assignments",
-    "section": "",
-    "text": "This page contains three sections:\n\nBrief overview of all course assignments.\nInformation about lab 0 (ungraded).\n\n\nOverview of course assignments\nOur course assignments will be split between reading and typing (code and analytic results).\n\n\n\n\n\n\n\n\nCourse component\nAssignment\nDate(s)\n\n\n\n\nPart I: Statistics and society\nLab #0\nDue: Tue Aug 26\n\n\n\n\n\n\n\n\nLab #1\nDue: Sun Sept 21\n\n\nPart II: Data and people\n\n\n\n\n\nLab #2\nDue: Sun Oct 12\n\n\nPart III: Data and policy\n\n\n\n\n\nLab #3\nDue: Sun Nov 5\n\n\nPart IV: Data in practice\n\n\n\n\n\nFinal paper\nDue: Sun Nov 23\n\n\n\n\n\n\n\n\n\n\nHomework 0\nBelow are a few sample exercises of the types of problems we’ll explore in class. This work is ungraded, and while there is no prerequisite for this course, these problems should serve as a review and a preview of content that we’ll explore for the course. Please do not hesitate to reach out with questions.\nExercise 0.1. If an individual’s projected income is to be converted to a z-score, which of these z-scores would a “rational agent” prefer: -2.00, -1.00, 0, 1.00, or 2.00? What is a “rational agent”? Explain why the “rational agent” would prefer the z-score you selected? Cite any sources.\nExercise 0.2. What is an integer? What is the sum of the first 100 positive integers? Explain your solution. Cite any sources. Bonus points (but definitely not required for our course): write a proof of the solution.\nExercise 0.3. Have you ever heard of p-hacking? P-hacking is where a researcher conducts multiple tests and only reports the significant results from those tests. What are some main issues here?\n\n\nLab 0\nFor your first lab, you will install two software programs on your local machine: the first is base R and the second is the RStudio Integrated Development Environment, or IDE. Both programs are required.\n\n\n\n\n\n\nYou must download both R and RStudio!\n\n\n\n\n\nIn order to complete assignments, you must download base R and RStudio to your computer.\n\n\n\nRStudio is now called Posit. When you are searching online you will begin to see language differences.\nIt can all get very confusing. In order to reduce confusion, I am requesting that you watch this short tutorial so that we’re all on the same page. I will discuss this more when we meet.\n\n\nNext up: Computing\nOn the next page, I will walk you through downloading the appropriate software for our work this term.",
+    "text": "In this course, students will develop an understanding of statistics as a research tool. Students are expected to have some basic knowledge of statistics from a prior course. Emphasis will be placed on understanding statistical concepts and applying and interpreting tests of statistical inference for real-life applications. The content will include, but not be limited to, visual representations of data, descriptive statistics, correlation and simple regression, sampling distributions, and the assumptions associated with and the application of selected inferential statistical procedures. Throughout the course, there will be a strong emphasis on how statistical modeling can be a driving force for social justice.",
     "crumbs": [
-      "Course information",
-      "Assignments"
+      "Weekly materials",
+      "Week 1"
+    ]
+  },
+  {
+    "objectID": "weeks/week01.html#course-learning-objectives",
+    "href": "weeks/week01.html#course-learning-objectives",
+    "title": "DATA 202 - Week 1",
+    "section": "Course Learning Objectives",
+    "text": "Course Learning Objectives\n\nAppreciate and understand the role of statistics in your field\nEvaluate, comprehend, and explain the statistical findings in a data set\nExplore data in R\nApply appropriate application and interpretation of various inferential statistical procedures\nWrite a simple description of methodology and results from analysis\nDevelop an ability to apply appropriate statistical methods to summarize and analyze data\nMake sense of data and be able to report the results in appropriate tables or statistical terms",
+    "crumbs": [
+      "Weekly materials",
+      "Week 1"
+    ]
+  },
+  {
+    "objectID": "weeks/week01.html#course-companion-site",
+    "href": "weeks/week01.html#course-companion-site",
+    "title": "DATA 202 - Week 1",
+    "section": "Course companion site",
+    "text": "Course companion site\nThe landing page for our companion site can be found here.",
+    "crumbs": [
+      "Weekly materials",
+      "Week 1"
+    ]
+  },
+  {
+    "objectID": "weeks/week01.html#initial-assignments",
+    "href": "weeks/week01.html#initial-assignments",
+    "title": "DATA 202 - Week 1",
+    "section": "Initial assignments",
+    "text": "Initial assignments\n\nAnnotated Bibliography\nYour annotated bibliography for the final paper is due anytime before midterms. You can use OpenAlex or the Web of Science (WoS) to gather your annotations.\n\n\nPaper #1\nYou can read more about the final paper here.\nSee the instructions for paper assignments if you’d like to write more than one here.\nAlso, learn more about paper assignments here.",
+    "crumbs": [
+      "Weekly materials",
+      "Week 1"
+    ]
+  },
+  {
+    "objectID": "weeks/week01.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
+    "href": "weeks/week01.html#case-study-1-tuskegee-experiement-of-untreated-syphillis",
+    "title": "DATA 202 - Week 1",
+    "section": "Case Study 1: Tuskegee Experiement of Untreated Syphillis",
+    "text": "Case Study 1: Tuskegee Experiement of Untreated Syphillis\nTo help you prepare for our forthcoming discussions and readings, you should explore information about our first case study. One place to start is here: “The Tuskegee Experiment: Crash Course Black American History #29” in the video below:",
+    "crumbs": [
+      "Weekly materials",
+      "Week 1"
     ]
   },
   {
@@ -1684,232 +1911,5 @@
       "Appendix",
       "Resources"
     ]
-  },
-  {
-    "objectID": "weeks/week03.html",
-    "href": "weeks/week03.html",
-    "title": "DATA 202 - Week 3",
-    "section": "",
-    "text": "Tuskegee Study of Untreated Syphilis in the Negro Male\nWe begin by exploring a critical historical issue in statistics: understanding the ethics of a medical intervention or study.\n\n\n\nUninformed participants of the Tuskegee Study of Untreated Syphilis in the Negro Male\n\n\n“In 1932, the USPHS, working with the Tuskegee Institute, began a study to record the natural history of syphilis. It was originally called the”Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”). The study initially involved 600 Black men – 399 with syphilis, 201 who did not have the disease. Participants’ informed consent was not collected.” (Office of Science, Centers for Disease Control and Prevention, 2022)\n\nAll images are from Examining Tuskegee by Susan Reverby.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis case study will help frame our understanding between ethics and statistics. The study will allow us to explore longstanding injustices, consider ethical practices in historical contexts, and explore the sociology of statistics. More specifically, we will use this case to understand the history of the Institutional Review Board (IRB) and discuss concepts related to scientific racism. These explorations will help in two key ways: first, we will come to understand what it can mean to be critical in the context of statistics and, second, we will be prepared to respond to problems focused on main concepts in the first few weeks of our course. We will then formalize a few terms.\n\nFraming a relationship between ethics and statistics\nThe “Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”) took place in Macon County, Alabama, in an area known as the “Black Belt” because of its rich soil and vast number of Black sharecroppers who were the economic backbone of the region. The research took place at the Tuskegee Institute.\n\nPurpose of the study\nThe intent of the study was to record the natural progression of syphilis in Black men. The study was related to a 1928 retrospective study, the “Oslo Study of Untreated Syphilis,” which reported on the pathological manifestations of untreated syphilis in several hundred white males. However, this original study used secondary data to piece together findings. When the study was initiated in the U.S., there were no proven treatments for the disease. Researchers told the men participating in the study that they were to be treated for “bad blood.” This term had been used by local community members to describe a host of ailments that could be diagnosed including things like anemia, fatigue, and syphilis.\n\nStudy participants\nA total of 600 men were enrolled in the study.\n\nOf this group 399, who had syphilis were a part of the experimental group, and 201 were control subjects.\nMost of the men were poor and illiterate sharecroppers from the county.\nThe participants were offered medical care and insurance.\nThey were enrolled in the study with incentives as well, including medical exams, rides to and from the clinics, meals on examination days, free treatment for minor ailments and guarantees that provisions would be made after their deaths in terms of burial stipends paid to their survivors.\n\n\nEthical issues\n\n\nThere were no proven treatments for syphilis when the study began in 1932.\nWhen penicillin became the standard treatment for the disease in 1947 the medicine was withheld as a part of the treatment for both the experimental group and control group.\nOn July 25, 1972, Jean Heller of the Associated Press broke the story that appeared in both New York and Washington, that there had been a 40-year non-therapeutic experiment called “a study” on the effects of untreated syphilis on Black men in the rural South.\nBetween the start of the study in 1932 and 1947, the date when penicillin was determined as a cure for the disease, dozens of men had died and their wives, children and untold number of others had been infected.\nThere was evidence that scientific research protocol routinely applied to human subjects was either ignored or deeply flawed to ensure the safety and well-being of the men involved. Specifically, the men were never told about or offered the research procedure called informed consent.\n\n\n\nResearchers had not informed the men of the actual name of the study, its purpose, and potential consequences of the treatment or non-treatment that they would receive during the study. The men never knew of the debilitating and life-threatening consequences of the treatments they were to receive, the impact on their partners and children they may have conceived once involved in the research. The panel also concluded that there were no choices given to the participants to quit the study when penicillin became available as a treatment and cure for syphilis. Reviewing the results of the research the panel concluded that the study was “ethically unjustified.” The panel articulated all the above findings in October of 1972 and then one month later the Assistant Secretary for Health and Scientific Affairs officially declared the end of the Tuskegee Study.\n\nClass-Action Suit\nIn the summer of 1973, Attorney Fred Gray filed a class-action suit on behalf of the men in the study, recognized partners, children, and families. It ended a settlement giving more than $9 million to the study participants. Despite these reparative measures, the effects remain.\n\n\n\n\n\n\n\n\n\n\nThe Tuskegee Syphilis Study conducted by the U.S Public Health Service was only one of many other past abuses that included unethical experimentation on marginalized groups. As a result of these injustices, a set of mandates were instituted and policies are governed under the IRB, which define the rules and regulations for the approval of research activities. Other countries have equivalent measures focused on ethics.\nAdditional details about can be found online.\nLearn more at https://www.cdc.gov/tuskegee/timeline.\nLearn more about the Howard University IRB at the Office of Regulatory Research Compliance.\n\n\n\n\n\nWas the Syphilis Study at Tuskegee an experimental or an observational study? Explain.\n\n\n\nWas data collected for this study using probability or non-probability sampling methods?\n\n\n\nBased on your knowledge of the researchers for the USPHS Syphilis Study at Tuskegee, what was the most likely sampling method used to gather data? Explain.\n\n\n\nBased on your knowledge of the study and the data tables below, list five variables that were collected during the study and explain their variable types in detail.",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#case-study",
-    "href": "weeks/week03.html#case-study",
-    "title": "DATA 202 - Week 3",
-    "section": "",
-    "text": "Tuskegee Study of Untreated Syphilis in the Negro Male\nWe begin by exploring a critical historical issue in statistics: understanding the ethics of a medical intervention or study.\n\n\n\nUninformed participants of the Tuskegee Study of Untreated Syphilis in the Negro Male\n\n\n“In 1932, the USPHS, working with the Tuskegee Institute, began a study to record the natural history of syphilis. It was originally called the”Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”). The study initially involved 600 Black men – 399 with syphilis, 201 who did not have the disease. Participants’ informed consent was not collected.” (Office of Science, Centers for Disease Control and Prevention, 2022)\n\nAll images are from Examining Tuskegee by Susan Reverby.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis case study will help frame our understanding between ethics and statistics. The study will allow us to explore longstanding injustices, consider ethical practices in historical contexts, and explore the sociology of statistics. More specifically, we will use this case to understand the history of the Institutional Review Board (IRB) and discuss concepts related to scientific racism. These explorations will help in two key ways: first, we will come to understand what it can mean to be critical in the context of statistics and, second, we will be prepared to respond to problems focused on main concepts in the first few weeks of our course. We will then formalize a few terms.\n\nFraming a relationship between ethics and statistics\nThe “Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”) took place in Macon County, Alabama, in an area known as the “Black Belt” because of its rich soil and vast number of Black sharecroppers who were the economic backbone of the region. The research took place at the Tuskegee Institute.\n\nPurpose of the study\nThe intent of the study was to record the natural progression of syphilis in Black men. The study was related to a 1928 retrospective study, the “Oslo Study of Untreated Syphilis,” which reported on the pathological manifestations of untreated syphilis in several hundred white males. However, this original study used secondary data to piece together findings. When the study was initiated in the U.S., there were no proven treatments for the disease. Researchers told the men participating in the study that they were to be treated for “bad blood.” This term had been used by local community members to describe a host of ailments that could be diagnosed including things like anemia, fatigue, and syphilis.\n\nStudy participants\nA total of 600 men were enrolled in the study.\n\nOf this group 399, who had syphilis were a part of the experimental group, and 201 were control subjects.\nMost of the men were poor and illiterate sharecroppers from the county.\nThe participants were offered medical care and insurance.\nThey were enrolled in the study with incentives as well, including medical exams, rides to and from the clinics, meals on examination days, free treatment for minor ailments and guarantees that provisions would be made after their deaths in terms of burial stipends paid to their survivors.\n\n\nEthical issues\n\n\nThere were no proven treatments for syphilis when the study began in 1932.\nWhen penicillin became the standard treatment for the disease in 1947 the medicine was withheld as a part of the treatment for both the experimental group and control group.\nOn July 25, 1972, Jean Heller of the Associated Press broke the story that appeared in both New York and Washington, that there had been a 40-year non-therapeutic experiment called “a study” on the effects of untreated syphilis on Black men in the rural South.\nBetween the start of the study in 1932 and 1947, the date when penicillin was determined as a cure for the disease, dozens of men had died and their wives, children and untold number of others had been infected.\nThere was evidence that scientific research protocol routinely applied to human subjects was either ignored or deeply flawed to ensure the safety and well-being of the men involved. Specifically, the men were never told about or offered the research procedure called informed consent.\n\n\n\nResearchers had not informed the men of the actual name of the study, its purpose, and potential consequences of the treatment or non-treatment that they would receive during the study. The men never knew of the debilitating and life-threatening consequences of the treatments they were to receive, the impact on their partners and children they may have conceived once involved in the research. The panel also concluded that there were no choices given to the participants to quit the study when penicillin became available as a treatment and cure for syphilis. Reviewing the results of the research the panel concluded that the study was “ethically unjustified.” The panel articulated all the above findings in October of 1972 and then one month later the Assistant Secretary for Health and Scientific Affairs officially declared the end of the Tuskegee Study.\n\nClass-Action Suit\nIn the summer of 1973, Attorney Fred Gray filed a class-action suit on behalf of the men in the study, recognized partners, children, and families. It ended a settlement giving more than $9 million to the study participants. Despite these reparative measures, the effects remain.",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#institutional-review-board-irb",
-    "href": "weeks/week03.html#institutional-review-board-irb",
-    "title": "DATA 202 - Week 3",
-    "section": "",
-    "text": "The Tuskegee Syphilis Study conducted by the U.S Public Health Service was only one of many other past abuses that included unethical experimentation on marginalized groups. As a result of these injustices, a set of mandates were instituted and policies are governed under the IRB, which define the rules and regulations for the approval of research activities. Other countries have equivalent measures focused on ethics.\nAdditional details about can be found online.\nLearn more at https://www.cdc.gov/tuskegee/timeline.\nLearn more about the Howard University IRB at the Office of Regulatory Research Compliance.\n\n\n\n\n\nWas the Syphilis Study at Tuskegee an experimental or an observational study? Explain.\n\n\n\nWas data collected for this study using probability or non-probability sampling methods?\n\n\n\nBased on your knowledge of the researchers for the USPHS Syphilis Study at Tuskegee, what was the most likely sampling method used to gather data? Explain.\n\n\n\nBased on your knowledge of the study and the data tables below, list five variables that were collected during the study and explain their variable types in detail.",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#theory",
-    "href": "weeks/week03.html#theory",
-    "title": "DATA 202 - Week 3",
-    "section": "Theory",
-    "text": "Theory\nSome definitions:\n\nPer the Oxford Languages dictionary, a theory is a supposition or a system of ideas intended to explain something, especially one based on general principles independent of the thing to be explained.\nPer Britannica, a theory is an idea or set of ideas that is intended to explain facts or events.\n\nWe will need to think more acutely about theory development as we progress through the term.\n\nFor now, how might you define a theory?",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#theory-construction",
-    "href": "weeks/week03.html#theory-construction",
-    "title": "DATA 202 - Week 3",
-    "section": "Theory construction",
-    "text": "Theory construction\nPer Markovsky & Webster (2015), theory construction is the process of formulating components of a theory into a logical whole.\nWe may consider some of the following elements as we prepare theoretical statements.\n\n\nResearch inquiry\nHypotheses\nAnalysis\nEvaluation\nRevision\n\n\n\n\nFraming data and information\nThere are many different ways to conceptualize data and information.\n\n\nDepending on our specific context, statistical needs, or research purposes, we can frame information as data, or data as information, or even place an equivalence statement between the two terms such that we have: \\[\\text{information} = \\text{data}\\]\nAs we continue to explore what it should mean to be critical in the context of statistics, we will need some common language and base definitions to understand the processes involved in a statistical study.\nWe defined statistics as the science of collecting, organizing, analyzing, interpreting, communicating, and visualizing data and information. “Collecting” and “organizing” – the first two steps of this process – requires that we define what we mean by data and information.",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#data-and-information",
-    "href": "weeks/week03.html#data-and-information",
-    "title": "DATA 202 - Week 3",
-    "section": "Data and information",
-    "text": "Data and information\n\n\n\n\n\n\nDEFINITION: Data\n\n\n\nData are collections of information or observations.\nThe term data is plural, so we should say “data are…” not “data is…”.\nA single data value is referred to as a datum but this term is very rarely used.\n\n\n\n\nThe term “information” is a universal concept that is highly useful but it also lacks precision.\nIn every day terms, information is defined rather loosely.\nIn statistics, however, we might contend that information becomes data when it is collected and organized in some form or fashion.\nThus, it takes some structure to turn information into usable data.\n\n\n\nOne method of organizing collections of data or information is in a Microsoft Excel sheet.\n\n\n\nExcel spreadsheet\n\n\n\nA spreadsheet in a traditional format contains important features that will support data analysis.\n\n\nColumns are vertical arrangements of sets.\n– Columns are represented by capital letters: \\(A\\), \\(B\\), \\(C\\), and so on.\n– We relate columns to sets, which we defined as collections of elements or items.\nRows are horizontal arrangements of elements.\n– Rows are represented by numbers and relate to the index of a set.\n– The subscript \\(i \\in \\mathbb{N}\\) such that \\(i = 1, 2, 3, ...\\), indicates an element’s position.\n\n\n\n\n\n\nExcel spreadsheet with data on US states\n\n\n\n\n\n\n\n\n\nDEFINITION: Filename extension\n\n\n\nA file extension (or file name extension) is a suffix at the end of a digital file name:\n\n\n.doc\n.docx\n.txt\n\nThe extension indicates the file’s format and the organization of information.\n\n\n\n\nThere are many different file extensions.\n\nFor example, the file extension for an MS Excel document can be .xlxs, .csv, or .htm.\nCSV (.csv) files remove all formatting.\n– The removal of formatting helps to reduce errors when transferring data between computers or software programs.\n“CSV” stands for comma-separated values.\n\n\n\n\n\n\nCSV file with data on US states\n\n\n\n\nFormatting data into a data frame\n\nAlthough the CSV format removes formatting, the file is not yet in a structure that we can use to conduct efficient statistical analyses.\nThe CSV format supports a user with collecting and organizing information into a usable data structure.\nHowever, the data needs to be sent to a computer program to undergo the next step in our statistical process: analyzing data. Specifically, we re-format the CSV file to a data frame to conduct analyses.\n\n\n\n\n\n\n\n\nDEFINITION: Data frame\n\n\n\nA data frame (or dataframe) is a two-dimensional table of rows and columns.\n\n\nData frames are a common and popular way to structure, store, and share data.\n\nData frames allow analysts to store sets of observations that vary in size and content.\nEach row describes a single observation.\nEach column stores information for one set, or variable.\n\n\nRecall that a set is a collection of elements.\n\nWe extend this definition to say that a set is a collection of \\(n \\in \\mathbb{N}\\) elements, where \\(n\\) refers to the number of elements in the set.\n\n\n\n\n\n\n\nNote – Sets with \\(n\\) elements\n\n\n\nIf \\(X\\) is a set with \\(n\\) elements, then \\(X\\) can be represented as \\(X = \\{x_1, x_2, x_3, ..., x_n \\}\\).\nIf \\(Y\\) is a set with \\(n\\) elements, then \\(Y\\) can be represented as \\(Y = \\{y_1, y_2, y_3, ..., y_n \\}\\).\n\n\nThe value of \\(n\\) can be used to represent the “size” of a set.\n\nA set with no elements is referred to as the empty set and can be represented as \\(\\{ \\emptyset \\}\\).\n\nWe will need to make sense of the various objects that a set can contain.\n\nFirst, we think more mathematically about sets and data frames.\n\n\n\n\n\n\nDEFINITION: Matrix\n\n\n\nIn mathematics, a matrix is a rectangular table of entries arranged in rows and columns.\n\n\n\nA data frame containing only numbers is an \\(n \\times m\\) matrix:\n\n\\(n\\) refers to the number of rows (or observations)\n\\(m\\) refers to the number of columns (or variables)\n\nBy formatting a series of sets into a data frame, we get\n\n\\(n\\) rows (each row containing data on a single observation)\n\\(m\\) columns (which contain elements over a variable’s values)\n\n\n\nData frame containing \\(n\\) observations for \\(2\\) variables (\\(X\\) and \\(Y\\))\n\n\n\n\n\n\nEXAMPLE – A data frame containing two variables (or sets)\n\n\n\n\n\n\nX\nY\n\n\n\n\n\\(x_1\\)\n\\(y_1\\)\n\n\n\\(x_2\\)\n\\(y_2\\)\n\n\n\\(x_3\\)\n\\(y_3\\)\n\n\n.\n.\n\n\n.\n.\n\n\n.\n.\n\n\n\\(x_n\\)\n\\(y_n\\)\n\n\n\n\n\n\nTake, for example, two sets with the following ordered values:\n\n\nLet \\(X\\) contain the odd values 1, 3, 5, and 7.\n\nWe have \\(X = \\{1, 3, 5, 7 \\}\\)\n\nLet \\(Y\\) contain the even values 2, 4, 6, and 8.\n\nWe have \\(Y = \\{2, 4, 6, 8 \\}\\)\n\n\n\n\nWe set the following to be true:\n\n\\(x_1 = 1\\), \\(x_2 = 3\\), \\(x_3 = 5\\), \\(x_4 = 7\\)\n\\(y_1 = 2\\), \\(y_2 = 4\\), \\(y_3 = 6\\), \\(y_4 = 8\\)\n\nBy combining the sets \\(X\\) and \\(Y\\), we create the following data frame:\n\n\n\n\n\n\nEXAMPLE – A data frame containing a few odd and even numbers\n\n\n\n\n\n\nX\nY\n\n\n\n\n1\n2\n\n\n3\n4\n\n\n5\n6\n\n\n7\n8\n\n\n\n\n\n\nWe list the index of each element of each set using a new column – ID (for index).\n\n\n\n\n\n\nEXAMPLE – A data frame containing a few odd and even numbers\n\n\n\n\n\n\nID\nX\nY\n\n\n\n\n1\n1\n2\n\n\n2\n3\n4\n\n\n3\n5\n6\n\n\n4\n7\n8\n\n\n\n\n\nThis \\(n \\times m\\) data frame contains\n\n\n\\(n = 4\\) observations\n\\(3\\) variables\n\nID\n\\(X\\)\n\\(Y\\)\n\n\n\n\nWe can consider this structure more generally as noted below.\n\n\n\nStructure of a data set from R for Data Science by Wickham & Grolemund (2022)",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#population-and-sample",
-    "href": "weeks/week03.html#population-and-sample",
-    "title": "DATA 202 - Week 3",
-    "section": "Population and sample",
-    "text": "Population and sample\n\n\n\n\n\n\nDEFINITIONS: Population and sample\n\n\n\nA population is representative of every member of a group of interest or collection of objects.\nA sample is a sub-collection of members or objects from a selected population.\n\n\n\n\n\nPopulation and sample. Image from SimplyPsychology.org\n\n\n\n\nThe difference between big \\(N\\) (a population) and little \\(n\\) (a sample)\n\n\n\n\n\n\nNote\n\n\n\n\nWhen referring to the size of a population, use a capital \\(N\\).\nWhen referring to the size of a sample, use a lowercase \\(n\\).\n\n\n\n\n\n\nPopulation parameter vs. Sample statistic\n\n\n\n\n\n\nDEFINITIONS: Parameter versus statistic\n\n\n\nA parameter is a numerical measurement describing some characteristic of a population.\n\nThink of a “population parameter” to remember this relationship.\n\nA statistic is a numerical measure describing some characteristic of a sample.\n\nThink of a “sample statistic” to remember this relationship.\n\n\n\n\nStatistics vs. A statistic\n\n\n\n\n\n\nNote – Statistics (plural) versus a statistic (singular)\n\n\n\nThere is a difference between the term statistics (plural) and a statistic (singular).\n\nWe previously defined statistics (with an ‘s’ at the end) as the science of collecting, organizing, analyzing, interpreting, communicating, and visualizing data and information.\nA statistic (no ‘s’ at the end) refers to a measurement or value from a test on a sample.\n\n\n\n\n\n\nCensus\n\n\n\n\n\n\nDEFINITION: Census\n\n\n\nA census is the collection of data from every member of a population.\n\n\n\n\n\nPopulation census. Image from CasaNC.org\n\n\n\nThere are many sites with free and publicly available data that can help us make better sense of how others have collected data on populations and samples.\n– Sampling of websites with freely accessible data (no downloads required)\n\nColored Conventions Project\nThe DataHub\nData.gov\nKaggle\n\nIn our course, we will focus on integrating how we structure and analyze data by using various mathematical concepts to frame the process of conducting a statistical study.",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#what-is-a-variable",
-    "href": "weeks/week03.html#what-is-a-variable",
-    "title": "DATA 202 - Week 3",
-    "section": "What is a variable?",
-    "text": "What is a variable?\n\n\n\n\n\n\nDEFINITIONS: Variable\n\n\n\nA variable is any characteristic or quantity that can be measured or counted.\n\n\n\nThere are many types of data and variables used in statistics.\n\nThe type of variable helps determine the appropriate methods for analysis.\n– Categorical or Quantitative\nThe level of measurement helps determine how we measure variables.\n– Nominal, Ordinal, Interval, Ratio\n\n\n\n\nVariable types\nThere are two main variable types: categorical and quantitative variables.\n\n\n\n\n\nflowchart LR\n  A[Variable type] --&gt; B(Categorical)\n  A[Variable type] --&gt; C(Quantitative)\n\n\n\n\n\n\n\n\n\n\n\n\nDEFINITIONS: Variable types\n\n\n\nA categorical variable consists of qualitative values such as names or labels.\nA quantitative variable consists of numbers representing counts or measurements.\n\n\n\nData that are categorical in nature are non-numeric.\n– Categorical values are labels used to represent categories or data values.\nData that are quantitative in nature are numeric.\n– Quantitative values make use of the sets of numbers to represent counts or measures.\n\n\nWe can further distinguish between these categories using the following definitions:\n\n\n\n\n\n\nDEFINITIONS: Nominal, Ordinal, Discrete, Continuous\n\n\n\nNominal data are categorical data that cannot be arranged in some order (such as low to high). Some examples are eye color and pet names.\nOrdinal data can be arranged in some order but differences between the values are meaningless. Consider letter grades: A is higher than B but A minus B does not make sense.\nDiscrete data are data where the number of values is finite or “countable.” Some examples include number of students or days spent in the library.\nContinuous data can take on infinitely many values where the collection of values is not countable. Some examples include height or weight.\n\n\n\n\n\n\n\nflowchart LR\n  A[Variable type] --&gt; B(Qualitative)\n  A[Variable type] --&gt; C(Quantitative)\n  C --&gt; D(Discrete)\n  C --&gt; E(Continuous)\n  B --&gt; F(Nominal)\n  B --&gt; G(Ordinal)\n\n\n\n\n\n\n\n\n\nLevels of measurement\nLevels of measurement are used to describe variable types.\n\n\n\n\n\n\n\n\nLevel of measurement\nBrief description\nExamples\n\n\n\n\nNominal\nData cannot be arranged in some order. Only categories are used.\nEye color, city\n\n\nOrdinal\nData can be arranged in some order but differences cannot be found or are meaningless.\nRankings, likert scale\n\n\nInterval\nThere is not a natural zero starting point and rations are meaningless.\nTemperatures, years\n\n\nRatio\nThere is a natural zero starting point and ratios are meaningful.\nHeights, distances\n\n\n\n\n\n\n\nThe four levels of measurement. Image from Scribbr",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#task-0-understanding-the-rstudio-ide",
-    "href": "weeks/week03.html#task-0-understanding-the-rstudio-ide",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 0: Understanding the RStudio IDE",
-    "text": "Task 0: Understanding the RStudio IDE\n\n\n\nRStudio IDE",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#task-1-create-an-rmarkdown-file-.rmd",
-    "href": "weeks/week03.html#task-1-create-an-rmarkdown-file-.rmd",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 1: Create an RMarkdown file (.Rmd)",
-    "text": "Task 1: Create an RMarkdown file (.Rmd)\nWe will conduct most of our work using what is called an RMarkdown.\nThe RMarkdown files allows us to save and annotate our code for future use.\nWhen you run code from an RMarkdownt, it will show up in the Console (bottom left pane in RStudio).\nIn the RStudio IDE, open an RMarkdown by using the following navigation:\n\nFile &gt; New File &gt; R Markdown\n\n\n\nUsing the RMarkdown file\n\n\nPreamble\nThe preamble begins at the top of your RMarkdown file with three dashes. I have added some options that can be changed to your liking. For example, you can change the table of contents (toc) options or the theme; flatly is one of many different themes.\n\n---\ntitle: \"Title goes here\"\nauhtor: \"First Last\"\nalways_allow_html: true\noutput:\n html_document:\n   toc: true\n   toc_depth: 3\n   number_sections: true\n   theme: flatly\ngeometry: margin=1.0in\neditor_options:\n markdown:\n   wrap: sentence\n---\n\n\n\n\nSetup\nA set-up chunk gives the file further instructions to prepare for your analysis.\n\nknitr::opts_chunk$set(echo = FALSE, # By default, hide code; set to TRUE to see code\n  fig.pos = 'th', # Places figures at top or here\n  out.width = '100%', dpi = 300, # Figure resolution and size\n  fig.env=\"figure\"\n ) # Latex figure environment\n\ninstall.packages(\"praise\")\nlibrary(praise)\n\noptions(knitr.table.format = \"latex\") # For kable tables to write LaTeX table directly\n\n\n\n\nInserting code into an RMarkdown\n\ny &lt;- 2 + 2\n\n\n# You can use the `#` symbol to leave notes above your code.\ny &lt;- 2 + 2 # You can use the `#` symbol to leave notes in-line with your code.\n\nWe just defined an object y. We can see its value by running this syntax and typing y into the Console.\n\ny\n\n[1] 4\n\n\nThe output on your screen should match the last line above - with the hashtags.\n\n[ 1 ] indicates a single line of results.\nThe output tells us that y has a value of 4, so we say that y is numeric or that it has a numeric value.\n\nYou can run code by clicking ‘Run’ at the top of the Source window, or by typing CMD+Enter",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#task-2-explore-different-object-types",
-    "href": "weeks/week03.html#task-2-explore-different-object-types",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 2: Explore different object types",
-    "text": "Task 2: Explore different object types\nFor this task, we will explore three object types: numeric, character, and logic values.\n\nTask 2-a: Compute a mathematical statement and create a numeric variable\n\n1 + 2\n\n[1] 3\n\n\nWe can assign a variable to this statement by using an assignment operator: &lt;-\n\na &lt;- 1 + 2\n\nWe can also use an equal sign to assign values: \\(=\\)\n\na = 1 + 2\n\nType “a” to show the value of the variable\n\na\n\n[1] 3\n\n\n\nCreate a numeric variable “b” that is the product of “a” and “y”\n\nb = a*y\n\nType “b” in your console to show the product of the two variables\n\nb\n\n[1] 12\n\n\nDivide b by 4\n\nb / 4\n\n[1] 3\n\n\nTake the square root of b\n\nsqrt(b)\n\n[1] 3.464102\n\n\n\nCompute the natural log of b\n\nlog(b)\n\n[1] 2.484907\n\n\nCompute the common log of b\n\nlog10(b)\n\n[1] 1.079181\n\n\nFind 1 minus the square root of b\n\n1-sqrt(b)\n\n[1] -2.464102\n\n\n\nAttempt to find the square root of “1 minus the square root of b” - which is a negative value\n\nsqrt(1-b)\n\nWarning in sqrt(1 - b): NaNs produced\n\n\n[1] NaN\n\n\nNaN stands for “Not a number”. This occurs because there is currently no defined value to recognize the square root of negative numbers in R. But we can compute the square root on the absolute value of this difference, if needed.\n\nsqrt(abs(1-b))\n\n[1] 3.316625\n\n\n\nWe can insert longer or more complex mathematical statements too. For example, we can find the absolute value of the sum of -1 and the square root of b cubed and then subtract from that the value of 3 times the square root of b.\nNotice the use of parentheses.\n\nabs(-1+sqrt(b^3)) - 3*(sqrt(b))\n\n[1] 30.17691\n\n\nWe can override the original value of y to match the mathematical statement we generated above.\n\ny &lt;- abs(-1+sqrt(b^3)) - 3*(sqrt(b))\ny\n\n[1] 30.17691\n\n\nWe consider all of the previous objects to be numeric.\n\n\n\nTask 2-b: Create a non-numeric value\nWe can also create objects to hold non-numeric values.\nThere are two types of non-numeric values: character values and logic values.\n\nCharacter values\n\ncharacter &lt;- 'some label'\ncharacter\n\n[1] \"some label\"\n\n\nWe can create a character value using the ‘,’ or “,” quotes.\n\ncharacter &lt;- \"some label\"\ncharacter\n\n[1] \"some label\"\n\n\n\n\n\nLogic values\nLogic values can either be TRUE or FALSE\n\nlogic_true &lt;- TRUE\nlogic_false &lt;- FALSE\n\n\nlogic_true\n\n[1] TRUE\n\nlogic_false\n\n[1] FALSE\n\n\nWe can also use T for TRUE and F for FALSE.\n\nlogic_true &lt;- T\nlogic_false &lt;- F\n\n\nlogic_true\n\n[1] TRUE\n\nlogic_false\n\n[1] FALSE",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#task-3-creating-vectors",
-    "href": "weeks/week03.html#task-3-creating-vectors",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 3: Creating vectors",
-    "text": "Task 3: Creating vectors\nWhen we want to list multiple objects or values, we use R’s available data types, such as vectors and factors.\n\nWe concatenate values in these data types using the operator c( ) to place our values in the order we desire.\nConcatenate means to place things together one after the other.\n\n\nVectors\nVectors are a data type we use to order values (i.e., numeric, character, logic) or mix different values.\nFor example, we can store all of the numbers from 1 to 9 in a vector by using a colon.\n\nmy.vector &lt;- c(1:9)\nmy.vector\n\n[1] 1 2 3 4 5 6 7 8 9\n\n\n\nWhen creating vectors, we use the assignment operator and the concatenate option to generate our object.\n\nvec1 &lt;- c(\"WEB Du Bois\", 1868, \"17th\", \"MA\", \"civil rights activist\")\nvec1\n\n[1] \"WEB Du Bois\"           \"1868\"                  \"17th\"                 \n[4] \"MA\"                    \"civil rights activist\"\n\n\nNotice that my numeric and logic values do not use quotations, but a character value uses quotations ““.\n\n\n\nFactors\nFactors are a data type we use to store categorical variables for analyses and data plots. We will explore these later.",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03.html#task-4-creating-data-frames",
-    "href": "weeks/week03.html#task-4-creating-data-frames",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 4: Creating data frames",
-    "text": "Task 4: Creating data frames\nFor this final task, we will create a list. Lists can contain anything: functions, vectors, other lists, and data frames.\nTo start, let’s create a series of vectors.\n\nvec1 &lt;- c(\"Ida B. Wells\", \"W.E.B Du Bois\",\"Mary G. Ross\", \"Jaime Escalante\",\"Etta Z. Falconer\", \"Bob Moses\", \"Ruth Gonzales\")\nvec2 &lt;- c(1862, 1868, 1908, 1930, 1933, 1935, 1970)\nvec3 &lt;- c(\"MS\", \"MA\", \"OK\", \"Bolivia\", \"MS\", \"NYC\", \"NJ\")\nvec4 &lt;- c(TRUE, TRUE, TRUE, FALSE, T, T, T)\nvec5 &lt;- c(\"African American\", \"Ghanaian American\", \"Native American\", \"Bolivian American\", \"African American\", \"African American\", \"Mexican American\")\nvec6 &lt;- c(\"Journalist\", \"Sociologist\", \"Engineer\", \"Educator\", \"Mathematician\", \"Educator\", \"Engineer\")\n\n\nOur objects vec1, vec3, and vec5 are made of character values\n\nvec1\n\n[1] \"Ida B. Wells\"     \"W.E.B Du Bois\"    \"Mary G. Ross\"     \"Jaime Escalante\" \n[5] \"Etta Z. Falconer\" \"Bob Moses\"        \"Ruth Gonzales\"   \n\nvec3\n\n[1] \"MS\"      \"MA\"      \"OK\"      \"Bolivia\" \"MS\"      \"NYC\"     \"NJ\"     \n\nvec5\n\n[1] \"African American\"  \"Ghanaian American\" \"Native American\"  \n[4] \"Bolivian American\" \"African American\"  \"African American\" \n[7] \"Mexican American\" \n\nvec6\n\n[1] \"Journalist\"    \"Sociologist\"   \"Engineer\"      \"Educator\"     \n[5] \"Mathematician\" \"Educator\"      \"Engineer\"     \n\n\nOur object vec2 is made of numeric values\n\nvec2\n\n[1] 1862 1868 1908 1930 1933 1935 1970\n\n\nOur object vec4 is a made of logic values\n\nvec4\n\n[1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE\n\n\n\n\nLists\nLists allow us to do what the name implies - create a list of items.\n\nmy.list &lt;- list(vec1, vec2, vec3, vec4, vec5, vec6)\nmy.list\n\n[[1]]\n[1] \"Ida B. Wells\"     \"W.E.B Du Bois\"    \"Mary G. Ross\"     \"Jaime Escalante\" \n[5] \"Etta Z. Falconer\" \"Bob Moses\"        \"Ruth Gonzales\"   \n\n[[2]]\n[1] 1862 1868 1908 1930 1933 1935 1970\n\n[[3]]\n[1] \"MS\"      \"MA\"      \"OK\"      \"Bolivia\" \"MS\"      \"NYC\"     \"NJ\"     \n\n[[4]]\n[1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE\n\n[[5]]\n[1] \"African American\"  \"Ghanaian American\" \"Native American\"  \n[4] \"Bolivian American\" \"African American\"  \"African American\" \n[7] \"Mexican American\" \n\n[[6]]\n[1] \"Journalist\"    \"Sociologist\"   \"Engineer\"      \"Educator\"     \n[5] \"Mathematician\" \"Educator\"      \"Engineer\"     \n\n\nIn this form, lists can be hard to read.\n\n\n\nData frames\nTo solve the issue with the list, we will use our vectors to generate a specific type of list known as a data.frame.\nData frames are a subtype of lists made of vectors of equal lenght.\n\ndata.frame(vec1, vec2, vec3, vec4, vec5, vec6)\n\n              vec1 vec2    vec3  vec4              vec5          vec6\n1     Ida B. Wells 1862      MS  TRUE  African American    Journalist\n2    W.E.B Du Bois 1868      MA  TRUE Ghanaian American   Sociologist\n3     Mary G. Ross 1908      OK  TRUE   Native American      Engineer\n4  Jaime Escalante 1930 Bolivia FALSE Bolivian American      Educator\n5 Etta Z. Falconer 1933      MS  TRUE  African American Mathematician\n6        Bob Moses 1935     NYC  TRUE  African American      Educator\n7    Ruth Gonzales 1970      NJ  TRUE  Mexican American      Engineer\n\n\nNotice the difference in how the information is arranged when data.frame.\n\nLet’s label this data frame and put labels at the top of the list.\n\ndf &lt;- data.frame(a=vec1, b=vec2, c=vec3, d=vec4, e=vec5, f=vec6)\ndf\n\n                 a    b       c     d                 e             f\n1     Ida B. Wells 1862      MS  TRUE  African American    Journalist\n2    W.E.B Du Bois 1868      MA  TRUE Ghanaian American   Sociologist\n3     Mary G. Ross 1908      OK  TRUE   Native American      Engineer\n4  Jaime Escalante 1930 Bolivia FALSE Bolivian American      Educator\n5 Etta Z. Falconer 1933      MS  TRUE  African American Mathematician\n6        Bob Moses 1935     NYC  TRUE  African American      Educator\n7    Ruth Gonzales 1970      NJ  TRUE  Mexican American      Engineer\n\n\nNotice that when I add labels using the equal sign operator, the vec labels dissapear and are replaced by the categorical labels that we insert. Let’s create more appropriate labels for the data we have generated.\n\ndf &lt;- data.frame(name=vec1, \n                 birthyear=vec2, \n                 birthplace=vec3, \n                 USborn=vec4, \n                 nationality=vec5, \n                 occupation=vec6)\n\n\nFor future use, we can view our data frame by just typing its name into our console or typing View(df).\n\ndf\n\n              name birthyear birthplace USborn       nationality    occupation\n1     Ida B. Wells      1862         MS   TRUE  African American    Journalist\n2    W.E.B Du Bois      1868         MA   TRUE Ghanaian American   Sociologist\n3     Mary G. Ross      1908         OK   TRUE   Native American      Engineer\n4  Jaime Escalante      1930    Bolivia  FALSE Bolivian American      Educator\n5 Etta Z. Falconer      1933         MS   TRUE  African American Mathematician\n6        Bob Moses      1935        NYC   TRUE  African American      Educator\n7    Ruth Gonzales      1970         NJ   TRUE  Mexican American      Engineer",
-    "crumbs": [
-      "Weekly materials",
-      "Week 3"
-    ]
-  },
-  {
-    "objectID": "weeks/week03-slides.html#case-study",
-    "href": "weeks/week03-slides.html#case-study",
-    "title": "DATA 202 - Week 3",
-    "section": "Case Study",
-    "text": "Case Study\nTuskegee Study of Untreated Syphilis in the Negro Male\nWe begin by exploring a critical historical issue in statistics: understanding the ethics of a medical intervention or study.\n\nUninformed participants of the Tuskegee Study of Untreated Syphilis in the Negro Male“In 1932, the USPHS, working with the Tuskegee Institute, began a study to record the natural history of syphilis. It was originally called the”Tuskegee Study of Untreated Syphilis in the Negro Male” (now referred to as the “USPHS Syphilis Study at Tuskegee”). The study initially involved 600 Black men – 399 with syphilis, 201 who did not have the disease. Participants’ informed consent was not collected.” (Office of Science, Centers for Disease Control and Prevention, 2022)"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#institutional-review-board-irb",
-    "href": "weeks/week03-slides.html#institutional-review-board-irb",
-    "title": "DATA 202 - Week 3",
-    "section": "Institutional Review Board (IRB)",
-    "text": "Institutional Review Board (IRB)\nThe Tuskegee Syphilis Study conducted by the U.S Public Health Service was only one of many other past abuses that included unethical experimentation on marginalized groups. As a result of these injustices, a set of mandates were instituted and policies are governed under the IRB, which define the rules and regulations for the approval of research activities. Other countries have equivalent measures focused on ethics.\nAdditional details about can be found online.\nLearn more at https://www.cdc.gov/tuskegee/timeline.\nLearn more about the Howard University IRB at the Office of Regulatory Research Compliance."
-  },
-  {
-    "objectID": "weeks/week03-slides.html#theory",
-    "href": "weeks/week03-slides.html#theory",
-    "title": "DATA 202 - Week 3",
-    "section": "Theory",
-    "text": "Theory\nSome definitions:\n\nPer the Oxford Languages dictionary, a theory is a supposition or a system of ideas intended to explain something, especially one based on general principles independent of the thing to be explained.\nPer Britannica, a theory is an idea or set of ideas that is intended to explain facts or events.\n\nWe will need to think more acutely about theory development as we progress through the term.\n\nFor now, how might you define a theory?"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#theory-construction",
-    "href": "weeks/week03-slides.html#theory-construction",
-    "title": "DATA 202 - Week 3",
-    "section": "Theory construction",
-    "text": "Theory construction\nPer Markovsky & Webster (2015), theory construction is the process of formulating components of a theory into a logical whole.\nWe may consider some of the following elements as we prepare theoretical statements.\n\n\nResearch inquiry\nHypotheses\nAnalysis\nEvaluation\nRevision"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#data-and-information",
-    "href": "weeks/week03-slides.html#data-and-information",
-    "title": "DATA 202 - Week 3",
-    "section": "Data and information",
-    "text": "Data and information\n\n\n\nDEFINITION: Data\n\n\nData are collections of information or observations.\nThe term data is plural, so we should say “data are…” not “data is…”.\nA single data value is referred to as a datum but this term is very rarely used.\n\n\n\n\n\nThe term “information” is a universal concept that is highly useful but it also lacks precision.\nIn every day terms, information is defined rather loosely.\nIn statistics, however, we might contend that information becomes data when it is collected and organized in some form or fashion.\nThus, it takes some structure to turn information into usable data."
-  },
-  {
-    "objectID": "weeks/week03-slides.html#population-and-sample",
-    "href": "weeks/week03-slides.html#population-and-sample",
-    "title": "DATA 202 - Week 3",
-    "section": "Population and sample",
-    "text": "Population and sample\n\n\n\n\nDEFINITIONS: Population and sample\n\n\nA population is representative of every member of a group of interest or collection of objects.\nA sample is a sub-collection of members or objects from a selected population.\n\n\n\n\n\nPopulation and sample. Image from SimplyPsychology.org"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#what-is-a-variable",
-    "href": "weeks/week03-slides.html#what-is-a-variable",
-    "title": "DATA 202 - Week 3",
-    "section": "What is a variable?",
-    "text": "What is a variable?\n\n\n\nDEFINITIONS: Variable\n\n\nA variable is any characteristic or quantity that can be measured or counted.\n\n\n\n\nThere are many types of data and variables used in statistics.\n\nThe type of variable helps determine the appropriate methods for analysis.\n– Categorical or Quantitative\nThe level of measurement helps determine how we measure variables.\n– Nominal, Ordinal, Interval, Ratio"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#task-0-understanding-the-rstudio-ide",
-    "href": "weeks/week03-slides.html#task-0-understanding-the-rstudio-ide",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 0: Understanding the RStudio IDE",
-    "text": "Task 0: Understanding the RStudio IDE\n\nRStudio IDE"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#task-1-create-an-rmarkdown-file-.rmd",
-    "href": "weeks/week03-slides.html#task-1-create-an-rmarkdown-file-.rmd",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 1: Create an RMarkdown file (.Rmd)",
-    "text": "Task 1: Create an RMarkdown file (.Rmd)\nWe will conduct most of our work using what is called an RMarkdown.\nThe RMarkdown files allows us to save and annotate our code for future use.\nWhen you run code from an RMarkdownt, it will show up in the Console (bottom left pane in RStudio).\nIn the RStudio IDE, open an RMarkdown by using the following navigation:\n\nFile &gt; New File &gt; R Markdown"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#task-2-explore-different-object-types",
-    "href": "weeks/week03-slides.html#task-2-explore-different-object-types",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 2: Explore different object types",
-    "text": "Task 2: Explore different object types\nFor this task, we will explore three object types: numeric, character, and logic values.\nTask 2-a: Compute a mathematical statement and create a numeric variable\n\n1 + 2\n\n[1] 3\n\n\nWe can assign a variable to this statement by using an assignment operator: &lt;-\n\na &lt;- 1 + 2\n\nWe can also use an equal sign to assign values: \\(=\\)\n\na = 1 + 2\n\nType “a” to show the value of the variable\n\na\n\n[1] 3"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#task-3-creating-vectors",
-    "href": "weeks/week03-slides.html#task-3-creating-vectors",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 3: Creating vectors",
-    "text": "Task 3: Creating vectors\nWhen we want to list multiple objects or values, we use R’s available data types, such as vectors and factors.\n\nWe concatenate values in these data types using the operator c( ) to place our values in the order we desire.\nConcatenate means to place things together one after the other.\n\nVectors\nVectors are a data type we use to order values (i.e., numeric, character, logic) or mix different values.\nFor example, we can store all of the numbers from 1 to 9 in a vector by using a colon.\n\nmy.vector &lt;- c(1:9)\nmy.vector\n\n[1] 1 2 3 4 5 6 7 8 9"
-  },
-  {
-    "objectID": "weeks/week03-slides.html#task-4-creating-data-frames",
-    "href": "weeks/week03-slides.html#task-4-creating-data-frames",
-    "title": "DATA 202 - Week 3",
-    "section": "Task 4: Creating data frames",
-    "text": "Task 4: Creating data frames\nFor this final task, we will create a list. Lists can contain anything: functions, vectors, other lists, and data frames.\nTo start, let’s create a series of vectors.\n\nvec1 &lt;- c(\"Ida B. Wells\", \"W.E.B Du Bois\",\"Mary G. Ross\", \"Jaime Escalante\",\"Etta Z. Falconer\", \"Bob Moses\", \"Ruth Gonzales\")\nvec2 &lt;- c(1862, 1868, 1908, 1930, 1933, 1935, 1970)\nvec3 &lt;- c(\"MS\", \"MA\", \"OK\", \"Bolivia\", \"MS\", \"NYC\", \"NJ\")\nvec4 &lt;- c(TRUE, TRUE, TRUE, FALSE, T, T, T)\nvec5 &lt;- c(\"African American\", \"Ghanaian American\", \"Native American\", \"Bolivian American\", \"African American\", \"African American\", \"Mexican American\")\nvec6 &lt;- c(\"Journalist\", \"Sociologist\", \"Engineer\", \"Educator\", \"Mathematician\", \"Educator\", \"Engineer\")"
   }
 ]
