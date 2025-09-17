@@ -1,0 +1,177 @@
+---
+title: "Case Study 2"
+author: "Nathan Alexander"
+output:
+  html_document:
+    theme: flatly
+editor_options:
+  markdown:
+  wrap: sentence
+---
+
+```{r setup, eval=F, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part I
+
+## Packages and libraries
+
+```{r, warning=F, message=F}
+# install packages
+#install.packages("tidyverse")
+#install.packages("remotes")
+#install.packages("devtools")
+# be sure to hashtag these installations after you are done
+
+# load libraries
+library(tidyverse)
+library(dplyr)
+library(remotes)
+```
+
+## Install the 'critstats' package
+
+```{r, warning=F, message=F}
+# use the remote install function to call in your data
+remotes::install_github("professornaite/critstats", force=TRUE)
+
+# load the `critstats` library
+library(critstats)
+
+# update the `critstats` package if needed
+# update.packages("critstats")
+```
+
+### Call the 'true_size' data
+
+```{r, warning=F, message=F}
+critstats::true_size # loading the true_size data from critstats
+
+??critstats::true_size # view documentation for the dataset 
+```
+
+## Explore the true_size data
+
+```{r, warning=F, message=F}
+df1 <- critstats::true_size
+str(df1) # look at the structure of the data
+dim(df1) # get the dimension of the data 
+view(df1) # this will open the data set in a separate window
+glimpse(df1) # get a glimpse of our data
+head(df1) # top of my data; this will show you the first six rows of the df
+tail(df1) # bottom of my data; this will show you the last six row of the df
+
+# what is the case if I want to view more rows?
+head(df1, n = 10) # view the top 10 observations
+tail(df1, n = 10) # view the bottom 10 observations
+summary(df1)
+```
+
+
+```{r, warning=F, message=F}
+install.packages("critstats")
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
+
+```{r, warning=F, message=F}
+
+
+```
+
