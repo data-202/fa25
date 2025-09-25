@@ -2211,5 +2211,16 @@
       "Appendix",
       "Resources"
     ]
+  },
+  {
+    "objectID": "resources.html#open-data-sources",
+    "href": "resources.html#open-data-sources",
+    "title": "Resources",
+    "section": "Open data sources",
+    "text": "Open data sources\nEducational opportunity data: https://edopportunity.org/\nHarvard dataverse: https://dataverse.harvard.edu/dataverse/harvard\nKaggle datasets: https://www.kaggle.com/datasets\nTopic-centric open data: https://github.com/awesomedata/awesome-public-datasets\nU.S. government data: https://data.gov/\nWorld Bank open data: https://data.worldbank.org/\nOpen city data\n\nChicago Open Data: https://data.cityofchicago.org/\nDallas Open Data: https://www.dallasopendata.com/\nDC Open Data: https://opendata.dc.gov/\nHouston Open Data: https://data.houstontx.gov/\nLA Open Data: https://data.lacity.org/\nMiami-Data County Open Data: https://gis-mdc.opendata.arcgis.com/\nNew York Open Data: https://opendata.cityofnewyork.us/\nPhiladelphia Open Data: https://opendataphilly.org/\nSt. Louis Open Data: https://www.stlouis-mo.gov/data/index.cfm",
+    "crumbs": [
+      "Appendix",
+      "Resources"
+    ]
   }
 ]
