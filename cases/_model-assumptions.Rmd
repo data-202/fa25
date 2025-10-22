@@ -1,0 +1,86 @@
+---
+title: "Statistical Modeling Assumptions"
+author: "Nathan Alexander"
+output: html_document
+---
+
+## Introduction
+
+This document introduces key concepts in modeling mediating, moderating, and spurious relationships among variables using the **gssr** package with GSS data. It also demonstrates how to test a simple path model.
+
+## Mathematical Models and Definitions
+
+### Mediation
+
+Mediation occurs when the effect of an independent variable $X$ on a dependent variable $Y$ is transmitted through a mediator variable $M$. The total effect $c$ is decomposed into:
+
+$$
+c = c' + ab
+$$
+
+where\
+- $a$ = effect of $X$ on $M$\
+- $b$ = effect of $M$ on $Y$ controlling for $X$\
+- $c'$ = direct effect of $X$ on $Y$ controlling for $M$
+
+### Moderation
+
+Moderation occurs when the effect of $X$ on $Y$ depends on the level of a moderator variable $W$. The model includes an interaction term:
+
+$$
+Y = \beta_0 + \beta_1 X + \beta_2 W + \beta_3 (X \times W) + \epsilon
+$$
+
+Significant $\beta_3$ indicates moderation.
+
+### Spuriousness
+
+A spurious relationship between $X$ and $Y$ occurs when a third variable $Z$ influences both, creating an apparent association. Controlling for $Z$ removes the effect of $X$ on $Y$.
+
+## Setup and data loading
+
+We begin by installing and loading the GSSR package.
+
+```{r, message=F, warning=F}
+install.packages("gssr")
+library(gssr)
+
+library(dplyr)
+library(ggplot2)
+library(haven)
+library(tibble)
+library(survey)
+library(srvyr)
+```
+
+```{r, message=F, warning=F}
+
+```
+
+```{r, message=F, warning=F}
+
+```
+
+```{r, message=F, warning=F}
+
+```
+
+```{r, message=F, warning=F}
+
+```
+
+```{r, message=F, warning=F}
+
+```
+
+```{r, message=F, warning=F}
+
+```
+
+```{r, message=F, warning=F}
+
+```
+
+```{r, message=F, warning=F}
+
+```
