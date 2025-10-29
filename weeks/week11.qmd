@@ -1,0 +1,340 @@
+---
+title: "DATA 202 - Week 11"
+subtitle: "On regression"
+author: "Nathan Alexander, PhD"
+institute: "Center for Applied Data Science and Analytics"
+format: 
+  html: default
+  revealjs:
+    output-file: week11-slides.html
+    height: 900
+    width: 1600
+    smaller: false
+    scrollable: true
+    slide-number: c/t #< collapsted/total
+    logo: "img/howard-logo.jpg"
+    footer: "[Course Data GitHub](https://github.com/data-202)"
+    toc: false
+    echo: true
+    incremental: false
+    self-contained: true
+---
+
+## Part I: Context
+
+This week we focus on more examples with added attention to our assumptions. We also explore the case of bivariate regression when attempting to measure and model conceptions of in/justice. Ahead of modeling multiple variables, we'll examine the importance of underlying theoretical analyses ahead of solely doing statistical investigations.
+
+------------------------------------------------------------------------
+
+Let us begin with a set of three variables: $x$, $y$, and $z$.
+
+We will assume that there is a hypothesized association between all three variables.
+
+However, let us also assume that we have *not* yet taken time to properly structure the relationships between the variables. Namely, we have yet to consider if $z$, for example, is a mediator, moderator, or spurious variable.
+
+```{r}
+#| echo: false
+#| output: false
+#| warning: false
+## Sample outline of a bivariate regression analysis
+
+# Generate sample data
+set.seed(400)
+x <- rnorm(100)
+y <- 2 + -3*x^2 + rnorm(100)
+z <- -4 + 3*x - rnorm(100)
+df <- data.frame(x, y, z)
+```
+
+Let us take a look at the scatterplot between each pair of variables.
+
+```{r}
+#| echo: true
+#| output: true
+#| warning: false
+plot(x, y)
+cor(x, y)
+```
+
+Take note of the value of the correlation coefficient.
+
+------------------------------------------------------------------------
+
+Let us take a look at the scatterplot between the next pair of variables.
+
+```{r}
+#| echo: true
+#| output: true
+#| warning: false
+plot(x, z)
+cor(x, z)
+```
+
+Take note of the value of the correlation coefficient.
+
+------------------------------------------------------------------------
+
+Let us take a look at the scatterplots between each pair of variables.
+
+```{r}
+#| echo: true
+#| output: true
+#| warning: false
+plot(y, z)
+cor(y, z)
+```
+
+Take note of the value of the correlation coefficient.
+
+------------------------------------------------------------------------
+
+### Regression assumptions
+
+In our previous lectures, we have discussed the function of assumptions and principles in regression analysis. In progressing towards different types of tests, it is important to consider the specific assumptions for any given test.
+
+Analyzing relationships among social science variables has an assumptions of linearity. However, this assumptions is not always correct. The adoption of this assumption is based on a host of factors. Most notably, that many relationships have been found to be linear when considered in the empirical sense.
+
+Some additional assumptions are as follows:
+
+-   The sample is representative of the population
+
+-   The variables of interest are normally distributed
+
+-   There are no outliers in the data
+
+-   Independence assumption
+
+-   There is a linear relationship between the independent variable(s) and dependent variable(s)
+
+------------------------------------------------------------------------
+
+::: columns
+::: {.column wideth="30%"}
+- **Outcome, *Y***: The variable describing the outcome of interest.
+- **Predictor, *X***: The variable used to help understand variability in the outcome.
+:::
+
+---
+
+## Part II: Content
+
+### A tradition: Fitting a straight line
+
+In statistics, we often inquire about the relationship between two variables, $X$ and $Y$. These variables are sets that contain values (observations) as noted before. To do so, we use a regression model.
+
+A **regression model** is a function that helps us describe how variables are related to one another. When we consider the simple case of a regression model, we take into account two variables, or a bivariate regression.
+
+```{r, echo=T}
+library(tidyverse)
+library(dplyr)
+ggplot(data=df,
+       mapping=aes(x = x, y = y)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  labs(
+    x = "Independent variable",
+    y = "Dependent variable"
+  )
+```
+What do you notice? What do you wonder?
+
+---
+
+Let's now consider the relationship between x and z.
+
+
+```{r, echo=T}
+library(tidyverse)
+library(dplyr)
+ggplot(data=df,
+       mapping=aes(x = x, y = z)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  labs(
+    x = "Independent variable",
+    y = "Dependent variable"
+  )
+```
+
+What do you notice? What do you wonder?
+
+---
+
+Now, let's look at the relationship between y and z.
+
+
+```{r, echo=T}
+library(tidyverse)
+library(dplyr)
+ggplot(data=df,
+       mapping=aes(x = y, y = z)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  labs(
+    x = "Independent variable",
+    y = "Dependent variable"
+  )
+```
+------------------------------------------------------------------------
+
+#### Matheamtics and exact relationships
+
+In mathematics, two variables, $x$ and $y$ may be related to each other in various ways. These relationships form the basis for many inquiries in statistics. However, mathematical modeling most often involves identifying the parameters in which we can use to assess the validity of the stated relationship. In this way, we examine the difference between exact and inexact relationships.
+
+------------------------------------------------------------------------
+
+##### A straight line
+
+The line in the graphic above follows the standard notation: $$y = a + bX$$
+
+------------------------------------------------------------------------
+
+#### Statistical modeling and inexact relationships
+
+Regression analysis is a standard analysis in many statistical studies.
+
+There are many different types of regression. We'll continue with our exploration of bivariate regression analysis and focus on some of the base assumptions as it relates to study development.
+
+We will begin by looking at the underlying assumptions of regression analysis.
+
+These assumptions are the technical (or structural) components of our analyses, and should be checked at the initiation of a research study, starting with data collection or understanding how data was collected if it is a secondary analysis.
+
+------------------------------------------------------------------------
+
+##### Analyzing two numeric variables
+
+```{r}
+#| echo: false
+#| output: false
+#| warning: false
+## Sample outline of a bivariate regression analysis
+
+# Generate sample data
+set.seed(123)
+x <- rnorm(100)
+y <- 2*x*rnorm(100) + 3*x + rnorm(100)
+```
+
+Let us take two variables, $x$ and $y$.
+
+```{r}
+cor(x, y)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Fit simple linear regression model
+model <- lm(y ~ x)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Examine regression outputs
+summary(model)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Check regression coefficients
+coeff <- coef(model)
+coeff
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Check R-squared value
+rsq <- summary(model)$r.squared
+rsq
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Generate predictions
+pred <- predict(model) # call this object to show the predicted values of the model
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Plot the regression line
+plot(x, y)
+abline(model, col="blue")
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Check residuals
+resids <- residuals(model)
+plot(x, resids)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Diagnostic plots
+par(mfrow=c(2,2))
+plot(model)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Check significance of predictor
+anova(model)
+```
+
+------------------------------------------------------------------------
+
+#### Analyzing a categorical and a numeric variable
+
+```{r}
+#| echo: false
+#| output: false
+#| warning: false
+
+require(dplyr)
+require(ggplot2)
+require(summarytools)
+
+# Create a dataframe with race and income variables
+df <- data.frame(
+  race = c("Black", "White", "White", "Other", "Black", "Other", "White", "Black", "Other", "White"),
+  income = c(25000, 35000, 42000, 31000, 27000, 38000, 29000, 40000, 32000, 39000)
+)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+desc(df$income)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Bar plot of the categorical variable (race)
+ggplot(df, aes(x = race)) +
+  geom_bar(fill = "steelblue") +
+  labs(x = "Race", y = "Count") +
+  ggtitle("Distribution of Races")
+```
+
+```{r}
+# Box plot of income by race
+ggplot(df, aes(x = race, y = income)) +
+  geom_boxplot(fill = "lightgray", color = "steelblue") +
+  labs(x = "Race", y = "Income") +
+  ggtitle("Income by Race")
+```
+
+#### Analyzing two categorical variables
+
+In previous lectures, we discussed some methods to hypothesize around the relationship between two variables that are categorical in nature.
+
+## Part III: Code
