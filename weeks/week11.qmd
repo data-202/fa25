@@ -32,7 +32,7 @@ We will assume that there is a hypothesized association between all three variab
 
 However, let us also assume that we have *not* yet taken time to properly structure the relationships between the variables. Namely, we have yet to consider if $z$, for example, is a mediator, moderator, or spurious variable.
 
-```{r, echo=T, message=F, warning=F}
+```{r, echo=F, message=F, warning=F}
 ## Sample outline of a bivariate regression analysis
 
 # Generate sample data
