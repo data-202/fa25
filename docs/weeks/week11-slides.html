@@ -1154,31 +1154,16 @@ Nathan Alexander, PhD
 <p>In statistics, we often inquire about the relationship between two variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. These variables are sets that contain values (observations) as noted before. To do so, we use a regression model.</p>
 <p>A <strong>regression model</strong> is a function that helps us describe how variables are related to one another. When we consider the simple case of a regression model, we take into account two variables, or a bivariate regression.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.1.0     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb13-2"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>df,</span>
-<span id="cb13-3"><a></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb13-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb13-6"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb13-7"><a></a>    <span class="at">x =</span> <span class="st">&quot;Independent variable&quot;</span>,</span>
-<span id="cb13-8"><a></a>    <span class="at">y =</span> <span class="st">&quot;Dependent variable&quot;</span></span>
-<span id="cb13-9"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-3"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>df,</span>
+<span id="cb11-4"><a></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb11-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-8"><a></a>    <span class="at">x =</span> <span class="st">&quot;Independent variable&quot;</span>,</span>
+<span id="cb11-9"><a></a>    <span class="at">y =</span> <span class="st">&quot;Dependent variable&quot;</span></span>
+<span id="cb11-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1191,16 +1176,16 @@ Nathan Alexander, PhD
 <hr>
 <p>Let’s now consider the relationship between x and z.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb15-2"><a></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb15-3"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>df,</span>
-<span id="cb15-4"><a></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> z)) <span class="sc">+</span></span>
-<span id="cb15-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb15-7"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb15-8"><a></a>    <span class="at">x =</span> <span class="st">&quot;Independent variable&quot;</span>,</span>
-<span id="cb15-9"><a></a>    <span class="at">y =</span> <span class="st">&quot;Dependent variable&quot;</span></span>
-<span id="cb15-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb12-2"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb12-3"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>df,</span>
+<span id="cb12-4"><a></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> z)) <span class="sc">+</span></span>
+<span id="cb12-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-8"><a></a>    <span class="at">x =</span> <span class="st">&quot;Independent variable&quot;</span>,</span>
+<span id="cb12-9"><a></a>    <span class="at">y =</span> <span class="st">&quot;Dependent variable&quot;</span></span>
+<span id="cb12-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1213,16 +1198,16 @@ Nathan Alexander, PhD
 <hr>
 <p>Now, let’s look at the relationship between y and z.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb16-2"><a></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb16-3"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>df,</span>
-<span id="cb16-4"><a></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> z)) <span class="sc">+</span></span>
-<span id="cb16-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb16-6"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb16-7"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-8"><a></a>    <span class="at">x =</span> <span class="st">&quot;Independent variable&quot;</span>,</span>
-<span id="cb16-9"><a></a>    <span class="at">y =</span> <span class="st">&quot;Dependent variable&quot;</span></span>
-<span id="cb16-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-2"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-3"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>df,</span>
+<span id="cb13-4"><a></a>       <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> z)) <span class="sc">+</span></span>
+<span id="cb13-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-8"><a></a>    <span class="at">x =</span> <span class="st">&quot;Independent variable&quot;</span>,</span>
+<span id="cb13-9"><a></a>    <span class="at">y =</span> <span class="st">&quot;Dependent variable&quot;</span></span>
+<span id="cb13-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1260,6 +1245,14 @@ Nathan Alexander, PhD
 &amp;= \color{purple}{\boldsymbol{\mu_{Y|X}}} + \epsilon
 \end{aligned}
 \]</span></p>
+</div><section id="regression-model-residuals" class="slide level2">
+<h2>Regression model + residuals</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><span class="math display">\[\begin{aligned} Y &amp;= \color{purple}{\textbf{Model}} + \color{blue}{\textbf{Error}} \\[8pt]
+&amp;= \color{purple}{\mathbf{f(X)}} + \color{blue}{\boldsymbol{\epsilon}} \\[8pt]
+&amp;= \color{purple}{\boldsymbol{\mu_{Y|X}}} + \color{blue}{\boldsymbol{\epsilon}} \\[8pt]
+\end{aligned}\]</span></p>
 </div><h3 id="simple-linear-regression">Simple linear regression</h3>
 <p>We use simple linear regression to model the relationship between some predictor and outcome.</p>
 <ul>
@@ -1267,23 +1260,36 @@ Nathan Alexander, PhD
 <li><span class="math inline">\(\beta_0\)</span>: True intercept of the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></li>
 <li><span class="math inline">\(\epsilon\)</span>: Error (residual)</li>
 </ul>
+<p><span class="math display">\[\text{residual} = \text{observed} - \text{predicted} = y - \hat{y}\]</span></p><section id="least-squares-line" class="slide level2">
+<h2>Least squares line</h2>
+<ul>
+<li>The residual for the <span class="math inline">\(i^{th}\)</span> observation is</li>
+</ul>
+<p><span class="math display">\[e_i = \text{observed} - \text{predicted} = y_i - \hat{y}_i\]</span></p>
+<ul>
+<li>The <strong>sum of squared</strong> residuals is</li>
+</ul>
+<p><span class="math display">\[e^2_1 + e^2_2 + \dots + e^2_n\]</span></p>
+<ul>
+<li>The <strong>least squares line</strong> is the one that minimizes the sum of squared residuals</li>
+</ul>
 <h5 id="analyzing-two-numeric-variables">Analyzing two numeric variables</h5>
 <p>Let us take two variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">cor</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">cor</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7293926</code></pre>
 </div>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># Fit simple linear regression model</span></span>
-<span id="cb19-2"><a></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Fit simple linear regression model</span></span>
+<span id="cb16-2"><a></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># Examine regression outputs</span></span>
-<span id="cb20-2"><a></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Examine regression outputs</span></span>
+<span id="cb17-2"><a></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1307,9 +1313,9 @@ F-statistic: 111.4 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="co"># Check regression coefficients</span></span>
-<span id="cb22-2"><a></a>coeff <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)</span>
-<span id="cb22-3"><a></a>coeff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># Check regression coefficients</span></span>
+<span id="cb19-2"><a></a>coeff <span class="ot">&lt;-</span> <span class="fu">coef</span>(model)</span>
+<span id="cb19-3"><a></a>coeff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)           x 
  0.07184615  2.36514669 </code></pre>
@@ -1317,23 +1323,23 @@ F-statistic: 111.4 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># Check R-squared value</span></span>
-<span id="cb24-2"><a></a>rsq <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared</span>
-<span id="cb24-3"><a></a>rsq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="co"># Check R-squared value</span></span>
+<span id="cb21-2"><a></a>rsq <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared</span>
+<span id="cb21-3"><a></a>rsq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5320136</code></pre>
 </div>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># Generate predictions</span></span>
-<span id="cb26-2"><a></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model) <span class="co"># call this object to show the predicted values of the model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="co"># Generate predictions</span></span>
+<span id="cb23-2"><a></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model) <span class="co"># call this object to show the predicted values of the model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="co"># Plot the regression line</span></span>
-<span id="cb27-2"><a></a><span class="fu">plot</span>(x, y)</span>
-<span id="cb27-3"><a></a><span class="fu">abline</span>(model, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># Plot the regression line</span></span>
+<span id="cb24-2"><a></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb24-3"><a></a><span class="fu">abline</span>(model, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1344,9 +1350,9 @@ F-statistic: 111.4 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># Check residuals</span></span>
-<span id="cb28-2"><a></a>resids <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)</span>
-<span id="cb28-3"><a></a><span class="fu">plot</span>(x, resids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># Check residuals</span></span>
+<span id="cb25-2"><a></a>resids <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)</span>
+<span id="cb25-3"><a></a><span class="fu">plot</span>(x, resids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1357,9 +1363,9 @@ F-statistic: 111.4 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="co"># Diagnostic plots</span></span>
-<span id="cb29-2"><a></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb29-3"><a></a><span class="fu">plot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># Diagnostic plots</span></span>
+<span id="cb26-2"><a></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb26-3"><a></a><span class="fu">plot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1370,8 +1376,8 @@ F-statistic: 111.4 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="co"># Check significance of predictor</span></span>
-<span id="cb30-2"><a></a><span class="fu">anova</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="co"># Check significance of predictor</span></span>
+<span id="cb27-2"><a></a><span class="fu">anova</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1387,18 +1393,18 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <h4 id="analyzing-a-categorical-and-a-numeric-variable">Analyzing a categorical and a numeric variable</h4>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">desc</span>(df<span class="sc">$</span>income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">desc</span>(df<span class="sc">$</span>income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] -25000 -35000 -42000 -31000 -27000 -38000 -29000 -40000 -32000 -39000</code></pre>
 </div>
 </div>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="co"># Bar plot of the categorical variable (race)</span></span>
-<span id="cb34-2"><a></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> race)) <span class="sc">+</span></span>
-<span id="cb34-3"><a></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb34-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Race&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb34-5"><a></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Races&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># Bar plot of the categorical variable (race)</span></span>
+<span id="cb31-2"><a></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> race)) <span class="sc">+</span></span>
+<span id="cb31-3"><a></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb31-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Race&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb31-5"><a></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Races&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1408,11 +1414,11 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="co"># Box plot of income by race</span></span>
-<span id="cb35-2"><a></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> race, <span class="at">y =</span> income)) <span class="sc">+</span></span>
-<span id="cb35-3"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightgray&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb35-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Race&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Income&quot;</span>) <span class="sc">+</span></span>
-<span id="cb35-5"><a></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Income by Race&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># Box plot of income by race</span></span>
+<span id="cb32-2"><a></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> race, <span class="at">y =</span> income)) <span class="sc">+</span></span>
+<span id="cb32-3"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightgray&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Race&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Income&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Income by Race&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1422,10 +1428,14 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </div>
 </div>
 <h4 id="analyzing-two-categorical-variables">Analyzing two categorical variables</h4>
-<p>In previous lectures, we discussed some methods to hypothesize around the relationship between two variables that are categorical in nature.</p><section id="part-iii-code" class="slide level2">
+<p>In previous lectures, we discussed some methods to hypothesize around the relationship between two variables that are categorical in nature.</p>
+</section><section id="part-iii-code" class="slide level2">
 <h2>Part III: Code</h2>
+<p>We will take a look at the <code>bivaraite.Rmd</code> file on Canvas.</p>
 
 
+</section>
+</div>
 </section>
 </div>
 </section>
