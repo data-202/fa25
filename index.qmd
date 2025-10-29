@@ -30,13 +30,13 @@ This page will support you in our course in the following ways: - Help you work 
 
 Our canvas site ([click here](https://canvas.howard.edu/courses/59441)) contains readings and is where you will submit <u>all</u> assignments.
 
-*When turning in assignments on Canvas*: - Submit **PDFs** unless otherwise stated.\
-- Only standard links or clear Github repos (no shorteners).\
+*When turning in assignments on Canvas*: - Submit **PDFs** unless otherwise stated.
+- Only standard links or clear Github repos (no shorteners).
 - RMarkdown (`.Rmd`) is encouraged for integrating code and analysis.
 
 ### Credit
 
--   Duke University's STAT 101 [course site](https://sta101-f23.github.io/)\
+-   Duke University's STAT 101 [course site](https://sta101-f23.github.io/) and STAT 210 [course site](https://mine-cr.com/teaching/sta210/)
 -   Noli Brazil's [Quantitative Methods in Community Research](https://crd150.github.io/index.html)
 
 ### Next up: Overview

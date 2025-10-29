@@ -683,6 +683,17 @@ window.Quarto = {
 <ul>
 <li>The <strong>least squares line</strong> is the one that minimizes the sum of squared residuals</li>
 </ul>
+</section><section id="properties-of-least-squares-regression" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-least-squares-regression">Properties of least squares regression</h2>
+<ul>
+<li><p>The regression line goes through the center of mass point, the coordinates corresponding to average <span class="math inline">\(X\)</span> and average <span class="math inline">\(Y\)</span>: <span class="math inline">\(\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X}\)</span></p></li>
+<li><p>The slope has the same sign as the correlation coefficient: <span class="math inline">\(\hat{\beta}_1 = r \frac{s_Y}{s_X}\)</span></p></li>
+<li><p>The sum of the residuals is zero: <span class="math inline">\(\sum_{i = 1}^n \epsilon_i = 0\)</span></p></li>
+<li><p>The residuals and <span class="math inline">\(X\)</span> values are uncorrelated</p></li>
+</ul>
+</section><section id="estimating-the-slope" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-the-slope">Estimating the slope</h2>
+<p><span class="math display">\[\large{\hat{\beta}_1 = r \frac{s_Y}{s_X}}\]</span></p>
 <section id="analyzing-two-numeric-variables" class="level5">
 <h5 class="anchored" data-anchor-id="analyzing-two-numeric-variables">Analyzing two numeric variables</h5>
 <p>Let us take two variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
