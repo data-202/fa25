@@ -242,7 +242,7 @@ $$e^2_1 + e^2_2 + \dots + e^2_n$$
 
 -   The **least squares line** is the one that minimizes the sum of squared residuals
 
-## Properties of least squares regression
+#### Properties of least squares regression
 
 -   The regression line goes through the center of mass point, the coordinates corresponding to average $X$ and average $Y$: $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X}$
 
@@ -252,9 +252,13 @@ $$e^2_1 + e^2_2 + \dots + e^2_n$$
 
 -   The residuals and $X$ values are uncorrelated
 
-## Estimating the slope
+#### Estimating the slope
 
 $$\large{\hat{\beta}_1 = r \frac{s_Y}{s_X}}$$
+
+#### Estimating the intercept
+
+$$\large{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X}}$$
 
 ##### Analyzing two numeric variables
 
