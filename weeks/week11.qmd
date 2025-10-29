@@ -32,10 +32,7 @@ We will assume that there is a hypothesized association between all three variab
 
 However, let us also assume that we have *not* yet taken time to properly structure the relationships between the variables. Namely, we have yet to consider if $z$, for example, is a mediator, moderator, or spurious variable.
 
-```{r}
-#| echo: false
-#| output: false
-#| warning: false
+```{r, echo=T, message=F, warning=F}
 ## Sample outline of a bivariate regression analysis
 
 # Generate sample data
@@ -48,10 +45,7 @@ df <- data.frame(x, y, z)
 
 Let us take a look at the scatterplot between each pair of variables.
 
-```{r}
-#| echo: true
-#| output: true
-#| warning: false
+```{r, echo=T, message=F, warning=F}
 plot(x, y)
 cor(x, y)
 ```
@@ -62,10 +56,7 @@ Take note of the value of the correlation coefficient.
 
 Let us take a look at the scatterplot between the next pair of variables.
 
-```{r}
-#| echo: true
-#| output: true
-#| warning: false
+```{r, echo=T, message=F, warning=F}
 plot(x, z)
 cor(x, z)
 ```
@@ -76,10 +67,7 @@ Take note of the value of the correlation coefficient.
 
 Let us take a look at the scatterplots between each pair of variables.
 
-```{r}
-#| echo: true
-#| output: true
-#| warning: false
+```{r, echo=T, message=F, warning=F}
 plot(y, z)
 cor(y, z)
 ```
@@ -124,7 +112,7 @@ In statistics, we often inquire about the relationship between two variables, $X
 
 A **regression model** is a function that helps us describe how variables are related to one another. When we consider the simple case of a regression model, we take into account two variables, or a bivariate regression.
 
-```{r, echo=T}
+```{r, echo=T, message=F, warning=F}
 library(tidyverse)
 library(dplyr)
 ggplot(data=df,
@@ -143,7 +131,7 @@ What do you notice? What do you wonder?
 Let's now consider the relationship between x and z.
 
 
-```{r, echo=T}
+```{r, echo=T, message=F, warning=F}
 library(tidyverse)
 library(dplyr)
 ggplot(data=df,
@@ -163,7 +151,7 @@ What do you notice? What do you wonder?
 Now, let's look at the relationship between y and z.
 
 
-```{r, echo=T}
+```{r, echo=T, message=F, warning=F}
 library(tidyverse)
 library(dplyr)
 ggplot(data=df,
@@ -175,6 +163,7 @@ ggplot(data=df,
     y = "Dependent variable"
   )
 ```
+
 ------------------------------------------------------------------------
 
 #### Matheamtics and exact relationships
@@ -183,9 +172,9 @@ In mathematics, two variables, $x$ and $y$ may be related to each other in vario
 
 ------------------------------------------------------------------------
 
-##### A straight line
+### A straight line
 
-The line in the graphic above follows the standard notation: $$y = a + bX$$
+The equation of a line: $$y = mx + b$$
 
 ------------------------------------------------------------------------
 
@@ -200,6 +189,58 @@ We will begin by looking at the underlying assumptions of regression analysis.
 These assumptions are the technical (or structural) components of our analyses, and should be checked at the initiation of a research study, starting with data collection or understanding how data was collected if it is a secondary analysis.
 
 ------------------------------------------------------------------------
+
+## Regression model {#regression-model-1}
+
+A **regression model** is a function that describes the relationship between the outcome, $Y$, and the predictor, $X$.
+
+$$\begin{aligned} Y &= \color{black}{\textbf{Model}} + \text{Error} \\[8pt]
+&= \color{black}{\mathbf{f(X)}} + \epsilon \\[8pt]
+&= \color{black}{\boldsymbol{\mu_{Y|X}}} + \epsilon \end{aligned}$$
+
+## Regression model
+
+::: columns
+::: {.column width="30%"}
+$$
+\begin{aligned} Y &= \color{purple}{\textbf{Model}} + \text{Error} \\[8pt]
+&= \color{purple}{\mathbf{f(X)}} + \epsilon \\[8pt]
+&= \color{purple}{\boldsymbol{\mu_{Y|X}}} + \epsilon 
+\end{aligned}
+$$
+:::
+
+## Regression model + residuals
+
+::: columns
+::: {.column width="30%"}
+$$\begin{aligned} Y &= \color{purple}{\textbf{Model}} + \color{blue}{\textbf{Error}} \\[8pt]
+&= \color{purple}{\mathbf{f(X)}} + \color{blue}{\boldsymbol{\epsilon}} \\[8pt]
+&= \color{purple}{\boldsymbol{\mu_{Y|X}}} + \color{blue}{\boldsymbol{\epsilon}} \\[8pt]
+ \end{aligned}$$
+:::
+
+### Simple linear regression
+
+We use simple linear regression to model the relationship between some predictor and outcome.
+
+- $\beta_1$: True slope of the relationship between $X$ and $Y$
+- $\beta_0$: True intercept of the relationship between $X$ and $Y$
+- $\epsilon$: Error (residual)
+
+$$\text{residual} = \text{observed} - \text{predicted} = y - \hat{y}$$
+
+## Least squares line
+
+-   The residual for the $i^{th}$ observation is
+
+$$e_i = \text{observed} - \text{predicted} = y_i - \hat{y}_i$$
+
+-   The **sum of squared** residuals is
+
+$$e^2_1 + e^2_2 + \dots + e^2_n$$
+
+-   The **least squares line** is the one that minimizes the sum of squared residuals
 
 ##### Analyzing two numeric variables
 
@@ -338,3 +379,5 @@ ggplot(df, aes(x = race, y = income)) +
 In previous lectures, we discussed some methods to hypothesize around the relationship between two variables that are categorical in nature.
 
 ## Part III: Code
+
+We will take a look at the `bivaraite.Rmd` file on Canvas.
