@@ -13,18 +13,18 @@ This page contains three sections:
 
 Our course assignments will be split between reading and typing (code and analytic results).
 
-| Course component                   | Assignment          | Date(s)         |
-|------------------------------------|---------------------|-----------------|
-| **Part I: Statistics and society** | Lab #0              | Due: Tue Aug 26 |
-|                                    |                     |                 |
-|                                    | Lab #1              | Due: Sun Sept 21|
-| **Part II: Data and people**       |                     |                 |
-|                                    | Lab #2              | Due: Sun Oct 12 |
-| **Part III: Data and policy**      |                     |                 |
-|                                    | Lab #3              | Due: Sun Nov 5  |
-| **Part IV: Data in practice**      |                     |                 |
-|                                    | Final paper         | Due: Sun Nov 23 |
-|                                    |                     |                 |
+| Course component                   | Assignment  | Date(s)          |
+|------------------------------------|-------------|------------------|
+| **Part I: Statistics and society** | Lab #0      | Due: Tue Aug 26  |
+|                                    |             |                  |
+|                                    | Lab #1      | Due: Sun Sept 21 |
+| **Part II: Data and people**       |             |                  |
+|                                    | Lab #2      | Due: Sun Oct 12  |
+| **Part III: Data and policy**      |             |                  |
+|                                    | Lab #3      | Due: Tues Nov 18 |
+| **Part IV: Data in practice**      |             |                  |
+|                                    | Final paper | Due: Sun Nov 30  |
+|                                    |             |                  |
 
 ### **Homework 0**
 
