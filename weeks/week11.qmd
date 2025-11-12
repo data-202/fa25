@@ -256,9 +256,11 @@ $$e^2_1 + e^2_2 + \dots + e^2_n$$
 
 $$\large{\hat{\beta}_1 = r \frac{s_Y}{s_X}}$$
 
+
 #### Estimating the intercept
 
 $$\large{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1\bar{X}}$$
+
 
 ##### Analyzing two numeric variables
 

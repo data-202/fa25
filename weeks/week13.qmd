@@ -31,7 +31,7 @@ Open session to support you in your final data analysis.
 The rubric for the final paper will be used to assess your growth over the semester. In addition to the requirements outlined in the assignment, the rubric is used to assess the overall quality of the submission.
 
 | Criteria | Exemplary | Good | Acceptable | Incomplete |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | Purpose | The central purpose or argument is readily apparent. | The writing has a clear purpose or argument, but may sometimes digress. | The central purpose or argument is not consistently clear throughout the paper. | The purpose or argument is generally unclear. |
 | Content | The focus of the paper relates to a relevant social issue and includes citations and support from the literature. | The content of the paper provides reasonable support for a social issue but may sometimes be unclear. | The content of the paper is not consistent in its relation to a social issue. | The content of the paper is generally not related to a social issue. |
 | Organization | The ideas are arranged logically and the paper contains the required sections as outlined in the paper assignment. | The ideas are arranged logically for the most part but may not include all required details or sections. | The ideas are arranged in some logical fashion but fail to provide the required details and sections. | The ideas are not arranged logically and fail to attend to the required sections as outlined in the paper assignment. |
