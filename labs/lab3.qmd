@@ -1,6 +1,6 @@
 ---
 title: "Lab 3"
-subtitle: "DATA 202 - Alexander - Fall 2024"
+subtitle: "DATA 202 - Alexander - Fall 2025"
 format: 
   html:
     self-contained: true
@@ -8,11 +8,11 @@ format:
 editor: visual
 ---
 
-For Lab 3, you should be analyzing some set of data related to your paper 1 assignment. Please see the *Preparing Lab Reports* at the bottom of the [lab 1](lab1.qmd) assignment.
+For Lab 3, you should be analyzing a minimum of three variables related to your final paper assignment. Please see the *Preparing Lab Reports* at the bottom of the [lab 1](lab1.qmd) assignment.
 
 ## Learning Objectives
 
-The `Lab 3` assignment will provide you with an opportunity to self-direct your analysis to write up a substantive argument started in paper 1 for paper 3.
+The `Lab 3` assignment will provide you with an opportunity to self-direct your analysis to write up a substantive argument for your paper.
 
 ------------------------------------------------------------------------
 
@@ -20,9 +20,7 @@ The `Lab 3` assignment will provide you with an opportunity to self-direct your 
 
 In this part of the lab, you should complete the following tasks:
 
--   Locate a data sets for Paper 3.
-
--   Recall that you can use the `data(package="critstats")` command to see a list of data sets in the \`critstats' package.
+-   Locate a data sets for your final paper.
 
 -   Develop an original research question on two variables (or more) in your data set.
 
