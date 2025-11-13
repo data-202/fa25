@@ -98,6 +98,8 @@ website:
               text: Lab 1
             - href: labs/lab2.qmd
               text: Lab 2
+            - href: labs/lab3.qmd
+              text: Lab 3
         - href: resources.qmd
             
 format:
