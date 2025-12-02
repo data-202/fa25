@@ -18,8 +18,8 @@ subtitle: "Statistically Measuring and Modeling Social Justice"
 |  | [10](weeks/week10.html) | Wed, Oct 22 | [Modeling Social In/justice](weeks/week10-slides.html) |  |  | [Everitt & Horthon (2011), Ch. 1](https://www.dropbox.com/scl/fi/cqtdj7lhpluhbs93621ve/Everitt-Horthorn-nd-.-An-Intro-to-Applied-Multi-Stat-with-R-by-Everitt-et-al.pdf?rlkey=92fqtz4icbgkd5969fabs4mgj&dl=0){target="_blank"} |
 |  | [11](weeks/week11.html) | Wed, Oct 29 | [Regression](weeks/week11-slides.html) <br> Modeling relationships |  |  | [Ward (2013)](https://www.dropbox.com/scl/fi/fdz9yaqycl5td9ljsdg9v/Ward-2013-.-Spurious-Correlations.pdf?rlkey=qsnwpgxqqkdx1yyq9q2d9z1a7&dl=0){target="_blank"} |
 |  | [12](weeks/week12.html) | Wed, Nov 5 | [Multivariable Analysis](weeks/week12-slides.html) <br> Modeling beyond two dimensions |  |  | [Everitt & Horthon (2011), Ch. 2](https://www.dropbox.com/scl/fi/cqtdj7lhpluhbs93621ve/Everitt-Horthorn-nd-.-An-Intro-to-Applied-Multi-Stat-with-R-by-Everitt-et-al.pdf?rlkey=92fqtz4icbgkd5969fabs4mgj&dl=0){target="_blank"} |
-| IV | [13](weeks/week13.html)  | Wed, Nov 12 | [Writing Critical Statistics](weeks/week13-slides.html) <br> Framing arguments |  |  | [Stroup (2015)](https://www.dropbox.com/scl/fi/5hql18kilxugw3tlr40eg/Rethinking_the_Analysis_of_Non-Normal_Data_in_Plan.pdf?rlkey=yce4t6mfy4gtqomvzxav1y7lc&dl=0){target="_blank"} |
-|  |  | Wed, Nov 19 | [Statistical Learning](weeks/week14-slides.html) <br> Connections, extensions & course wrap-up | [Lab 3]() | [Paper](papers/paper2.html) | — |
+| IV | [13](weeks/week13.html) | Wed, Nov 12 | [Writing Critical Statistics](weeks/week13-slides.html) <br> Framing arguments |  |  | [Stroup (2015)](https://www.dropbox.com/scl/fi/5hql18kilxugw3tlr40eg/Rethinking_the_Analysis_of_Non-Normal_Data_in_Plan.pdf?rlkey=yce4t6mfy4gtqomvzxav1y7lc&dl=0){target="_blank"} |
+|  |  | Wed, Nov 19 | [Course wrap-up](weeks/week14-slides.html) <br> Connections, extensions & course wrap-up | [Lab 3](labs/lab3.qmd) | [Paper](papers/paper2.html) | — |
 :::
 
 ## Site Description
