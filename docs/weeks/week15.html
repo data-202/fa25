@@ -8,7 +8,7 @@
 
 <meta name="author" content="Nathan Alexander, PhD">
 
-<title>DATA 202 - Week 8 – DATA 202: Statistically Measuring and Modeling Social Justice</title>
+<title>DATA 202 - Week 15 – DATA 202: Statistically Measuring and Modeling Social Justice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../weeks/week09.html" rel="next">
-<link href="../weeks/week07.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,42 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<meta property="og:title" content="DATA 202 - Week 8 – DATA 202: Statistically Measuring and Modeling Social Justice">
-<meta property="og:description" content="Hypothesis Testing">
-<meta property="og:image" content="https://github.com/data-202/weeks/week08_files/figure-html/unnamed-chunk-2-1.png">
+<meta property="og:title" content="DATA 202 - Week 15 – DATA 202: Statistically Measuring and Modeling Social Justice">
+<meta property="og:description" content="Course wrap-up">
 <meta property="og:site_name" content="DATA 202: Statistically Measuring and Modeling Social Justice">
-<meta property="og:image:height" content="960">
-<meta property="og:image:width" content="1344">
 </head>
 
 <body class="nav-sidebar docked">
@@ -152,7 +84,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../weeks/week01.html">Weekly materials</a></li><li class="breadcrumb-item"><a href="../weeks/week08.html">Week 8</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">DATA 202 - Week 15</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -219,13 +151,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Weekly materials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../weeks/week01.html" class="sidebar-item-text sidebar-link">
@@ -270,7 +202,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../weeks/week08.html" class="sidebar-item-text sidebar-link active">
+  <a href="../weeks/week08.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 8</span></a>
   </div>
 </li>
@@ -426,33 +358,22 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#part-i-context" id="toc-part-i-context" class="nav-link active" data-scroll-target="#part-i-context">Part I: Context</a>
+  <li><a href="#part-i-content" id="toc-part-i-content" class="nav-link active" data-scroll-target="#part-i-content">Part I: Content</a>
   <ul class="collapse">
-  <li><a href="#hypothesis-testing-in-a-historical-context" id="toc-hypothesis-testing-in-a-historical-context" class="nav-link" data-scroll-target="#hypothesis-testing-in-a-historical-context">Hypothesis testing in a historical context</a></li>
-  <li><a href="#power-dynamics-in-hypothesis-formulation" id="toc-power-dynamics-in-hypothesis-formulation" class="nav-link" data-scroll-target="#power-dynamics-in-hypothesis-formulation">Power dynamics in hypothesis formulation</a></li>
-  <li><a href="#guiding-questions-for-responsible-analysis" id="toc-guiding-questions-for-responsible-analysis" class="nav-link" data-scroll-target="#guiding-questions-for-responsible-analysis">Guiding Questions for Responsible Analysis</a></li>
-  <li><a href="#considering-your-work" id="toc-considering-your-work" class="nav-link" data-scroll-target="#considering-your-work">Considering your work</a></li>
+  <li><a href="#rubric" id="toc-rubric" class="nav-link" data-scroll-target="#rubric">Rubric</a></li>
   </ul></li>
-  <li><a href="#part-ii-content" id="toc-part-ii-content" class="nav-link" data-scroll-target="#part-ii-content">Part II: Content</a>
-  <ul class="collapse">
-  <li><a href="#formal-hypothesis-testing-framework" id="toc-formal-hypothesis-testing-framework" class="nav-link" data-scroll-target="#formal-hypothesis-testing-framework">Formal Hypothesis Testing Framework</a></li>
-  </ul></li>
-  <li><a href="#part-iii-code" id="toc-part-iii-code" class="nav-link" data-scroll-target="#part-iii-code">Part III: Code</a>
-  <ul class="collapse">
-  <li><a href="#two-categorical-variables-chi-square-test-of-independence" id="toc-two-categorical-variables-chi-square-test-of-independence" class="nav-link" data-scroll-target="#two-categorical-variables-chi-square-test-of-independence">Two Categorical Variables: Chi-Square Test of Independence</a></li>
-  <li><a href="#two-numeric-variables-pearson-correlation-test" id="toc-two-numeric-variables-pearson-correlation-test" class="nav-link" data-scroll-target="#two-numeric-variables-pearson-correlation-test">Two Numeric Variables: Pearson Correlation Test</a></li>
-  <li><a href="#one-categorical-and-one-numeric-variable-independent-samples-t-test" id="toc-one-categorical-and-one-numeric-variable-independent-samples-t-test" class="nav-link" data-scroll-target="#one-categorical-and-one-numeric-variable-independent-samples-t-test">One Categorical and One Numeric Variable: Independent Samples t-test</a></li>
-  </ul></li>
+  <li><a href="#part-ii-content" id="toc-part-ii-content" class="nav-link" data-scroll-target="#part-ii-content">Part II: Content</a></li>
+  <li><a href="#part-iii-code" id="toc-part-iii-code" class="nav-link" data-scroll-target="#part-iii-code">Part III: Code</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="week08-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="week15-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../weeks/week01.html">Weekly materials</a></li><li class="breadcrumb-item"><a href="../weeks/week08.html">Week 8</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DATA 202 - Week 8</h1>
-<p class="subtitle lead">Hypothesis Testing</p>
+<h1 class="title">DATA 202 - Week 15</h1>
+<p class="subtitle lead">Course wrap-up</p>
 </div>
 
 
@@ -482,332 +403,82 @@ window.Quarto = {
 </header>
 
 
-<section id="part-i-context" class="level2">
-<h2 class="anchored" data-anchor-id="part-i-context">Part I: Context</h2>
-<p>What is your hypothesis?</p>
-<p>Hypothesis testing requires a solid theory to make sense of the relevant options to develop a hypothesis.</p>
-<p>As a fundamental statistical tool, it is important to be critical when dealing with social hypotheses around dynamic and often context-based issues. We need to be mindful of how context may interfere with the traditional standards of hypothesis testing.</p>
-<p>QuantCrit (or critical quantitative methodologies) have been developed as a tool to help guide researchers in the quantitative social sciences, and in education, to consider how hypotheses can reinforce or challenge existing power structures and biases.</p>
+<section id="part-i-content" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-content">Part I: Content</h2>
+<p>Review <a href="papers/paper4.html">Paper 4</a> assignment (final assessment).</p>
 <hr>
-<section id="hypothesis-testing-in-a-historical-context" class="level3">
-<h3 class="anchored" data-anchor-id="hypothesis-testing-in-a-historical-context">Hypothesis testing in a historical context</h3>
-<ul>
-<li><p><strong>1700s origins</strong>: First used by John Arbuthnot to analyze sex ratios at birth</p></li>
-<li><p><strong>Modern framework</strong>: Developed through work by Pearson, Fisher, and Neyman</p></li>
-<li><p><strong>QuantCrit lens</strong>: How have historical power dynamics influenced:</p>
-<ul>
-<li><p>Choice of null hypotheses?</p></li>
-<li><p>Default assumptions about “normal” distributions?</p></li>
-<li><p>Interpretation of statistical significance?</p></li>
-</ul></li>
-</ul>
-<hr>
-</section>
-<section id="power-dynamics-in-hypothesis-formulation" class="level3">
-<h3 class="anchored" data-anchor-id="power-dynamics-in-hypothesis-formulation">Power dynamics in hypothesis formulation</h3>
-<ul>
-<li><strong>Case study</strong>: Gender pay gap analysis
-<ul>
-<li>Who defines “significant difference”?</li>
-<li>How are control groups constructed?</li>
-<li>What confounding variables might be ignored?</li>
-</ul></li>
-<li><strong>QuantCrit considerations</strong>:
-<ul>
-<li>Does our null hypothesis default to existing power structures?</li>
-<li>How do variable definitions perpetuate systemic biases?</li>
-<li>What alternative hypotheses might challenge dominant narratives?</li>
-</ul></li>
-</ul>
-<hr>
-<p>Some basic but important real-world examples:</p>
-<p><strong>Gender pay gap</strong>: Testing whether there’s a significant difference in salaries between men and women in a particular industry.</p>
-<p><strong>Racial disparities in healthcare</strong>: Examining if there’s a significant difference in health outcomes between different racial groups.</p>
-<p><strong>Educational achievement</strong>: Investigating the relationship between socioeconomic status and academic performance.</p>
-<p>In each of these cases, it is essential to consider:</p>
-<ul>
-<li><p>Who formulated the hypothesis and why?</p></li>
-<li><p>What assumptions are built into the statistical methods?</p></li>
-<li><p>How might the results be interpreted and/or misinterpreted?</p></li>
-<li><p>What are the potential consequences of failing to take into consideration the historical context?</p></li>
-</ul>
-<hr>
-</section>
-<section id="guiding-questions-for-responsible-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="guiding-questions-for-responsible-analysis">Guiding Questions for Responsible Analysis</h3>
-<ol type="1">
-<li><strong>Formulation</strong>
-<ul>
-<li>Who benefits from this framing of <span class="math inline">\(H_0\)</span>/<span class="math inline">\(H_1\)</span>?</li>
-<li>What alternative hypotheses were excluded?</li>
-</ul></li>
-<li><strong>Interpretation</strong>
-<ul>
-<li>How might “statistical significance” be misused?</li>
-<li>What effect sizes matter in real-world terms?</li>
-</ul></li>
-<li><strong>Application</strong>
-<ul>
-<li>What systems maintain the status quo reflected in <span class="math inline">\(H_0\)</span>?</li>
-<li>How could these methods challenge existing power structures?</li>
-</ul></li>
-</ol>
-<hr>
-</section>
-<section id="considering-your-work" class="level3">
-<h3 class="anchored" data-anchor-id="considering-your-work">Considering your work</h3>
-<p>As you think about your own research, what are some of the main hypothesis that you hold as it relates to the relationship between your study variables? What are the variable types? How might you measure and make sense of the relationship between the variables?</p>
-</section>
-</section>
-<section id="part-ii-content" class="level2">
-<h2 class="anchored" data-anchor-id="part-ii-content">Part II: Content</h2>
-<p><strong>Null and Alternative Hypotheses</strong></p>
-<section id="formal-hypothesis-testing-framework" class="level3">
-<h3 class="anchored" data-anchor-id="formal-hypothesis-testing-framework">Formal Hypothesis Testing Framework</h3>
-<ol type="1">
-<li><p><strong>Null hypothesis (</strong><span class="math inline">\(H_0\)</span>): Default assumption of no effect/difference<br>
-( <span class="math inline">\(H_0: \mu = \mu_0\)</span> )</p></li>
-<li><p><strong>Alternative hypothesis (</strong><span class="math inline">\(H_1\)</span>): Research claim requiring evidence<br>
-( <span class="math inline">\(H_1: \mu \neq \mu\_0\)</span> ) (two-tailed)</p></li>
-<li><p><strong>Test statistic</strong>: Quantifies discrepancy from <span class="math inline">\(H_0\)</span>.</p></li>
-<li><p><strong>Decision rule</strong>: Compare p-value to <span class="math inline">\(\alpha\)</span> (typically 0.05)</p></li>
-<li><p><strong>Conclusion</strong>: Reject/fail to reject <span class="math inline">\(H_0\)</span> in context</p></li>
-</ol>
-<hr>
-<p>Null hypothesis (<span class="math inline">\(H_0\)</span>): Statement of no effect or no difference</p>
-<p>Alternative hypothesis (<span class="math inline">\(H_1\)</span>): Statement of an effect or difference</p>
-<hr>
-<p>Common test statistics:</p>
-<p><strong>Test Statistic</strong>: A measure that allows us to quantify the difference between the observed data and what we’d expect under the null hypothesis</p>
-<ul>
-<li><p><em>Z-score</em>: A z-score is a statistical measure that quantifies the distance between a data point and the mean of a data set, expressed in terms of standard deviations. It indicates how many standard deviations a value is from the mean. A z-score of 0 means the data point is identical to the mean, while positive or negative values indicate the data point is above or below the mean, respectively.</p></li>
-<li><p><em>T-statistic</em>: The t-statistic is the ratio of the difference between an estimated value of a parameter and its assumed value to its standard error. It is commonly used in hypothesis testing to determine if a regression coefficient is significantly different from zero. In the classical linear regression model with normally distributed and homoscedastic error terms, the t-statistic follows a Student’s t-distribution.</p></li>
-<li><p><em>F-statistic</em>: An F-statistic is a value used in ANOVA tests or regression analyses to determine if the means between two or more populations are significantly different. It is calculated by dividing the variance between groups by the variance within groups. The F-statistic is used to test the joint significance of a group of variables and helps determine whether to reject the null hypothesis.</p></li>
-<li><p><em>Chi-square statistic</em>: The chi-square statistic is used in the analysis of contingency tables to examine whether two categorical variables are independent. It measures the difference between observed frequencies and expected frequencies in one or more categories. Chi-square tests are often employed to test hypotheses and determine if there is a statistically significant difference between expected and observed frequencies.</p></li>
-</ul>
-<hr>
-<p><strong>p-value</strong> (probability value)</p>
-<ul>
-<li><p>The probability of obtaining test results at least as extreme as the observed results, assuming the null hypothesis is true</p></li>
-<li><p>Calculated as: p-value = P(test statistic <span class="math inline">\(\leq\)</span> observed value | <span class="math inline">\(H_0\)</span> is true)</p></li>
-</ul>
-<hr>
-<p><strong>Significance Level</strong> (<span class="math inline">\(\alpha\)</span>)</p>
-<p>The threshold below which we reject the null hypothesis.</p>
-<ul>
-<li>Common values: <span class="math inline">\(0.05\)</span>, <span class="math inline">\(0.01\)</span></li>
-</ul>
-<hr>
-<p><strong>Decision Rule</strong></p>
-<p>Reject <span class="math inline">\(H_0\)</span> if p-value <span class="math inline">\(\leq\)</span> <span class="math inline">\(\alpha\)</span>.</p>
-<ul>
-<li>If the p-value is less than or equal to the chosen significance level (<span class="math inline">\(\alpha\)</span>), we reject the null hypothesis. This suggests that the observed data is statistically significant enough to conclude that there’s evidence against the null hypothesis.</li>
-</ul>
-<p>Fail to reject <span class="math inline">\(H_0\)</span> if p-value <span class="math inline">\(&gt;\)</span> <span class="math inline">\(\alpha\)</span>.</p>
-<ul>
-<li>If the p-value is greater than the significance level (<span class="math inline">\(\alpha\)</span>), we fail to reject the null hypothesis. This means that the observed data does not provide sufficient evidence to conclude against the null hypothesis.</li>
-</ul>
-<hr>
-<p>Type I and Type II Errors</p>
-<p>Type I error: Rejecting <span class="math inline">\(H_0\)</span> when it’s actually true (false positive)</p>
-<p>Type II error: Failing to reject <span class="math inline">\(H_0\)</span> when it’s actually false (false negative)</p>
-<table class="caption-top table">
+<section id="rubric" class="level3">
+<h3 class="anchored" data-anchor-id="rubric">Rubric</h3>
+<p>The rubric for the final assessment (paper 4) will be used to assess your growth over the course of the semester. In addition to the requirements outlined in the assignment, the rubric will be used to assess the overall quality of the submission.</p>
+<table class="table-striped table-hover caption-top table">
+<caption>DATA 202 final assessment rubric</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
 <thead>
 <tr class="header">
-<th></th>
-<th>Reject <span class="math inline">\(H_0\)</span></th>
-<th>Fail to Reject<span class="math inline">\(H_0\)</span></th>
+<th>Criteria</th>
+<th>Exemplary</th>
+<th>Good</th>
+<th>Acceptable</th>
+<th>Incomplete</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(H_0\)</span> is True</td>
-<td>Type I Error</td>
-<td>Correct Decision</td>
+<td>Purpose</td>
+<td>The central purpose or argument is readily apparent.</td>
+<td>The writing has a clear purpose or argument, but may sometimes digress.</td>
+<td>The central purpose or argument is not consistently clear throughout the paper.</td>
+<td>The purpose or argument is generally unclear.</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(H_0\)</span> is False</td>
-<td>Correct Decision</td>
-<td>Type II Error</td>
+<td>Content</td>
+<td>The focus of the paper relates to a relevant social issue and includes citations and support from the literature.</td>
+<td>The content of the paper provides reasonable support for a social issue but may sometimes be unclear.</td>
+<td>The content of the paper is not consistent in its relation to a social issue.</td>
+<td>The content of the paper is generally not related to a social issue.</td>
+</tr>
+<tr class="odd">
+<td>Organization</td>
+<td>The ideas are arranged logically and the paper contains the required sections as outlined in the paper assignment.</td>
+<td>The ideas are arranged logically for the most part but may not include all required details or sections.</td>
+<td>The ideas are arranged in some logical fashion but fail to provide the required details and sections.</td>
+<td>The ideas are not arranged logically and fail to attend to the required sections as outlined in the paper assignment.</td>
+</tr>
+<tr class="even">
+<td>R Code</td>
+<td>All code is original and directly relates to the logic model and theory.</td>
+<td>The code is original but may sometimes digress from the logic model and theory.</td>
+<td>The code is somewhat original but fails to to relate to the logic model or theory.</td>
+<td>The code is not original and does not relate to the logical model and theory.</td>
 </tr>
 </tbody>
 </table>
 </section>
 </section>
+<section id="part-ii-content" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-content">Part II: Content</h2>
+<p>Live coding help as needed.</p>
+</section>
 <section id="part-iii-code" class="level2">
 <h2 class="anchored" data-anchor-id="part-iii-code">Part III: Code</h2>
-<section id="two-categorical-variables-chi-square-test-of-independence" class="level3">
-<h3 class="anchored" data-anchor-id="two-categorical-variables-chi-square-test-of-independence">Two Categorical Variables: Chi-Square Test of Independence</h3>
-<p>Gender and voting preference</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view the data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gender_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 300
-Columns: 2
-$ gender &lt;chr&gt; "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male",…
-$ vote   &lt;chr&gt; "Party A", "Party A", "Party A", "Party A", "Party A", "Party A…</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot of data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gender_data_summary, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> Percentage, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(Percentage, <span class="at">accuracy =</span> <span class="dv">1</span>)), </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Party A"</span> <span class="ot">=</span> <span class="st">"#1E90FF"</span>, <span class="st">"Party B"</span> <span class="ot">=</span> <span class="st">"#FF6347"</span>)) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Voting Preferences by Gender"</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percentage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="week08_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform chi-square test</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(gender_data<span class="sc">$</span>gender, gender_data<span class="sc">$</span>vote))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's Chi-squared test
-
-data:  table(gender_data$gender, gender_data$vote)
-X-squared = 4.7769, df = 2, p-value = 0.09177</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "There is no significant association between gender and voting preference."</code></pre>
-</div>
-</div>
-<hr>
-</section>
-<section id="two-numeric-variables-pearson-correlation-test" class="level3">
-<h3 class="anchored" data-anchor-id="two-numeric-variables-pearson-correlation-test">Two Numeric Variables: Pearson Correlation Test</h3>
-<p>Study hours and exam scores</p>
-<p>View and visualize the data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data.cor <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(study_hours, exam_scores)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data.cor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   100 obs. of  2 variables:
- $ study_hours: num  13.9 20.1 21.9 20.1 18.7 ...
- $ exam_scores: num  47.2 38.5 41 37.2 27.3 ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data.cor, <span class="fu">aes</span>(<span class="at">x =</span> study_hours, <span class="at">y =</span> exam_scores)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship between Study Hours and Exam Scores"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Study Hours"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Exam Scores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="week08_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform correlation test</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>result.cor <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(data.cor<span class="sc">$</span>study_hours, data.cor<span class="sc">$</span>exam_scores)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result.cor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  data.cor$study_hours and data.cor$exam_scores
-t = 8.9955, df = 98, p-value = 1.829e-14
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.5485484 0.7675392
-sample estimates:
-      cor 
-0.6725073 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "There is a significant correlation between study hours and exam scores. Correlation coefficient: 0.67"</code></pre>
-</div>
-</div>
-<hr>
-</section>
-<section id="one-categorical-and-one-numeric-variable-independent-samples-t-test" class="level3">
-<h3 class="anchored" data-anchor-id="one-categorical-and-one-numeric-variable-independent-samples-t-test">One Categorical and One Numeric Variable: Independent Samples t-test</h3>
-<p>Testing differences in exam scores between two teaching methods.</p>
-<p>View and visualize the data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data.exam <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(method, scores)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data.exam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   100 obs. of  2 variables:
- $ method: chr  "Method A" "Method A" "Method A" "Method A" ...
- $ scores: num  67.5 92 80.1 79.6 77.1 ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data.exam, <span class="fu">aes</span>(<span class="at">x =</span> method, <span class="at">y =</span> scores, <span class="at">fill =</span> method)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Comparison of Scores between Method A and Method B"</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Method"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Scores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="week08_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Perform the t-test.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform t-test</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(scores <span class="sc">~</span> method, <span class="at">data =</span> data.exam)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Welch Two Sample t-test
-
-data:  scores by method
-t = -0.80604, df = 97.998, p-value = 0.4222
-alternative hypothesis: true difference in means between group Method A and group Method B is not equal to 0
-95 percent confidence interval:
- -5.440425  2.297493
-sample estimates:
-mean in group Method A mean in group Method B 
-              77.46939               79.04086 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "There is no significant difference in exam scores between the two teaching methods."</code></pre>
-</div>
-</div>
+<p>Data analysis examples:</p>
+<p>There is a wealth of information on the web to support your future work in R/RStudio. These sources are useful for analyzing data that you find online and want to perform various tests on. Below, I outline some of these sources that can help extend your analysis as you move forward. I will also note that many of these examples are better selections than current AI software and sites (e.g., ChatGPT).</p>
+<ul>
+<li><p><a href="https://little-book-of-r-for-multivariate-analysis.readthedocs.io/en/latest/src/multivariateanalysis.html">Using R for Multivariate Analysis</a></p></li>
+<li><p><a href="https://bookdown.org/tomholbrook12/bookdown-demo/">An Introduction to Political and Social Data Analysis Using R</a></p></li>
+<li><p><a href="https://www.modernstatisticswithr.com/">Modern Statistics with R</a></p></li>
+<li><p><a href="https://bookdown.org/yih_huynh/Guide-to-R-Book/">R for Graduate Students</a></p></li>
+<li><p><a href="https://datacarpentry.org/r-socialsci/">R for Social Scientists</a></p></li>
+<li><p><a href="https://stats.oarc.ucla.edu/other/dae/">Data Analysis Examples</a></p></li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1372,18 +1043,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../weeks/week07.html" class="pagination-link" aria-label="Week 7">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 7</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../weeks/week09.html" class="pagination-link" aria-label="Week 9">
-        <span class="nav-page-text">Week 9</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

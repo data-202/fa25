@@ -8,7 +8,7 @@
 
 <meta name="author" content="Nathan Alexander, PhD">
 
-<title>DATA 202 - Week 12 – DATA 202: Statistically Measuring and Modeling Social Justice</title>
+<title>DATA 202 - Week 14 – DATA 202: Statistically Measuring and Modeling Social Justice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../weeks/week13.html" rel="next">
-<link href="../weeks/week11.html" rel="prev">
+<link href="../papers/paper2.html" rel="next">
+<link href="../weeks/week13.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,8 +135,8 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="DATA 202 - Week 12 – DATA 202: Statistically Measuring and Modeling Social Justice">
-<meta property="og:description" content="Multivariate regression">
+<meta property="og:title" content="DATA 202 - Week 14 – DATA 202: Statistically Measuring and Modeling Social Justice">
+<meta property="og:description" content="Course wrap-up">
 <meta property="og:image" content="https://github.com/data-202/weeks/img/wk14-a-1.png">
 <meta property="og:site_name" content="DATA 202: Statistically Measuring and Modeling Social Justice">
 <meta property="og:image:height" content="1567">
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../weeks/week01.html">Weekly materials</a></li><li class="breadcrumb-item"><a href="../weeks/week12.html">Week 12</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../weeks/week01.html">Weekly materials</a></li><li class="breadcrumb-item"><a href="../weeks/week14.html">Week 14</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -294,7 +294,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../weeks/week12.html" class="sidebar-item-text sidebar-link active">
+  <a href="../weeks/week12.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 12</span></a>
   </div>
 </li>
@@ -306,7 +306,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../weeks/week14.html" class="sidebar-item-text sidebar-link">
+  <a href="../weeks/week14.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Week 14</span></a>
   </div>
 </li>
@@ -441,17 +441,30 @@ window.Quarto = {
   <li><a href="#multivariable-vs.-multivariate" id="toc-multivariable-vs.-multivariate" class="nav-link" data-scroll-target="#multivariable-vs.-multivariate">Multivariable vs.&nbsp;Multivariate</a></li>
   <li><a href="#examples-of-multivariate-analysis-techniques" id="toc-examples-of-multivariate-analysis-techniques" class="nav-link" data-scroll-target="#examples-of-multivariate-analysis-techniques">Examples of multivariate analysis techniques</a></li>
   </ul></li>
-  <li><a href="#part-iii-code" id="toc-part-iii-code" class="nav-link" data-scroll-target="#part-iii-code">Part III: Code</a></li>
+  <li><a href="#part-iii-code" id="toc-part-iii-code" class="nav-link" data-scroll-target="#part-iii-code">Part III: Code</a>
+  <ul class="collapse">
+  <li><a href="#sample-code-discussed-in-class" id="toc-sample-code-discussed-in-class" class="nav-link" data-scroll-target="#sample-code-discussed-in-class">Sample code discussed in class</a></li>
+  </ul></li>
+  <li><a href="#do-some-exploratory-analysis-on-the-survey-data-in-the-mass-package" id="toc-do-some-exploratory-analysis-on-the-survey-data-in-the-mass-package" class="nav-link" data-scroll-target="#do-some-exploratory-analysis-on-the-survey-data-in-the-mass-package">do some exploratory analysis on the survey data in the MASS package</a></li>
+  <li><a href="#check-the-structure-of-the-data" id="toc-check-the-structure-of-the-data" class="nav-link" data-scroll-target="#check-the-structure-of-the-data">check the structure of the data</a></li>
+  <li><a href="#subset-the-data" id="toc-subset-the-data" class="nav-link" data-scroll-target="#subset-the-data">subset the data</a></li>
+  <li><a href="#build-our-model-with-one-indicator" id="toc-build-our-model-with-one-indicator" class="nav-link" data-scroll-target="#build-our-model-with-one-indicator">build our model with one indicator</a></li>
+  <li><a href="#build-our-model-with-more-than-one-indicator" id="toc-build-our-model-with-more-than-one-indicator" class="nav-link" data-scroll-target="#build-our-model-with-more-than-one-indicator">build our model with more than one indicator</a></li>
+  <li><a href="#gather-coefficients" id="toc-gather-coefficients" class="nav-link" data-scroll-target="#gather-coefficients">gather coefficients</a></li>
+  <li><a href="#variance-covariance-matrix" id="toc-variance-covariance-matrix" class="nav-link" data-scroll-target="#variance-covariance-matrix">variance-covariance matrix</a>
+  <ul class="collapse">
+  <li><a href="#next-up-week-15" id="toc-next-up-week-15" class="nav-link" data-scroll-target="#next-up-week-15"><strong>Next up</strong>: Week 15</a></li>
+  </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="week12-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="week14-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../weeks/week01.html">Weekly materials</a></li><li class="breadcrumb-item"><a href="../weeks/week12.html">Week 12</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../weeks/week01.html">Weekly materials</a></li><li class="breadcrumb-item"><a href="../weeks/week14.html">Week 14</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DATA 202 - Week 12</h1>
-<p class="subtitle lead">Multivariate regression</p>
+<h1 class="title">DATA 202 - Week 14</h1>
+<p class="subtitle lead">Course wrap-up</p>
 </div>
 
 
@@ -578,7 +591,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -586,7 +599,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -613,7 +626,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -623,7 +636,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -637,7 +650,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -649,7 +662,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -661,7 +674,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -713,7 +726,7 @@ F-statistic: 7.484 on 1 and 98 DF,  p-value: 0.007391</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -749,7 +762,7 @@ F-statistic: 7.484 on 1 and 98 DF,  p-value: 0.007391</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="week14_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1222,724 +1235,43 @@ F-statistic: 71.66 on 3 and 28 DF,  p-value: 2.981e-13</code></pre>
 </div>
 <p>When an interaction term (e.g., horsepower * weight) is included in the model, the summary output provides coefficients for both main effects (horsepower and weight) as well as the interaction term. The interaction coefficient represents the change in the relationship between mpg and horsepower as weight increases.</p>
 <hr>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># do some exploratory analysis on the survey data in the MASS package</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) </span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>survey </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       Sex Wr.Hnd NW.Hnd W.Hnd    Fold Pulse    Clap Exer Smoke Height      M.I
-1   Female   18.5   18.0 Right  R on L    92    Left Some Never 173.00   Metric
-2     Male   19.5   20.5  Left  R on L   104    Left None Regul 177.80 Imperial
-3     Male   18.0   13.3 Right  L on R    87 Neither None Occas     NA     &lt;NA&gt;
-4     Male   18.8   18.9 Right  R on L    NA Neither None Never 160.00   Metric
-5     Male   20.0   20.0 Right Neither    35   Right Some Never 165.00   Metric
-6   Female   18.0   17.7 Right  L on R    64   Right Some Never 172.72 Imperial
-7     Male   17.7   17.7 Right  L on R    83   Right Freq Never 182.88 Imperial
-8   Female   17.0   17.3 Right  R on L    74   Right Freq Never 157.00   Metric
-9     Male   20.0   19.5 Right  R on L    72   Right Some Never 175.00   Metric
-10    Male   18.5   18.5 Right  R on L    90   Right Some Never 167.00   Metric
-11  Female   17.0   17.2 Right  L on R    80   Right Freq Never 156.20 Imperial
-12    Male   21.0   21.0 Right  R on L    68    Left Freq Never     NA     &lt;NA&gt;
-13  Female   16.0   16.0 Right  L on R    NA   Right Some Never 155.00   Metric
-14  Female   19.5   20.2 Right  L on R    66 Neither Some Never 155.00   Metric
-15    Male   16.0   15.5 Right  R on L    60   Right Some Never     NA     &lt;NA&gt;
-16  Female   17.5   17.0 Right  R on L    NA   Right Freq Never 156.00   Metric
-17  Female   18.0   18.0 Right  L on R    89 Neither Freq Never 157.00   Metric
-18    Male   19.4   19.2  Left  R on L    74   Right Some Never 182.88 Imperial
-19    Male   20.5   20.5 Right  L on R    NA    Left Some Never 190.50 Imperial
-20    Male   21.0   20.9 Right  R on L    78   Right Freq Never 177.00   Metric
-21    Male   21.5   22.0 Right  R on L    72    Left Freq Never 190.50 Imperial
-22    Male   20.1   20.7 Right  L on R    72   Right Freq Never 180.34 Imperial
-23    Male   18.5   18.0 Right  L on R    64   Right Freq Never 180.34 Imperial
-24    Male   21.5   21.2 Right  R on L    62   Right Some Never 184.00   Metric
-25  Female   17.0   17.5 Right  R on L    64    Left Some Never     NA     &lt;NA&gt;
-26    Male   18.5   18.5 Right Neither    90 Neither Some Never     NA     &lt;NA&gt;
-27    Male   21.0   20.7 Right  R on L    90   Right Some Never 172.72 Imperial
-28    Male   20.8   21.4 Right  R on L    62 Neither Freq Never 175.26 Imperial
-29    Male   17.8   17.8 Right  L on R    76 Neither Freq Never     NA     &lt;NA&gt;
-30    Male   19.5   19.5 Right  L on R    79   Right Some Never 167.00   Metric
-31  Female   18.5   18.0 Right  R on L    76   Right None Occas     NA     &lt;NA&gt;
-32    Male   18.8   18.2 Right  L on R    78   Right Freq Never 180.00   Metric
-33  Female   17.1   17.5 Right  R on L    72   Right Freq Heavy 166.40 Imperial
-34    Male   20.1   20.0 Right  R on L    70   Right Some Never 180.00   Metric
-35    Male   18.0   19.0 Right  L on R    54 Neither Some Regul     NA     &lt;NA&gt;
-36    Male   22.2   21.0 Right  L on R    66   Right Freq Occas 190.00   Metric
-37  Female   16.0   16.5 Right  L on R    NA   Right Some Never 168.00   Metric
-38    Male   19.4   18.5 Right  R on L    72 Neither Freq Never 182.50   Metric
-39    Male   22.0   22.0 Right  R on L    80   Right Some Never 185.00   Metric
-40    Male   19.0   19.0 Right  R on L    NA Neither Freq Occas 171.00   Metric
-41  Female   17.5   16.0 Right  L on R    NA   Right Some Never 169.00   Metric
-42  Female   17.8   18.0 Right  R on L    72   Right Some Never 154.94 Imperial
-43    Male     NA     NA Right  R on L    60    &lt;NA&gt; Some Never 172.00   Metric
-44  Female   20.1   20.2 Right  L on R    80   Right Some Never 176.50 Imperial
-45  Female   13.0   13.0  &lt;NA&gt;  L on R    70    Left Freq Never 180.34 Imperial
-46    Male   17.0   17.5 Right  R on L    NA Neither Freq Never 180.34 Imperial
-47    Male   23.2   22.7 Right  L on R    84    Left Freq Regul 180.00   Metric
-48    Male   22.5   23.0 Right  R on L    96   Right None Never 170.00   Metric
-49  Female   18.0   17.6 Right  R on L    60   Right Some Occas 168.00   Metric
-50  Female   18.0   17.9 Right  R on L    50    Left None Never 165.00   Metric
-51    Male   22.0   21.5  Left  R on L    55    Left Freq Never 200.00   Metric
-52    Male   20.5   20.0 Right  L on R    68   Right Freq Never 190.00   Metric
-53    Male   17.0   18.0 Right  L on R    78    Left Some Never 170.18 Imperial
-54    Male   20.5   19.5 Right  L on R    56   Right Freq Never 179.00   Metric
-55    Male   22.5   22.5 Right  R on L    65   Right Freq Regul 182.00   Metric
-56    Male   18.5   18.5 Right  L on R    NA Neither Freq Never 171.00   Metric
-57  Female   15.5   15.4 Right  R on L    70 Neither None Never 157.48 Imperial
-58    Male   19.5   19.7 Right  R on L    72   Right Freq Never     NA     &lt;NA&gt;
-59    Male   19.5   19.0 Right  L on R    62   Right Freq Never 177.80 Imperial
-60    Male   20.6   21.0  Left  L on R    NA    Left Freq Occas 175.26 Imperial
-61    Male   22.8   23.2 Right  R on L    66 Neither Freq Never 187.00   Metric
-62  Female   18.5   18.2 Right  R on L    72 Neither Freq Never 167.64 Imperial
-63  Female   19.6   19.7 Right  L on R    70   Right Freq Never 178.00   Metric
-64  Female   18.7   18.0  Left  L on R    NA    Left None Never 170.00   Metric
-65  Female   17.3   18.0 Right  L on R    64 Neither Freq Never 164.00   Metric
-66    Male   19.5   19.8 Right Neither    NA   Right Freq Never 183.00   Metric
-67  Female   19.0   19.1 Right  L on R    NA Neither Freq Never 172.00   Metric
-68  Female   18.5   18.0 Right  R on L    64   Right Freq Never     NA     &lt;NA&gt;
-69    Male   19.0   19.0 Right  L on R    NA   Right Some Never 180.00   Metric
-70    Male   21.0   19.5 Right  L on R    80    Left None  &lt;NA&gt;     NA     &lt;NA&gt;
-71  Female   18.0   17.5 Right  L on R    64    Left Freq Never 170.00   Metric
-72    Male   19.4   19.5 Right  R on L    NA   Right Freq Heavy 176.00   Metric
-73  Female   17.0   16.6 Right  R on L    68   Right Some Never 171.00   Metric
-74  Female   16.5   17.0 Right  L on R    40    Left Freq Never 167.64 Imperial
-75  Female   15.6   15.8 Right  R on L    88    Left Some Never 165.00   Metric
-76  Female   17.5   17.5 Right Neither    68   Right Freq Heavy 170.00   Metric
-77  Female   17.0   17.6 Right  L on R    76   Right Some Never 165.00   Metric
-78  Female   18.6   18.0 Right  L on R    NA Neither Freq Heavy 165.10 Imperial
-79  Female   18.3   18.5 Right  R on L    68 Neither Some Never 165.10 Imperial
-80    Male   20.0   20.5 Right  L on R    NA   Right Freq Never 185.42 Imperial
-81    Male   19.5   19.5  Left  R on L    66    Left Some Never     NA     &lt;NA&gt;
-82    Male   19.2   18.9 Right  R on L    76   Right Freq Never 176.50 Imperial
-83  Female   17.5   17.5 Right  R on L    98    Left Freq Never     NA     &lt;NA&gt;
-84  Female   17.0   17.4 Right  R on L    NA Neither Some Never     NA     &lt;NA&gt;
-85    Male   23.0   23.5 Right  L on R    90   Right Freq Never 167.64 Imperial
-86  Female   17.7   17.0 Right  R on L    76   Right Some Never 167.00   Metric
-87  Female   18.2   18.0 Right  L on R    70   Right Some Never 162.56 Imperial
-88  Female   18.3   18.5 Right  R on L    75    Left Freq Never 170.00   Metric
-89    Male   18.0   18.0 Right Neither    60   Right Freq Never 179.00   Metric
-90  Female   18.0   17.7  Left  R on L    92    Left Some Never     NA     &lt;NA&gt;
-91    Male   20.5   20.0 Right  R on L    75    Left Some Never 183.00   Metric
-92  Female   17.5   18.0 Right Neither    NA   Right Some Never     NA     &lt;NA&gt;
-93  Female   18.2   17.5 Right  L on R    70   Right Some Never 165.00   Metric
-94  Female   18.2   18.5 Right  R on L    NA   Right Some Never 168.00   Metric
-95    Male   21.3   20.8 Right  R on L    65   Right Freq Heavy 179.00   Metric
-96  Female   19.0   18.8 Right  L on R    NA   Right Some Never     NA     &lt;NA&gt;
-97    Male   20.0   19.5 Right  R on L    68 Neither Freq Regul 190.00   Metric
-98  Female   17.5   17.5 Right  R on L    60   Right Freq Never 166.50   Metric
-99    Male   19.5   19.4 Right Neither    NA   Right Freq Never 165.00   Metric
-100 Female   19.4   19.6 Right  R on L    68 Neither Freq Never 175.26 Imperial
-101   Male   21.9   22.2 Right  R on L    NA   Right Some Never 187.00   Metric
-102   Male   18.9   19.1 Right  L on R    60 Neither None Never 170.00   Metric
-103 Female   16.0   16.0 Right Neither    NA   Right Some Never 159.00   Metric
-104 Female   17.5   17.3 Right  R on L    72   Right Freq Never 175.00   Metric
-105 Female   17.5   17.0 Right  R on L    80    Left Some Heavy 163.00   Metric
-106 Female   19.5   18.5 Right  R on L    80   Right Some Never 170.00   Metric
-107 Female   16.2   16.4 Right  R on L    NA   Right Freq Occas 172.00   Metric
-108 Female   17.0   15.9 Right  R on L    85   Right Freq Never     NA     &lt;NA&gt;
-109   Male   17.5   17.5 Right  L on R    64 Neither Freq Never 180.00   Metric
-110   Male   19.7   20.1 Right  R on L    67    Left Some Regul 180.34 Imperial
-111 Female   18.5   18.5 Right  R on L    76    Left Freq Never 175.00   Metric
-112   Male   19.2   19.6 Right  L on R    80   Right None Never 190.50 Imperial
-113 Female   17.2   16.7 Right  R on L    75   Right Freq Never 170.18 Imperial
-114   Male   20.5   21.0 Right  R on L    60   Right Freq Never 185.00   Metric
-115 Female   16.0   15.5 Right  L on R    60    Left Freq Never 162.56 Imperial
-116 Female   16.9   16.0 Right  L on R    70   Right None Never 158.00   Metric
-117 Female   17.0   16.7 Right  R on L    70   Right Some Never 159.00   Metric
-118   Male   23.0   22.0  Left  L on R    83    Left Some Heavy 193.04 Imperial
-119 Female   18.5   18.0  Left  L on R   100 Neither Some Never 171.00   Metric
-120   Male   21.0   20.4 Right  L on R   100   Right Freq Heavy 184.00   Metric
-121   Male   20.0   20.0 Right  R on L    80 Neither Freq Occas     NA     &lt;NA&gt;
-122   Male   22.5   22.5 Right  L on R    76   Right Freq Occas 177.00   Metric
-123 Female   18.5   18.0 Right  R on L    92   Right Freq Never 172.00   Metric
-124   Male   19.8   20.0  Left  L on R    59   Right Freq Never 180.00   Metric
-125   Male   18.5   18.1 Right  L on R    66    Left Freq Never 175.26 Imperial
-126   Male   19.3   19.4 Right  R on L    NA   Right Freq Never 180.34 Imperial
-127 Female   16.0   16.0 Right  R on L    68   Right Freq Never 172.72 Imperial
-128   Male   18.8   19.1 Right  L on R    66 Neither Freq Regul 178.50   Metric
-129 Female   17.5   17.0 Right  R on L    74   Right Freq Never 157.00   Metric
-130 Female   16.4   16.5 Right  L on R    90   Right Some Never 152.00   Metric
-131   Male   22.0   21.5 Right  R on L    86   Right Freq Never 187.96 Imperial
-132   Male   19.0   19.5 Right  L on R    60   Right Some Never 178.00   Metric
-133 Female   18.9   20.0 Right  R on L    86   Right Some Never     NA     &lt;NA&gt;
-134 Female   15.4   16.4  Left  L on R    80    Left Freq Occas 160.02 Imperial
-135   Male   17.9   17.8 Right  R on L    85    Left Some Never 175.26 Imperial
-136   Male   23.1   22.5 Right  L on R    90   Right Some Regul 189.00   Metric
-137   &lt;NA&gt;   19.8   19.0  Left  L on R    73 Neither Freq Never 172.00   Metric
-138   Male   22.0   22.0 Right  L on R    72   Right Freq Never 182.88 Imperial
-139   Male   20.0   19.5 Right  L on R    NA   Right Freq Never 170.00   Metric
-140 Female   19.5   18.5 Right  L on R    68   Right None Never 167.00   Metric
-141 Female   18.0   18.6 Right  R on L    84   Right Some Never 175.00   Metric
-142 Female   18.3   19.0 Right  R on L    NA   Right None Never 165.00   Metric
-143 Female   19.0   18.8 Right  R on L    65   Right Freq Never 172.72 Imperial
-144   Male   21.4   21.0 Right  L on R    96 Neither Some Never 180.00   Metric
-145 Female   20.0   19.5  Left  R on L    68 Neither Freq Never 172.00   Metric
-146   Male   18.5   18.5 Right  R on L    75 Neither Some Never 185.00   Metric
-147   Male   22.5   22.6 Right  L on R    64   Right Freq Regul 187.96 Imperial
-148   Male   19.5   20.2 Right  R on L    60 Neither Freq Never 185.42 Imperial
-149 Female   18.0   18.0 Right  L on R    92 Neither Freq Never 165.00   Metric
-150 Female   18.0   18.5 Right  R on L    64 Neither Freq Never 164.00   Metric
-151   Male   21.8   22.3 Right  R on L    76    Left Freq Never 195.00   Metric
-152 Female   13.0   12.5 Right  L on R    80   Right Freq Never 165.00   Metric
-153 Female   16.3   16.2 Right  L on R    92   Right Some Regul 152.40 Imperial
-154   Male   21.5   21.6 Right  R on L    69   Right Freq Never 172.72 Imperial
-155   Male   18.9   19.1 Right  L on R    68   Right None Never 180.34 Imperial
-156   Male   20.5   20.0 Right  R on L    76   Right Freq Never 173.00   Metric
-157   Male   14.0   15.5 Right  L on R    NA Neither Freq Heavy     NA     &lt;NA&gt;
-158 Female   18.9   19.2 Right  L on R    74   Right Some Never 167.64 Imperial
-159   Male   20.0   20.5 Right  R on L    NA   Right None Never 187.96 Imperial
-160   Male   18.5   19.0 Right  L on R    84   Right Freq Regul 187.00   Metric
-161 Female   17.5   17.1 Right  R on L    80    Left None Never 167.00   Metric
-162   Male   18.1   18.2  Left Neither    NA   Right Some Never 168.00   Metric
-163   Male   20.2   20.3 Right  L on R    72 Neither Some Never 191.80 Imperial
-164 Female   16.5   16.9 Right  R on L    60 Neither Freq Occas 169.20   Metric
-165   Male   19.1   19.1 Right Neither    NA   Right Some Never 177.00   Metric
-166 Female   17.6   17.2 Right  R on L    81    Left Some Never 168.00   Metric
-167 Female   19.5   19.2 Right  R on L    70   Right Some Never 170.00   Metric
-168 Female   16.5   15.0 Right  L on R    65   Right Some Regul 160.02 Imperial
-169   Male   19.0   18.5 Right  L on R    NA Neither Freq Never 189.00   Metric
-170   Male   19.0   18.5 Right  R on L    72   Right Freq Never 180.34 Imperial
-171 Female   16.5   17.0 Right  L on R    NA   Right Some Never 168.00   Metric
-172   Male   20.5   19.5  Left  L on R    80   Right Some Occas 182.88 Imperial
-173 Female   15.5   15.5 Right Neither    50   Right Some Regul     NA     &lt;NA&gt;
-174 Female   18.0   17.5 Right  R on L    48 Neither Freq Never 165.00   Metric
-175 Female   17.5   18.0 Right  R on L    68 Neither Freq Never 157.48 Imperial
-176 Female   19.0   18.5  Left  L on R   104    Left Freq Never 170.00   Metric
-177   Male   20.5   20.5 Right Neither    76   Right Freq Regul 172.72 Imperial
-178 Female   16.7   17.0 Right  L on R    84    Left Freq Never 164.00   Metric
-179 Female   20.5   20.5 Right  R on L    NA    Left Freq Regul     NA     &lt;NA&gt;
-180 Female   17.0   16.5 Right  R on L    70   Right Some Never 162.56 Imperial
-181   Male   19.0   19.5 Right  R on L    68   Right Freq Occas 172.00   Metric
-182 Female   14.0   13.5 Right  R on L    87 Neither Freq Occas 165.10 Imperial
-183 Female   17.5   17.6 Right  L on R    79   Right Some Never 162.50   Metric
-184   Male   18.5   19.0 Right  L on R    70    Left Freq Never 170.00   Metric
-185   Male   18.0   18.5 Right Neither    90   Right Some Never 175.00   Metric
-186   Male   20.5   20.7 Right  R on L    72   Right Some Never 168.00   Metric
-187 Female   17.0   17.0 Right  L on R    79   Right Some Never 163.00   Metric
-188   Male   18.5   18.5 Right  R on L    65   Right None Never 165.00   Metric
-189   Male   18.0   18.5 Right  R on L    62   Right Freq Never 173.00   Metric
-190   Male   18.5   18.0 Right Neither    63 Neither Freq Never 196.00   Metric
-191   Male   20.0   19.5 Right  R on L    92   Right Some Never 179.10 Imperial
-192   Male   22.0   22.5 Right  L on R    60   Right Some Never 180.00   Metric
-193   Male   17.9   18.4 Right  R on L    68    Left None Occas 176.00   Metric
-194 Female   17.6   17.8 Right  L on R    72    Left Some Never 160.02 Imperial
-195 Female   16.7   15.1 Right Neither    NA   Right None Never 157.48 Imperial
-196 Female   17.0   17.6 Right  L on R    76   Right Some Never 165.00   Metric
-197 Female   15.0   13.0 Right  R on L    80 Neither Freq Never 170.18 Imperial
-198   Male   16.0   15.5 Right Neither    71   Right Freq Never 154.94 Imperial
-199 Female   19.1   19.0 Right  R on L    80   Right Some Occas 170.00   Metric
-200 Female   17.5   16.5 Right  R on L    80 Neither Some Never 164.00   Metric
-201 Female   16.2   15.8 Right  R on L    61   Right Some Occas 167.00   Metric
-202   Male   21.0   21.0 Right  L on R    48 Neither Freq Never 174.00   Metric
-203 Female   18.8   17.8 Right  R on L    76   Right Some Never     NA     &lt;NA&gt;
-204 Female   18.5   18.0 Right Neither    86   Right None Never 160.00   Metric
-205   Male   17.0   17.5 Right  R on L    80   Right Some Regul 179.10   Metric
-206 Female   17.5   17.0 Right  R on L    83 Neither Freq Occas 168.00   Metric
-207 Female   17.5   17.6 Right  L on R    76   Right Some Never 153.50   Metric
-208   Male   17.5   17.6 Right  R on L    84   Right Some Never 160.00   Metric
-209   Male   17.5   17.0  Left  L on R    97 Neither None Never 165.00   Metric
-210 Female   20.8   20.7 Right  R on L    NA Neither Freq Never 171.50   Metric
-211 Female   18.6   18.6 Right  L on R    74   Right Some Never 160.00   Metric
-212 Female   17.5   17.5  Left  R on L    83 Neither Some Never 163.00   Metric
-213   Male   18.0   18.5 Right  R on L    78   Right Freq Never     NA     &lt;NA&gt;
-214   Male   17.0   17.5 Right  R on L    65   Right Some Never 165.00   Metric
-215 Female   18.0   17.8 Right  L on R    68   Right Some Never 168.90 Imperial
-216   Male   19.5   20.0 Right Neither    NA   Right Some Never 170.00   Metric
-217 Female   16.3   16.2 Right  L on R    NA   Right None Never     NA     &lt;NA&gt;
-218   Male   18.2   19.8 Right  R on L    88   Right Freq Never 185.00   Metric
-219 Female   17.0   17.3 Right  L on R    NA Neither Freq Never 173.00   Metric
-220   Male   23.2   23.2 Right  L on R    75   Right Freq Never 188.00   Metric
-221   Male   23.2   23.3 Right  L on R    NA   Right None Heavy 171.00   Metric
-222 Female   15.9   16.5 Right  R on L    70   Right Freq Never 167.64 Imperial
-223 Female   17.5   18.4 Right  R on L    88   Right Some Never 162.56 Imperial
-224 Female   17.5   17.6 Right  L on R    NA   Right Freq Never 150.00   Metric
-225 Female   17.6   17.2 Right  L on R    NA   Right Some Never     NA     &lt;NA&gt;
-226 Female   17.5   17.8 Right  R on L    96   Right Some Never     NA     &lt;NA&gt;
-227 Female   18.8   18.3 Right  R on L    80   Right Some Heavy 170.18 Imperial
-228   Male   20.0   19.8 Right  L on R    68   Right Freq Never 185.00   Metric
-229 Female   18.6   18.8 Right  L on R    70   Right Freq Regul 167.00   Metric
-230   Male   18.6   19.6 Right  L on R    71   Right Freq Occas 185.00   Metric
-231 Female   18.8   18.5 Right  R on L    80   Right Some Never 169.00   Metric
-232   Male   18.0   16.0 Right  R on L    NA   Right Some Never 180.34 Imperial
-233 Female   18.0   18.0 Right  L on R    85   Right Some Never 165.10 Imperial
-234 Female   18.5   18.0 Right  L on R    88   Right Some Never 160.00   Metric
-235 Female   17.5   16.5 Right  R on L    NA   Right Some Never 170.00   Metric
-236   Male   21.0   21.5 Right  R on L    90   Right Some Never 183.00   Metric
-237 Female   17.6   17.3 Right  R on L    85   Right Freq Never 168.50   Metric
-       Age
-1   18.250
-2   17.583
-3   16.917
-4   20.333
-5   23.667
-6   21.000
-7   18.833
-8   35.833
-9   19.000
-10  22.333
-11  28.500
-12  18.250
-13  18.750
-14  17.500
-15  17.167
-16  17.167
-17  19.333
-18  18.333
-19  19.750
-20  17.917
-21  17.917
-22  18.167
-23  17.833
-24  18.250
-25  19.167
-26  17.583
-27  17.500
-28  18.083
-29  21.917
-30  19.250
-31  41.583
-32  17.500
-33  39.750
-34  17.167
-35  17.750
-36  18.000
-37  19.000
-38  17.917
-39  35.500
-40  19.917
-41  17.500
-42  17.083
-43  28.583
-44  17.500
-45  17.417
-46  18.500
-47  18.917
-48  19.417
-49  18.417
-50  30.750
-51  18.500
-52  17.500
-53  18.333
-54  17.417
-55  20.000
-56  18.333
-57  17.167
-58  17.417
-59  17.667
-60  18.417
-61  20.333
-62  17.333
-63  17.500
-64  19.833
-65  18.583
-66  18.000
-67  30.667
-68  16.917
-69  19.917
-70  18.333
-71  17.583
-72  17.833
-73  17.667
-74  17.417
-75  17.750
-76  20.667
-77  23.583
-78  17.167
-79  17.083
-80  18.750
-81  16.750
-82  20.167
-83  17.667
-84  17.167
-85  17.167
-86  17.250
-87  18.000
-88  18.750
-89  21.583
-90  17.583
-91  19.667
-92  18.000
-93  19.667
-94  17.083
-95  22.833
-96  17.083
-97  19.417
-98  23.250
-99  18.083
-100 19.083
-101 18.917
-102 17.750
-103 20.833
-104 20.167
-105 17.667
-106 18.250
-107 17.000
-108 18.500
-109 18.583
-110 17.750
-111 24.167
-112 18.167
-113 21.167
-114 17.917
-115 17.417
-116 20.500
-117 22.917
-118 18.917
-119 18.917
-120 20.083
-121 17.500
-122 18.250
-123 17.500
-124 17.417
-125 21.000
-126 19.833
-127 17.667
-128 18.083
-129 18.000
-130 18.333
-131 20.000
-132 18.750
-133 19.083
-134 18.500
-135 18.417
-136 19.167
-137 21.500
-138 19.333
-139 21.417
-140 18.667
-141 17.500
-142 21.083
-143 17.250
-144 19.000
-145 19.167
-146 19.000
-147 23.000
-148 32.667
-149 20.000
-150 20.167
-151 25.500
-152 18.167
-153 23.500
-154 70.417
-155 43.833
-156 23.583
-157 21.083
-158 44.250
-159 19.667
-160 17.917
-161 18.417
-162 21.167
-163 17.500
-164 29.083
-165 19.917
-166 18.500
-167 18.167
-168 32.750
-169 17.417
-170 17.333
-171 73.000
-172 18.667
-173 18.500
-174 18.667
-175 17.750
-176 17.250
-177 36.583
-178 23.083
-179 19.250
-180 17.167
-181 23.417
-182 17.083
-183 17.250
-184 23.833
-185 18.750
-186 21.167
-187 24.667
-188 18.500
-189 20.333
-190 20.083
-191 18.917
-192 27.333
-193 18.917
-194 17.250
-195 18.167
-196 26.500
-197 17.000
-198 17.167
-199 19.167
-200 17.500
-201 19.250
-202 21.333
-203 18.583
-204 20.167
-205 18.667
-206 17.083
-207 17.417
-208 18.583
-209 19.500
-210 18.500
-211 17.167
-212 17.250
-213 17.500
-214 20.417
-215 17.083
-216 21.250
-217 19.250
-218 19.333
-219 19.167
-220 18.917
-221 20.917
-222 17.333
-223 18.167
-224 20.750
-225 19.917
-226 18.667
-227 18.417
-228 17.417
-229 20.333
-230 19.333
-231 18.167
-232 20.750
-233 17.667
-234 16.917
-235 18.583
-236 17.167
-237 17.750</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(survey)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co"># check the structure of the data</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tibble [237 × 12] (S3: tbl_df/tbl/data.frame)
- $ Sex   : Factor w/ 2 levels "Female","Male": 1 2 2 2 2 1 2 1 2 2 ...
- $ Wr.Hnd: num [1:237] 18.5 19.5 18 18.8 20 18 17.7 17 20 18.5 ...
- $ NW.Hnd: num [1:237] 18 20.5 13.3 18.9 20 17.7 17.7 17.3 19.5 18.5 ...
- $ W.Hnd : Factor w/ 2 levels "Left","Right": 2 1 2 2 2 2 2 2 2 2 ...
- $ Fold  : Factor w/ 3 levels "L on R","Neither",..: 3 3 1 3 2 1 1 3 3 3 ...
- $ Pulse : int [1:237] 92 104 87 NA 35 64 83 74 72 90 ...
- $ Clap  : Factor w/ 3 levels "Left","Neither",..: 1 1 2 2 3 3 3 3 3 3 ...
- $ Exer  : Factor w/ 3 levels "Freq","None",..: 3 2 2 2 3 3 1 1 3 3 ...
- $ Smoke : Factor w/ 4 levels "Heavy","Never",..: 2 4 3 2 2 2 2 2 2 2 ...
- $ Height: num [1:237] 173 178 NA 160 165 ...
- $ M.I   : Factor w/ 2 levels "Imperial","Metric": 2 1 NA 2 2 1 1 2 2 2 ...
- $ Age   : num [1:237] 18.2 17.6 16.9 20.3 23.7 ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the data</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>survey <span class="sc">%&gt;%</span> </span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Wr.Hnd, NW.Hnd, Pulse, Height, Age) <span class="ot">-&gt;</span> df1 </span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>df1 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 237 × 5
-   Wr.Hnd NW.Hnd Pulse Height   Age
-    &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1   18.5   18      92   173   18.2
- 2   19.5   20.5   104   178.  17.6
- 3   18     13.3    87    NA   16.9
- 4   18.8   18.9    NA   160   20.3
- 5   20     20      35   165   23.7
- 6   18     17.7    64   173.  21  
- 7   17.7   17.7    83   183.  18.8
- 8   17     17.3    74   157   35.8
- 9   20     19.5    72   175   19  
-10   18.5   18.5    90   167   22.3
-# ℹ 227 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="week12_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build our model with one indicator</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>mlm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">cbind</span>(df1<span class="sc">$</span>Height, df1<span class="sc">$</span>Pulse) <span class="sc">~</span> df1<span class="sc">$</span>Age) </span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>mlm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">cbind</span>(Height, Pulse) <span class="sc">~</span> Age, <span class="at">data =</span> df1) </span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response Height :
-
-Call:
-lm(formula = Height ~ Age, data = df1)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--20.608  -7.528  -1.583   7.379  27.399 
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 173.39245    2.66936  64.957   &lt;2e-16 ***
-Age          -0.04278    0.12503  -0.342    0.733    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 9.916 on 169 degrees of freedom
-  (66 observations deleted due to missingness)
-Multiple R-squared:  0.0006923, Adjusted R-squared:  -0.005221 
-F-statistic: 0.1171 on 1 and 169 DF,  p-value: 0.7327
-
-
-Response Pulse :
-
-Call:
-lm(formula = Pulse ~ Age, data = df1)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--38.130  -7.160  -0.721   6.360  29.381 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  78.9229     3.0761  25.657   &lt;2e-16 ***
-Age          -0.2448     0.1441  -1.699   0.0912 .  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 11.43 on 169 degrees of freedom
-  (66 observations deleted due to missingness)
-Multiple R-squared:  0.01679,   Adjusted R-squared:  0.01097 
-F-statistic: 2.886 on 1 and 169 DF,  p-value: 0.09118</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build our model with more than one indicator</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>mlm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">cbind</span>(Height, Pulse) <span class="sc">~</span> Age <span class="sc">+</span> Wr.Hnd <span class="sc">+</span> NW.Hnd, <span class="at">data =</span> df1) </span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mlm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response Height :
-
-Call:
-lm(formula = Height ~ Age + Wr.Hnd + NW.Hnd, data = df1)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--20.5028  -4.9668  -0.9197   4.3439  25.6729 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 115.8383     5.9953  19.322   &lt;2e-16 ***
-Age          -0.1341     0.1004  -1.337   0.1832    
-Wr.Hnd        2.7889     1.2009   2.322   0.0214 *  
-NW.Hnd        0.3776     1.1727   0.322   0.7478    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 7.823 on 166 degrees of freedom
-  (67 observations deleted due to missingness)
-Multiple R-squared:  0.389, Adjusted R-squared:  0.378 
-F-statistic: 35.23 on 3 and 166 DF,  p-value: &lt; 2.2e-16
-
-
-Response Pulse :
-
-Call:
-lm(formula = Pulse ~ Age + Wr.Hnd + NW.Hnd, data = df1)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--38.244  -6.902  -0.928   6.238  29.893 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  78.3243     8.8045   8.896 9.54e-16 ***
-Age          -0.2242     0.1474  -1.521    0.130    
-Wr.Hnd        0.5060     1.7636   0.287    0.775    
-NW.Hnd       -0.4947     1.7221  -0.287    0.774    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 11.49 on 166 degrees of freedom
-  (67 observations deleted due to missingness)
-Multiple R-squared:  0.01518,   Adjusted R-squared:  -0.002614 
-F-statistic: 0.8531 on 3 and 166 DF,  p-value: 0.4668</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">resid</span>(mlm1)) <span class="co"># residuals </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       Height      Pulse
-1   0.3883076  17.544343
-2   5.1597724  29.381073
-5  -7.3799460 -38.129668
-6   0.2259562  -9.782504
-7  10.2932491   8.687051
-8 -14.8594685   3.848360</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fitted</span>(mlm1)) <span class="co"># estimates fitted for the model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    Height    Pulse
-1 172.6117 74.45566
-2 172.6402 74.61893
-5 172.3799 73.12967
-6 172.4940 73.78250
-7 172.5868 74.31295
-8 171.8595 70.15164</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">resid</span>(mlm2)) <span class="co"># residuals </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      Height      Pulse
-1   1.217489  17.311649
-2   2.195023  29.893015
-5 -10.994527 -38.243539
-6   2.814107  -9.967349
-7  13.520106   8.698683
-8  -7.976292   3.665699</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fitted</span>(mlm2)) <span class="co"># estimates fitted for the model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    Height    Pulse
-1 171.7825 74.68835
-2 175.6050 74.10699
-5 175.9945 73.24354
-6 169.9059 73.96735
-7 169.3599 74.30132
-8 164.9763 70.33430</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gather coefficients</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mlm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 Height      Pulse
-(Intercept) 115.8382861 78.3242718
-Age          -0.1341361 -0.2241610
-Wr.Hnd        2.7889054  0.5059615
-NW.Hnd        0.3776366 -0.4947372</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variance-covariance matrix</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(mlm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                   Height:(Intercept)   Height:Age Height:Wr.Hnd Height:NW.Hnd
-Height:(Intercept)        35.94337245 -0.154686949  -1.874139393   0.147649352
-Height:Age                -0.15468695  0.010072486   0.012318156  -0.015095498
-Height:Wr.Hnd             -1.87413939  0.012318156   1.442122756  -1.361112632
-Height:NW.Hnd              0.14764935 -0.015095498  -1.361112632   1.375140647
-Pulse:(Intercept)         -6.06537128  0.026103109   0.316257226  -0.024915529
-Pulse:Age                  0.02610311 -0.001699712  -0.002078664   0.002547335
-Pulse:Wr.Hnd               0.31625723 -0.002078664  -0.243355293   0.229684999
-Pulse:NW.Hnd              -0.02491553  0.002547335   0.229684999  -0.232052198
-                   Pulse:(Intercept)    Pulse:Age Pulse:Wr.Hnd Pulse:NW.Hnd
-Height:(Intercept)       -6.06537128  0.026103109  0.316257226 -0.024915529
-Height:Age                0.02610311 -0.001699712 -0.002078664  0.002547335
-Height:Wr.Hnd             0.31625723 -0.002078664 -0.243355293  0.229684999
-Height:NW.Hnd            -0.02491553  0.002547335  0.229684999 -0.232052198
-Pulse:(Intercept)        77.51891942 -0.333612690 -4.041948507  0.318434733
-Pulse:Age                -0.33361269  0.021723288  0.026566515 -0.032556397
-Pulse:Wr.Hnd             -4.04194851  0.026566515  3.110220051 -2.935505860
-Pulse:NW.Hnd              0.31843473 -0.032556397 -2.935505860  2.965760021</code></pre>
-</div>
-</div>
+</section>
+<section id="sample-code-discussed-in-class" class="level3">
+<h3 class="anchored" data-anchor-id="sample-code-discussed-in-class">Sample code discussed in class</h3>
+</section>
+</section>
+<section id="do-some-exploratory-analysis-on-the-survey-data-in-the-mass-package" class="level1">
+<h1>do some exploratory analysis on the survey data in the MASS package</h1>
+<p>library(dplyr) survey survey &lt;- as_tibble(survey)</p>
+</section>
+<section id="check-the-structure-of-the-data" class="level1">
+<h1>check the structure of the data</h1>
+<p>str(survey) pairs(survey)</p>
+</section>
+<section id="subset-the-data" class="level1">
+<h1>subset the data</h1>
+<p>survey %&gt;% select(Wr.Hnd, NW.Hnd, Pulse, Height, Age) -&gt; df1 df1 pairs(df1)</p>
+</section>
+<section id="build-our-model-with-one-indicator" class="level1">
+<h1>build our model with one indicator</h1>
+<p>mlm1 &lt;- lm(cbind(df1<span class="math inline">\(Height, df1\)</span>Pulse) ~ df1$Age) mlm1 &lt;- lm(cbind(Height, Pulse) ~ Age, data = df1) summary(mlm1)</p>
+</section>
+<section id="build-our-model-with-more-than-one-indicator" class="level1">
+<h1>build our model with more than one indicator</h1>
+<p>mlm2 &lt;- lm(cbind(Height, Pulse) ~ Age + Wr.Hnd + NW.Hnd, data = df1) summary(mlm2)</p>
+<p>head(resid(mlm1)) # residuals head(fitted(mlm1)) # estimates fitted for the model</p>
+<p>head(resid(mlm2)) # residuals head(fitted(mlm2)) # estimates fitted for the model</p>
+</section>
+<section id="gather-coefficients" class="level1">
+<h1>gather coefficients</h1>
+<p>coef(mlm2)</p>
+</section>
+<section id="variance-covariance-matrix" class="level1">
+<h1>variance-covariance matrix</h1>
+<p>vcov(mlm2)</p>
+<hr>
+<section id="next-up-week-15" class="level3">
+<h3 class="anchored" data-anchor-id="next-up-week-15"><strong>Next up</strong>: Week 15</h3>
 
 
 </section>
@@ -2515,13 +1847,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../weeks/week11.html" class="pagination-link" aria-label="Week 11">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 11</span>
+      <a href="../weeks/week13.html" class="pagination-link" aria-label="Week 13">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 13</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../weeks/week13.html" class="pagination-link" aria-label="Week 13">
-        <span class="nav-page-text">Week 13</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../papers/paper2.html" class="pagination-link" aria-label="Final Paper">
+        <span class="nav-page-text">Final Paper</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
